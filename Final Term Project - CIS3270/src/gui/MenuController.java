@@ -48,12 +48,11 @@ public class MenuController {
 			for(int j = 0; i < pass.length; j++) {
 				if(username == user[i] &&  password == pass[j]) {
 					// Send User to Main Menu while Logged In
+					
+					
 				}
 			}
 		}
-		
-		
-		
 		
 	}
 	

@@ -31,15 +31,21 @@ public class LoginController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
 		root = loader.load();	
 		
-		MenuController menuController = loader.getController();
-		menuController.loggedIn(username, password);
-			
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-
 		
+		//Temporary Variables you can change
+		String user[] = {"ds","as"};
+		String pass[] = {"ds","as"};;
+		for(int i = 0; i < user[].length; i++) {
+			for(int j = 0; i < pass[].length; j++) {
+				if(username == user[i] &&  password == pass[j]) {
+					// Send User to Main Menu while Logged In
+					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
+			}
+		}
 	}
 	
 	public void switchToMainMenu(ActionEvent event) throws IOException {
