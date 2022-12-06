@@ -85,7 +85,7 @@ public class Customer {
 	}
 	
 	//Generates Query Statement
-public String QueryGen
+private String QueryGen
 	(String custID
 	,String lastName
 	,String firstName
