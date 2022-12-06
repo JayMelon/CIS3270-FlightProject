@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
+   <children>
+      <ImageView fitHeight="317.0" fitWidth="500.0">
+         <image>
+            <Image url="@../Images/GildedWingsLogo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginForm" style="-fx-background-color: #ffde22;" text="Login">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #ffde22;" text="Log Out">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="102.0" fitWidth="102.0" layoutX="80.0" layoutY="346.0">
+         <image>
+            <Image url="@../Images/PlaneIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="102.0" fitWidth="102.0" layoutX="308.0" layoutY="346.0">
+         <image>
+            <Image url="@../Images/UserSchedule.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="60.0" layoutY="468.0" mnemonicParsing="false" onAction="#switchToFlightsPage" style="-fx-background-color: #ffde22;" text="Book a Flight">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="268.0" layoutY="468.0" mnemonicParsing="false" onAction="#switchToUserFlights" style="-fx-background-color: #ffde22;" text="Scheduled Flights">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

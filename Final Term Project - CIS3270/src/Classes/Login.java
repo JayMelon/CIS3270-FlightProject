@@ -1,6 +1,6 @@
 package Classes;
 
-public class Login {
+public class Login extends User {
 	
 
 	private String userName;

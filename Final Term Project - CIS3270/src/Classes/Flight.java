@@ -7,4 +7,14 @@ private String departureAirport;
 private String destinationAirport;
 private String departureTime;
 private String arrivalTime;
+
+public void AddFlight() {
+	
+}
+public void EditFlight() {
+	
+}
+public void DeleteFlight() {
+	
+}
 }

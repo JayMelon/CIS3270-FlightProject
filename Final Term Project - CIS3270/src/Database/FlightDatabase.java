@@ -1,5 +1,7 @@
 package Database;
 import java.sql.*;
+
+import Classes.Customer;
 public class FlightDatabase {
 	private String tableName;
 	private String val;
@@ -71,8 +73,8 @@ public static void Insert(String tablename, String Columns, String values ) thro
 public static void Delete(String tablename, String column, String value) throws Exception {
 	try {
 		Connection con = getConnect();
-		PreparedStatement posted = con.prepareStatement("DELETE FROM "+tablename+"("
-		+"WHERE "+column+"= "+"'"+value+"';");
+		PreparedStatement posted = con.prepareStatement("DELETE FROM "+tablename
+		+" WHERE "+column+"= "+"'"+value+"';");
 	posted.executeUpdate();
 	System.out.println("Delete succeed");
 	}catch(Exception e){
@@ -83,8 +85,10 @@ public static void Delete(String tablename, String column, String value) throws 
 
 
 
+
 //Main Method
 public static void main(String[]args)throws Exception {
+FlightDatabase.Insert("Customer", "LastName", "'Thomas");
 
 }
 
