@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class Main extends Application {
  
@@ -21,6 +24,19 @@ public class Main extends Application {
    e.printStackTrace();
   }
  } 
+ 
+ public void logout(Stage stage){	
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("You're about to logout!");
+		alert.setContentText("Do you want to save before exiting?");
+		
+		if (alert.showAndWait().get() == ButtonType.OK){
+			System.out.println("You successfully logged out");
+			stage.close();
+		} 
+	}
 
  public static void main(String[] args) {
   launch(args);

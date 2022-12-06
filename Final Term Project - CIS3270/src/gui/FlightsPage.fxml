@@ -13,7 +13,8 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <ListView fx:id="flightListView" layoutX="50.0" layoutY="103.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
+      <ListView fx:id="flightListView" layoutX="50.0" layoutY="165.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
+      <Button layoutX="214.0" layoutY="110.0" mnemonicParsing="false" onAction="#addUserFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
    </children>
 </AnchorPane>
