@@ -1,5 +1,7 @@
 package Classes;
 import java.util.*;
+
+
 public class Flight {
 private int flightID;
 private Airline airline;
