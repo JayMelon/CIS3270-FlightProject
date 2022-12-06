@@ -28,17 +28,15 @@ public class LoginController {
 		String username = usernameTextField.getText();
 		String password = passwordField.getText();
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
-		root = loader.load();	
-		
-		
 		//Temporary Variables you can change
-		String user[] = {"ds","as"};
-		String pass[] = {"ds","as"};;
-		for(int i = 0; i < user[].length; i++) {
-			for(int j = 0; i < pass[].length; j++) {
-				if(username == user[i] &&  password == pass[j]) {
+		String[] user = {"1","JJJ"};
+		String[] pass = {"2","KKK"};
+		for(int i = 0; i < user.length; i++) {
+			for(int j = 0; i < pass.length; j++) {
+				if(username == user[i] &&  password == pass[j] && i == j) {
 					// Send User to Main Menu while Logged In
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
+					root = loader.load();	
 					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					scene = new Scene(root);
 					stage.setScene(scene);

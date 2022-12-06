@@ -21,7 +21,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="359.0" layoutY="432.0" mnemonicParsing="false" style="-fx-background-color: #ffde22;" text="Log In">
+      <Button layoutX="359.0" layoutY="432.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #ffde22;" text="Log In">
          <font>
             <Font size="18.0" />
          </font>
@@ -37,7 +37,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordTextField" layoutX="175.0" layoutY="461.0" promptText="Password" />
+      <PasswordField fx:id="passwordField" layoutX="175.0" layoutY="461.0" promptText="Password" />
       <TextField fx:id="usernameTextField" layoutX="176.0" layoutY="419.0" promptText="Username" />
    </children>
 </AnchorPane>
