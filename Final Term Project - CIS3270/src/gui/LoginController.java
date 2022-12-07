@@ -34,10 +34,10 @@ public class LoginController {
 	}
 	
 	public void validateLogin() {
-		DatabaseConnection connectNow = new DatabaseConnection();
+		/*DatabaseConnection connectNow = new DatabaseConnection();
 		Connection connectDB = connectNow.getConnection();
 		
-		String verifyLogin = "Select count(1) FROM UserAccounts Where username = '" + usernameTextField.getText(); + "' AND password = '" + passwordField.getText() + "'";
+		String verifyLogin = "Select count(1) FROM UserAccounts Where username = '" + usernameTextField.getText() + "' AND password = '" + passwordField.getText() + "'";
 		
 		try {
 			Statement statement = connectDB.createStatement();
@@ -46,13 +46,16 @@ public class LoginController {
 			while(queryResult.next()) {
 				if (queryResult.getInt(columnindex 1) == 1) {
 					//Logs User In and Sends them to Main Menu
+					//
+					//
+					//
 				} else
 					loginFailedLabel.setText("Please enter a correct username and password");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}**/
 	}
 	
 	private Stage stage;
