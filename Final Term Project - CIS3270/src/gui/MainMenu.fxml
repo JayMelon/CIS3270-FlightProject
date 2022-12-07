@@ -18,7 +18,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="logoutButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #ffde22;" text="Logout">
+      <Button fx:id="logoutButton" visible="false" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #ffde22;" text="Logout">
          <font>
             <Font size="20.0" />
          </font>

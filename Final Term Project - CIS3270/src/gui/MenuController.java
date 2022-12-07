@@ -24,6 +24,7 @@ public class MenuController {
 	@FXML
 	private AnchorPane mainMenuScene;
 	
+	private String user = "User";
 	
 	
 	public void logout(ActionEvent event) {
@@ -35,25 +36,38 @@ public class MenuController {
 		
 		if(alert.showAndWait().get() == ButtonType.OK){
 			stage = (Stage) mainMenuScene.getScene().getWindow();
-			System.out.println("You successfully logged out!");
+			System.out.println(user + " successfully logged out!");
 			stage.close();
 		}	
 	}
 	
 	public void loggedIn(String username, String password) {
 		// Temp variables for you to change
-		String	user[];
-		String	pass[];
-		for(int i = 0; i < user.length; i++) {
+		String[] usern = {"d"};
+		String[] pass = {"e"};
+		for(int i = 0; i < usern.length; i++) {
 			for(int j = 0; i < pass.length; j++) {
-				if(username == user[i] &&  password == pass[j]) {
+				if(username == usern[i] &&  password == pass[j]) {
 					// Send User to Main Menu while Logged In
+					user = usern[i];
 					
 					
 				}
 			}
-		}
+		}	
+	}
+	
+	public void logout(Stage stage){	
 		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("You're about to logout!");
+		alert.setContentText("Your Flights will be saved.");
+		
+		if (alert.showAndWait().get() == ButtonType.OK){
+			System.out.println(user + " successfully logged out");
+			user = "User";
+		} 
 	}
 	
 	private Stage stage;
