@@ -32,12 +32,13 @@ public class LoginController {
 	
 	
 	public void login(ActionEvent event) throws IOException {
-		if(usernameTextField.getText().isBlank() == false && passwordField.getText().isBlank() == false) 
-			validateLogin();
-		else {
+		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank() 
+		  //|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password
+		  ) {
 			loginFailedLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to login");
-		} 
+		} else 
+			validateLogin();
 	}
 	
 	public void forgotPassword(ActionEvent event) throws IOException {
@@ -51,12 +52,15 @@ public class LoginController {
 	}
 	
 	public void register(ActionEvent event) throws IOException {
-		if(usernameTextField.getText().isBlank() == false && passwordField.getText().isBlank() == false) 
-			validateLogin();
-		else {
-			loginFailedLabel.setText("Please enter a correct username and password combination");
+		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank()) {
+			loginFailedLabel.setText("Please fill out all fields to register");
 			System.out.println(Main.userType + Main.user + " failed to login");
-		} 
+		} else if//|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password {
+			
+		} else {
+			//validateRegistration();
+			validateLogin();
+		}
 	}
 	
 	public void validateLogin() {
