@@ -2,6 +2,8 @@ package gui;
 
 import java.io.IOException;
 
+import gui.LoginController;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +26,6 @@ public class MenuController {
 	@FXML
 	private AnchorPane mainMenuScene;
 	
-	private String user = "User";
-	
 	
 	public void logout(ActionEvent event) {
 		
@@ -33,49 +33,23 @@ public class MenuController {
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
 		alert.setContentText("Your flights will be saved.");
+		System.out.println(Main.userType + Main.user + " attempted to log out!");
 		
 		if(alert.showAndWait().get() == ButtonType.OK){
 			stage = (Stage) mainMenuScene.getScene().getWindow();
-			System.out.println(user + " successfully logged out!");
+			System.out.println(Main.userType + Main.user + " successfully logged out!");
 			stage.close();
 		}	
 	}
 	
-	public void loggedIn(String username, String password) {
-		// Temp variables for you to change
-		String[] usern = {"d"};
-		String[] pass = {"e"};
-		for(int i = 0; i < usern.length; i++) {
-			for(int j = 0; i < pass.length; j++) {
-				if(username == usern[i] &&  password == pass[j]) {
-					// Send User to Main Menu while Logged In
-					user = usern[i];
-					
-					
-				}
-			}
-		}	
-	}
 	
-	public void logout(Stage stage){	
-		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Logout");
-		alert.setHeaderText("You're about to logout!");
-		alert.setContentText("Your Flights will be saved.");
-		
-		if (alert.showAndWait().get() == ButtonType.OK){
-			System.out.println(user + " successfully logged out");
-			user = "User";
-		} 
-	}
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	
 	public void switchToLoginForm(ActionEvent event) throws IOException {
-		System.out.println("User is now viewing Login Form");
+		System.out.println(Main.userType + Main.user + " is now viewing Login Form");
 		
 		root = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -85,7 +59,7 @@ public class MenuController {
 	}
 	
 	public void switchToFlightsPage(ActionEvent event) throws IOException {
-		System.out.println("User is now viewing Flights Page");
+		System.out.println(Main.userType + Main.user + " is now viewing Flights Page");
 		
 		root = FXMLLoader.load(getClass().getResource("FlightsPage.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -95,7 +69,7 @@ public class MenuController {
 	}
 	
 	public void switchToUserFlights(ActionEvent event) throws IOException {
-		System.out.println("User is now viewing User Flights Page");
+		System.out.println(Main.userType + Main.user + " is now viewing User Flights Page");
 		
 		root = FXMLLoader.load(getClass().getResource("UserFlights.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

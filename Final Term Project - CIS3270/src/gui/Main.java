@@ -10,18 +10,22 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
 public class Main extends Application {
+	
+	public static String userType = "[User] ";
+	public static String user = "";
  
  @Override
  public void start(Stage stage) {
   try {
-   
-   Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-   Scene scene = new Scene(root);
-   stage.setScene(scene);
-   stage.show();
+	  System.out.println(Main.userType + Main.user + " launched Gilded Wings Application");
+	  
+	  Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+	  Scene scene = new Scene(root);
+	  stage.setScene(scene);
+	  stage.show();
    
   } catch(Exception e) {
-   e.printStackTrace();
+	  e.printStackTrace();
   }
  } 
 

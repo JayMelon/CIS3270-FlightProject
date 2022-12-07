@@ -7,11 +7,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <ImageView fitHeight="317.0" fitWidth="500.0">
+      <ImageView fitHeight="250.0" fitWidth="500.0">
          <image>
             <Image url="@../Images/GildedWingsLogo.png" />
          </image>
@@ -21,23 +22,76 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="359.0" layoutY="432.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #ffde22;" text="Log In">
+      <Button layoutX="355.0" layoutY="280.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #ffde22;" text="Log In">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="loginFailedLabel" layoutX="175.0" layoutY="317.0" prefHeight="25.0" prefWidth="0.0" />
-      <Label layoutX="54.0" layoutY="418.0" text="Username" textFill="#ffde22">
+      <Button layoutX="357.0" layoutY="326.0" mnemonicParsing="false" onAction="#forgotPassword" style="-fx-background-color: #ffde22;" text="Forgot Password">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Button>
+      <Label fx:id="loginFailedLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="250.0" prefHeight="25.0" prefWidth="500.0" textAlignment="CENTER" textFill="RED" />
+      <Label layoutX="50.0" layoutY="280.0" text="Username" textFill="#ffde22">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="56.0" layoutY="460.0" text="Password" textFill="#ffde22">
+      <Label layoutX="50.0" layoutY="310.0" text="Password" textFill="#ffde22">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" layoutX="175.0" layoutY="461.0" promptText="Password" />
-      <TextField fx:id="usernameTextField" layoutX="176.0" layoutY="419.0" promptText="Username" />
+      <PasswordField fx:id="passwordField" layoutX="200.0" layoutY="310.0" promptText="Password" />
+      <TextField fx:id="usernameTextField" layoutX="200.0" layoutY="280.0" promptText="Username" />
+      <Line endX="450.0" endY="350.0" fill="#ffde22" startX="50.0" startY="350.0" stroke="#ffde22" />
+      <Button layoutX="355.0" layoutY="448.0" mnemonicParsing="false" onAction="#register" style="-fx-background-color: #ffde22;" text="Register">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="50.0" layoutY="365.0" text="First Name" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="395.0" text="Last Name" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="lastNameTextField" layoutX="200.0" layoutY="395.0" promptText="Last Name" />
+      <TextField fx:id="firstNameTextField" layoutX="200.0" layoutY="365.0" promptText="First Name" />
+      <Label layoutX="50.0" layoutY="425.0" text="Address" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="455.0" text="Zip Code" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="zipCodeTextField" layoutX="200.0" layoutY="455.0" promptText="Zip Code" />
+      <TextField fx:id="addressTextField" layoutX="200.0" layoutY="425.0" promptText="Address" />
+      <Label layoutX="50.0" layoutY="485.0" text="State" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="stateTextField" layoutX="200.0" layoutY="485.0" promptText="State" />
+      <Label layoutX="50.0" layoutY="515.0" text="Security Question" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="securityQTextField" layoutX="200.0" layoutY="515.0" promptText="Security Question" />
+      <Label layoutX="50.0" layoutY="545.0" text="Security Answer" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="securityATextField" layoutX="200.0" layoutY="545.0" promptText="Security Answer" />
    </children>
 </AnchorPane>
