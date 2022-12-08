@@ -17,9 +17,6 @@ import javafx.stage.Stage;
 public class LoginController {
 	
 	@FXML
-	private Button 
-	
-	@FXML
 	private Label loginFailedLabel;
 	@FXML
 	private TextField usernameTextField;
