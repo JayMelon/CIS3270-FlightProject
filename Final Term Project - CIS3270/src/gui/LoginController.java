@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Classes.Login;
 import Classes.Registration;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,11 +34,19 @@ public class LoginController implements Initializable {
 	@FXML
 	private TextField lastNameTextField;
 	@FXML
+	private TextField emailTextField;
+	@FXML
 	private TextField addressTextField;
 	@FXML
 	private TextField zipCodeTextField;
 	@FXML
 	private TextField stateTextField;
+	@FXML
+	private TextField ssnTextField;
+	@FXML
+	private ChoiceBox<String> stateChoiceBox;
+	@FXML
+	private ChoiceBox<String> securityQChoiceBox;
 	@FXML
 	private TextField securityQTextField;
 	@FXML
@@ -45,12 +54,8 @@ public class LoginController implements Initializable {
 	
 	Registration newUser = new Registration();
 	
-	
-	
 	public void login(ActionEvent event) throws IOException {
-		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank() 
-		  //|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password
-		  ) {
+		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank()) {
 			loginFailedLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to login");
 		} else 
@@ -65,6 +70,11 @@ public class LoginController implements Initializable {
 		//	System.out.println(Main.userType + Main.user + " is answering their security question");
 			// Sets securityQTextField to User's Security Question
 			//loginFailedLabel.setText("Please answer the Security Question in the Security Answer Field then click Submit");
+	}
+	
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		securityQChoiceBox.getItems().add("Hello");
 	}
 	
 	public void register(ActionEvent event) throws IOException {
@@ -113,12 +123,6 @@ public class LoginController implements Initializable {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		loginFailedLabel = new Label();
-		
 	}
 	
 }
