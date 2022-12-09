@@ -64,8 +64,6 @@ public class Registration extends User {
 		+ this.securityQuestion + "','" 
 		+ this.securityAnswer + "');";
 		String insertToRegister = insertFields + insertValues;
-		//Checks this current object for a duplicate id.
-		this.checkDuplicateID();
 		//Checks this current object for a duplicate username
 		this.checkUserName();
 		try {

@@ -3,6 +3,8 @@ package Classes;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.UUID;
+
 import Database.FlightDatabase;
 
 public abstract class User {
@@ -19,80 +21,60 @@ public abstract class User {
 	protected int securityQuestion;
 	protected String securityAnswer;
 	public static final String databaseName = "Users";
-	
+
 //Checks user input and matches with password
-public boolean passwordCheck(String user,String password) {
-	if (user.equals(password)){
-		return true;
-	}else {
-		return false;
+	public boolean passwordCheck(String user, String password) {
+
+		UUID.randomUUID();
+		if (user.equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-}
 
 //Creates random UserID return int to String
-public void createNewUserID() {
-	//Generates random number 100-999 - Jay
-	int x = (int)((Math.random()*999)+100);
-	//Transfer to String
-	this.userID = x+"";
-	System.out.println("Random USERID "+x);
-}
-
-
-
-//Checks User DBS for Duplicate User_ID
-protected void checkDuplicateID() {
-	Connection con = FlightDatabase.getConnect();
-	String verifyLogin = "SELECT Count(1) from "+User.databaseName+" Where user_id = '"+this.userID+"';";
-	try {
-		Statement statement = con.createStatement();
-		ResultSet queryResult = statement.executeQuery(verifyLogin);
-		while(queryResult.next()) {
-			if(queryResult.getInt(1) == 1) {
-				//If Duplicate was found execute this line.
-				System.out.println("Duplicate user_id found");
-				this.createNewUserID();
-				continue;
-			}else {
-				//If Duplicate wasn't found this line.
-				System.out.println("No duplicated user_id");
-			}
-		}
-	} catch(Exception e) {
-		e.printStackTrace();
+	public void createNewUserID() {
+		// Generates random UUID
+		this.userID = UUID.randomUUID().toString();
+		System.out.println("Random USERID " + this.userID);
 	}
-}
-protected void checkUserName() {
-	Connection con = FlightDatabase.getConnect();
-	String verifyLogin = "SELECT Count(1) from "+User.databaseName+" Where user_name = '"+this.userName+"';";
-	try {
-		Statement statement = con.createStatement();
-		ResultSet queryResult = statement.executeQuery(verifyLogin);
-		while(queryResult.next()) {
-			if(queryResult.getInt(1) >= 1) {
-				//If Duplicate was found execute this line.
-				System.out.println("Duplicate user_name found");
-			}else {
-				//If Duplicate wasn't found this line.
-				System.out.println("No duplicated user_name");
+
+
+	protected void checkUserName() {
+		Connection con = FlightDatabase.getConnect();
+		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
+				+ "';";
+		try {
+			Statement statement = con.createStatement();
+			ResultSet queryResult = statement.executeQuery(verifyLogin);
+			while (queryResult.next()) {
+				if (queryResult.getInt(1) >= 1) {
+					// If Duplicate was found execute this line.
+					System.out.println("Duplicate user_name found");
+				} else {
+					// If Duplicate wasn't found this line.
+					System.out.println("No duplicated user_name");
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	} catch(Exception e) {
-		e.printStackTrace();
 	}
-}
 
+	public String getUserID() {
+		return userID;
+	}
 
-public String getUserID() {
-	return userID;
-}
-public void setUserID(String userID) {
-	this.userID = userID;
-}
-public String getSecurity_answer() {
-	return securityAnswer;
-}
-public void setSecurity_answer(String security_answer) {
-	this.securityAnswer = security_answer;
-}
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getSecurity_answer() {
+		return securityAnswer;
+	}
+
+	public void setSecurity_answer(String security_answer) {
+		this.securityAnswer = security_answer;
+	}
 }

@@ -3,8 +3,6 @@ import java.sql.*;
 
 import Classes.Customer;
 public class FlightDatabase {
-	private String tableName;
-	private String val;
 // Connection method to DBS
 public static Connection getConnect() {
 	try {
