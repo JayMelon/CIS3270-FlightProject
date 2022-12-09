@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import Classes.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class LoginController {
 			loginFailedLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to login");
 		} else 
-			validateLogin();
+			Login.validateLogin(usernameTextField.getText(),passwordField.getText());
 	}
 	
 	public void forgotPassword(ActionEvent event) throws IOException {
@@ -55,52 +56,25 @@ public class LoginController {
 		} else if//|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password {
 			
 		} else {
-			//validateRegistration();
+			/*validateRegistration();
+			Member
+			//Logs User In and Sends them to Main Menu
+			//Hides Login Button
+			//Displays Log Out Button
+			//Displays Add Flights Button
+			//Enables UserLedger Button
+			
+			Admin
+			//Displays Delete Flights Button
+			//Displays Add Flights Function
+			//Displays Edit Flights Function
 			validateLogin();
+			*/
 		}
 	}
 	
-	public void validateLogin() {
-		/*DatabaseConnection connectNow = new DatabaseConnection();
-		Connection connectDB = connectNow.getConnection();
-		
-		String verifyLogin = "Select count(1) FROM UserAccounts Where username = '" + usernameTextField.getText() + "' AND password = '" + passwordField.getText() + "'";
-		
-		try {
-			Statement statement = connectDB.createStatement();
-			ResultSet queryResult = statement.executeQuery(verifyLogin);
-			
-			while(queryResult.next()) {
-				if (queryResult.getInt(columnindex 1) == 1) {
-					
-					Member
-					//Logs User In and Sends them to Main Menu
-					//Hides Login Button
-					//Displays Log Out Button
-					//Displays Add Flights Button
-					//Enables UserLedger Button
-					
-					Admin
-					//Displays Delete Flights Button
-					//Displays Add Flights Function
-					//Displays Edit Flights Function
-					
-					System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
-		
-					root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-					scene = new Scene(root);
-					stage.setScene(scene);
-					stage.show();
-				} else {
-					loginFailedLabel.setText("Please enter a correct username and password combination");
-					System.out.println(Main.userType + Main.user + " failed to login");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}**/
-	}
+
+
 	
 	private Stage stage;
 	private Scene scene;
@@ -117,3 +91,6 @@ public class LoginController {
 	}
 	
 }
+
+
+

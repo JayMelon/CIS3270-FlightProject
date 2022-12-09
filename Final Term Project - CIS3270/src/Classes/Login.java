@@ -36,4 +36,8 @@ public static void validateLogin(String username,String pass) {
 		e.printStackTrace();
 	}
 }
+
+public static void main(String[]args) {
+	validateLogin("JayMelon","pass23");
+}
 }
