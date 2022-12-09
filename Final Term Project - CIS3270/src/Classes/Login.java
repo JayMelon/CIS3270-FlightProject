@@ -28,7 +28,7 @@ public static void validateLogin(String username,String pass) {
 		while(queryResult.next()) {
 			if(queryResult.getInt(1) == 1) {
 				//If Login was validated execute this line.
-				Main.userType = "Customer";
+				Main.userType = "[Customer]";
 				Main.user = username;
 				System.out.println(Main.userType + Main.user + " has logged in!");
 			}else {

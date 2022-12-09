@@ -1,21 +1,26 @@
 package gui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import Classes.Login;
+import Classes.Registration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginController {
+public class LoginController implements Initializable {
 	
 	@FXML
 	public static Label loginFailedLabel;
@@ -24,9 +29,22 @@ public class LoginController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
+	private TextField firstNameTextField;
+	@FXML
+	private TextField lastNameTextField;
+	@FXML
+	private TextField addressTextField;
+	@FXML
+	private TextField zipCodeTextField;
+	@FXML
+	private TextField stateTextField;
+	@FXML
 	private TextField securityQTextField;
 	@FXML
 	private TextField securityATextField;
+	
+	Registration newUser = new Registration();
+	
 	
 	
 	public void login(ActionEvent event) throws IOException {
@@ -50,10 +68,19 @@ public class LoginController {
 	}
 	
 	public void register(ActionEvent event) throws IOException {
-		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank()) {
-			loginFailedLabel.setText("Please fill out all fields to register");
-			System.out.println(Main.userType + Main.user + " failed to login");
-		//} else if//|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password {
+		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank() || firstNameTextField.getText().isBlank()
+		   || lastNameTextField.getText().isBlank() || addressTextField.getText().isBlank() || zipCodeTextField.getText().isBlank()
+		   || stateTextField.getText().isBlank() || securityQTextField.getText().isBlank() || securityATextField.getText().isBlank()) {
+			loginFailedLabel.setText("Please enter a correct username and password combination");
+			System.out.println(Main.userType + Main.user + " failed to register");
+		}else {
+			newUser.registerUser(usernameTextField.getText(),passwordField.getText(),firstNameTextField.getText(),
+					  				  lastNameTextField.getText(),addressTextField.getText(),zipCodeTextField.getText(),
+					  				  stateTextField.getText(),securityQTextField.getText(),securityATextField.getText());
+			System.out.println(Main.userType + Main.user + " registered for an account");
+			Login.validateLogin(usernameTextField.getText(),passwordField.getText());
+		}
+	}
 			
 		//} else {
 			/*validateRegistration();
@@ -70,8 +97,6 @@ public class LoginController {
 			//Displays Edit Flights Function
 			validateLogin();
 			*/
-		}
-	}
 	
 
 
@@ -88,6 +113,12 @@ public class LoginController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

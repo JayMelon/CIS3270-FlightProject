@@ -61,7 +61,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="lastNameTextField" layoutX="200.0" layoutY="395.0" promptText="Last Name" />
+      <TextField fx:id="lastNameTextField" layoutX="200.0" layoutY="395.0" />
       <TextField fx:id="firstNameTextField" layoutX="200.0" layoutY="365.0" promptText="First Name" />
       <Label layoutX="50.0" layoutY="425.0" text="Address" textFill="#ffde22">
          <font>
@@ -73,7 +73,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="zipCodeTextField" layoutX="200.0" layoutY="455.0" promptText="Zip Code" />
       <TextField fx:id="addressTextField" layoutX="200.0" layoutY="425.0" promptText="Address" />
       <Label layoutX="50.0" layoutY="485.0" text="State" textFill="#ffde22">
          <font>
@@ -86,12 +85,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="securityQTextField" layoutX="200.0" layoutY="515.0" promptText="Security Question" />
       <Label layoutX="50.0" layoutY="545.0" text="Security Answer" textFill="#ffde22">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <TextField fx:id="securityATextField" layoutX="200.0" layoutY="545.0" promptText="Security Answer" />
+      <TextField fx:id="zipCodeTextField" layoutX="200.0" layoutY="455.0" />
+      <TextField fx:id="securityQTextField" layoutX="200.0" layoutY="516.0" />
    </children>
 </AnchorPane>

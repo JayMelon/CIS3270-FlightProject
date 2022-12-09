@@ -78,12 +78,6 @@ public class Registration extends User {
 			e.getCause();
 		}
 	}
-	public static void main(String[]args) throws Exception {
-		Registration c1 = new Registration();
-		c1.registerUser();
-		
-	}
-
 }
 
 
