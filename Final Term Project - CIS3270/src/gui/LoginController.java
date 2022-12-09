@@ -43,19 +43,19 @@ public class LoginController {
 		if(usernameTextField.getText().isBlank())
 			System.out.println(Main.userType + Main.user + " is attempting password recovery");
 			loginFailedLabel.setText("Please enter a correct username then click Forgot Password");
-		else
-			System.out.println(Main.userType + Main.user + " is answering their security question");
+		//else
+		//	System.out.println(Main.userType + Main.user + " is answering their security question");
 			// Sets securityQTextField to User's Security Question
-			loginFailedLabel.setText("Please answer the Security Question in the Security Answer Field then click Submit");
+			//loginFailedLabel.setText("Please answer the Security Question in the Security Answer Field then click Submit");
 	}
 	
 	public void register(ActionEvent event) throws IOException {
 		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank()) {
 			loginFailedLabel.setText("Please fill out all fields to register");
 			System.out.println(Main.userType + Main.user + " failed to login");
-		} else if//|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password {
+		//} else if//|| usernameTextField.getText() != checkUsernameDatabase for matching username || passwordField.getText() != checkPasswordDatabase for matching password {
 			
-		} else {
+		//} else {
 			/*validateRegistration();
 			Member
 			//Logs User In and Sends them to Main Menu
