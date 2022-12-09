@@ -8,23 +8,31 @@ public class Registration extends User {
 
 	
 //Going to create a method that registers people to database. 	
-	public void registerUser() {
-		//DELETE THIS LINE WHEN YOU INSERT THE REFERENCES Jackson - JL
-		String temp = "null";
+	public void registerUser(
+			String userName,
+			String lastName,
+			String firstName,
+			String email,
+			String address,
+			String zipcode,
+			String phoneNumber,
+			String SSN,
+			String securityAnswer
+			) {
 		Connection con = FlightDatabase.getConnect();
 		//Sets the object with a random id;
 		this.createNewUserID();
 		//Once textfields are created replace them with temp Jackson - JL
-		this.userName = temp;
-		this.lastName = temp;
-		this.firstName = temp;
-		this.email = temp;
-		this.address = temp;
-		this.zipcode = temp;
-		this.phoneNumber = temp;
-		this.socialSecurityNumber = temp;
+		this.userName = userName;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.phoneNumber = phoneNumber;
+		this.socialSecurityNumber = SSN;
 		this.securityQuestion = 0;
-		this.securityAnswer = temp;
+		this.securityAnswer = securityAnswer;
 		//Creating Query Strings
 		String insertFields = "INSERT INTO "+User.databaseName+" "
 				+ "("
