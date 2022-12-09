@@ -39,12 +39,12 @@ public class LoginController {
 	}
 	
 	public void forgotPassword(ActionEvent event) throws IOException {
-		System.out.println(Main.userType + Main.user + " is attempting password recovery");
 		if(usernameTextField.getText().isBlank())
+			System.out.println(Main.userType + Main.user + " is attempting password recovery");
 			loginFailedLabel.setText("Please enter a correct username then click Forgot Password");
 		else
+			System.out.println(Main.userType + Main.user + " is answering their security question");
 			// Sets securityQTextField to User's Security Question
-			
 			loginFailedLabel.setText("Please answer the Security Question in the Security Answer Field then click Submit");
 	}
 	
