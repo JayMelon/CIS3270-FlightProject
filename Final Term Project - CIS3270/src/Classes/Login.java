@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Database.FlightDatabase;
+import gui.LoginController;
+import gui.Main;
 
 public class Login extends User {
 
@@ -26,10 +28,13 @@ public static void validateLogin(String username,String pass) {
 		while(queryResult.next()) {
 			if(queryResult.getInt(1) == 1) {
 				//If Login was validated execute this line.
-				System.out.println("Welcome");
+				Main.userType = "Customer";
+				Main.user = username;
+				System.out.println(Main.userType + Main.user + " has logged in!");
 			}else {
 				//If login wasn't validated execute this line.
-				System.out.println("Try again");
+				LoginController.loginFailedLabel.setText("Please enter a correct username and password combination");
+				System.out.println(Main.userType + Main.user + " failed to login");
 			}
 		}
 	} catch(Exception e) {
