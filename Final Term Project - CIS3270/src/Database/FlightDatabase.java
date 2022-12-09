@@ -85,11 +85,4 @@ public static void Delete(String tablename, String column, String value) throws 
 
 
 
-
-//Main Method
-public static void main(String[]args)throws Exception {
-FlightDatabase.Insert("Customer", "LastName", "'Thomas");
-
-}
-
 }
