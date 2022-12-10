@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import Database.FlightDatabase;
-//Need to make smaller, Customer class is inherited by the User. 
+
 
 public class Customer extends User {
 //Generates random UserID, Not sure if it's useful or not - Jay 
-	public Customer() {
-		this.userID = "" + (int) (Math.random() * 1000);
-	}
 
 	public Customer(String firstName, String lastName, String Email, String phoneNumber, String Address) {
 	}
@@ -30,7 +27,6 @@ public class Customer extends User {
 
 	// Inserts a Users value into Users DBS - Jay
 	public void addUser() throws Exception {
-		String Tablename = User.databaseName;
 		try {
 			Connection con = FlightDatabase.getConnect();
 			// Needs to add the textfinder from the GUI into this, I'll update soon. - Jay

@@ -16,10 +16,13 @@ public abstract class User {
 	protected String email;
 	protected String address;
 	protected String zipcode;
-	protected String phoneNumber;
+	protected String state;
 	protected String socialSecurityNumber;
-	protected int securityQuestion;
+	protected String securityQuestion;
 	protected String securityAnswer;
+	protected String userType = "U";
+
+
 	public static final String databaseName = "Users";
 
 //Checks user input and matches with password
@@ -33,15 +36,15 @@ public abstract class User {
 		}
 	}
 
-//Creates random UserID return int to String
+//Creates random UserID return to String
 	public void createNewUserID() {
 		// Generates random UUID
 		this.userID = UUID.randomUUID().toString();
 		System.out.println("Random USERID " + this.userID);
 	}
 
-
-	protected void checkUserName() {
+//Checks for duplicated Username if Found returns false, else return true
+	protected boolean checkUserName() {
 		Connection con = FlightDatabase.getConnect();
 		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
 				+ "';";
@@ -52,6 +55,7 @@ public abstract class User {
 				if (queryResult.getInt(1) >= 1) {
 					// If Duplicate was found execute this line.
 					System.out.println("Duplicate user_name found");
+					return false;
 				} else {
 					// If Duplicate wasn't found this line.
 					System.out.println("No duplicated user_name");
@@ -60,8 +64,16 @@ public abstract class User {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return true;
 	}
 
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	public String getUserID() {
 		return userID;
 	}
