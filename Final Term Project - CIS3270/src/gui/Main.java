@@ -17,20 +17,7 @@ public class Main extends Application {
 	
 	public static String userType = "[User] ";
 	public static String user = "";
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 	
-	public void switchScreen(ActionEvent event) throws IOException {
-		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
-		
-		root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
- 
 	@Override
 	public void start(Stage stage) {
 		try {

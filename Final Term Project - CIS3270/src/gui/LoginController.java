@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 	
 	@FXML
-	public static Label loginFailedLabel;
+	public static Label formFailureLabel;
 	@FXML
 	private TextField usernameTextField;
 	@FXML
@@ -40,15 +40,21 @@ public class LoginController implements Initializable {
 	@FXML
 	private TextField zipCodeTextField;
 	@FXML
-	private TextField stateTextField;
+	private ChoiceBox<String> stateChoiceBox;
+	
+	private String[] states = {"AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA",
+							   "HI","ID","IL","IN","IA","KS","KY","LA","ME","MD",
+							   "MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
+							   "NM","NY","NC","ND","OH","OK","OR","PA","RI","SC",
+							   "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY",};
 	@FXML
 	private TextField ssnTextField;
 	@FXML
-	private ChoiceBox<String> stateChoiceBox;
-	@FXML
 	private ChoiceBox<String> securityQChoiceBox;
-	@FXML
-	private TextField securityQTextField;
+	
+	private String[] securityQs = {"What city were you born in?",
+								   "What is the name of the high school you graduated from?",
+								   "What is your favorite color?"};
 	@FXML
 	private TextField securityATextField;
 	
@@ -56,7 +62,7 @@ public class LoginController implements Initializable {
 	
 	public void login(ActionEvent event) throws IOException {
 		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank()) {
-			loginFailedLabel.setText("Please enter a correct username and password combination");
+			formFailureLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to login");
 		} else 
 			Login.validateLogin(usernameTextField.getText(),passwordField.getText());
@@ -65,7 +71,7 @@ public class LoginController implements Initializable {
 	public void forgotPassword(ActionEvent event) throws IOException {
 		if(usernameTextField.getText().isBlank())
 			System.out.println(Main.userType + Main.user + " is attempting password recovery");
-			loginFailedLabel.setText("Please enter a correct username then click Forgot Password");
+			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
 		//else
 		//	System.out.println(Main.userType + Main.user + " is answering their security question");
 			// Sets securityQTextField to User's Security Question
@@ -74,19 +80,22 @@ public class LoginController implements Initializable {
 	
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		securityQChoiceBox.getItems().add("Hello");
+		securityQChoiceBox.getItems().addAll(securityQs);
+		stateChoiceBox.getItems().addAll(states);
 	}
 	
 	public void register(ActionEvent event) throws IOException {
 		if(usernameTextField.getText().isBlank() || passwordField.getText().isBlank() || firstNameTextField.getText().isBlank()
-		   || lastNameTextField.getText().isBlank() || addressTextField.getText().isBlank() || zipCodeTextField.getText().isBlank()
-		   || stateTextField.getText().isBlank() || securityQTextField.getText().isBlank() || securityATextField.getText().isBlank()) {
-			loginFailedLabel.setText("Please enter a correct username and password combination");
+		   || lastNameTextField.getText().isBlank() || emailTextField.getText().isBlank() || addressTextField.getText().isBlank()
+		   || zipCodeTextField.getText().isBlank() || stateChoiceBox.getValue().isBlank() || securityQChoiceBox.getValue().isBlank()
+		   || securityATextField.getText().isBlank()) {
+			formFailureLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to register");
 		}else {
 			newUser.registerUser(usernameTextField.getText(),passwordField.getText(),firstNameTextField.getText(),
-					  				  lastNameTextField.getText(),addressTextField.getText(),zipCodeTextField.getText(),
-					  				  stateTextField.getText(),securityQTextField.getText(),securityATextField.getText());
+					  			 lastNameTextField.getText(),emailTextField.getText(),addressTextField.getText(),
+					  			 zipCodeTextField.getText(),stateChoiceBox.getValue(),securityQChoiceBox.getValue(),
+					  			 securityATextField.getText());
 			System.out.println(Main.userType + Main.user + " registered for an account");
 			Login.validateLogin(usernameTextField.getText(),passwordField.getText());
 		}
@@ -107,9 +116,6 @@ public class LoginController implements Initializable {
 			//Displays Edit Flights Function
 			validateLogin();
 			*/
-	
-
-
 	
 	private Stage stage;
 	private Scene scene;
