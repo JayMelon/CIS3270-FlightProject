@@ -94,8 +94,8 @@ public class LoginController implements Initializable {
 		}else {
 			newUser.registerUser(usernameTextField.getText(),passwordField.getText(),firstNameTextField.getText(),
 					  			 lastNameTextField.getText(),emailTextField.getText(),addressTextField.getText(),
-					  			 zipCodeTextField.getText(),stateChoiceBox.getValue(),securityQChoiceBox.getValue(),
-					  			 securityATextField.getText());
+					  			 zipCodeTextField.getText(),stateChoiceBox.getValue(),ssnTextField.getText(),
+					  			 securityQChoiceBox.getValue(),securityATextField.getText());
 			System.out.println(Main.userType + Main.user + " registered for an account");
 			Login.validateLogin(usernameTextField.getText(),passwordField.getText());
 		}
