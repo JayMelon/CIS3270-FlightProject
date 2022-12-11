@@ -11,17 +11,16 @@ public class Registration extends User {
 		Connection con = FlightDatabase.getConnect();
 		// Sets the object with a random id;
 		this.createNewUserID();
-		// Checks this current object for a duplicate username;
-		this.checkUserName();
 		// Creating Query Strings
 		String insertFields = "INSERT INTO " + User.databaseName + " " + "(" + "user_id, " + "user_name, "
 				+ "password, " + "first_name, " + "last_name, " + "email, "+ "address, " + "zipcode, " + "state, "
-				+ "social_security_number, " + "security_question, " + "security_answer" + " user_Type"+") " + "VALUES" + " ('";
+				+ "social_security_number, " + "security_question, " + "security_answer, " + "user_Type"+") " + "VALUES" + " ('";
 		String insertValues = this.userID + "','" + this.userName + "','" + this.password + "','" + this.firstName
 				+ "','" + this.lastName + "','" + this.email + "','" + this.address + "','" + this.zipcode + "','"
 				+ this.state + "','" + this.socialSecurityNumber + "','" + this.securityQuestion + "','"
 				+ this.securityAnswer + "','"+this.userType+"');";
 		String insertToRegister = insertFields + insertValues;
+		System.out.println(insertToRegister);
 		try {
 			Statement statement = con.createStatement();
 			statement.executeUpdate(insertToRegister);

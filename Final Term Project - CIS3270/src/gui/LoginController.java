@@ -107,7 +107,7 @@ public class LoginController implements Initializable {
 			newUser.password = passwordField.getText();
 			newUser.firstName = firstNameTextField.getText();
 			newUser.lastName = lastNameTextField.getText();
-			newUser.userName = usernameTextField.getText();
+			newUser.address = addressTextField.getText();
 			newUser.email = emailTextField.getText();
 			newUser.zipcode = zipCodeTextField.getText();
 			newUser.state = stateChoiceBox.getValue();
@@ -117,6 +117,8 @@ public class LoginController implements Initializable {
 			//If there is no duplicate of username
 			if(newUser.checkUserName()) {
 				newUser.registerUser();
+			}else {
+				//If DUPLICATED USER EXECUTE THIS
 			}
 
 			System.out.println(Main.userType + Main.user + " registered for an account");
