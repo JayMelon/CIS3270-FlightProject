@@ -25,6 +25,10 @@ public class LoginController implements Initializable {
 
 	@FXML
 	public static Label formFailureLabel;
+	
+	@FXML
+	private Button forgotPasswordButton;
+	
 	@FXML
 	private TextField usernameTextField;
 	@FXML
@@ -65,9 +69,14 @@ public class LoginController implements Initializable {
 	}
 
 	public void forgotPassword(ActionEvent event) throws IOException {
-		if (usernameTextField.getText().isBlank())
+		if (usernameTextField.getText().isBlank()) {
 			System.out.println(Main.userType + Main.user + " is attempting password recovery");
-		formFailureLabel.setText("Please enter a correct username then click Forgot Password");
+			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
+		} else if(usernameTextField.getText() != "" && forgotPasswordButton.getText() == "Forgot Password"){
+			//check username and return security question
+			System.out.println(Main.userType + Main.user + " is answering their security question");
+		} else if(usernameTextField.getText() != "" && securityATextField.getText() != "" && forgotPasswordButton.getText() == "Submit")
+			//check username and security answer. if correct, 
 		// else
 		// System.out.println(Main.userType + Main.user + " is answering their security
 		// question");
@@ -81,6 +90,7 @@ public class LoginController implements Initializable {
 		securityQChoiceBox.getItems().addAll(securityQs);
 		stateChoiceBox.getItems().addAll(states);
 	}
+	
 	//Creates a newUser Object
 	Registration newUser = new Registration();
 	public void register(ActionEvent event) throws IOException {
@@ -106,6 +116,13 @@ public class LoginController implements Initializable {
 					securityATextField.getText());
 			System.out.println(Main.userType + Main.user + " registered for an account");
 			Login.validateLogin(usernameTextField.getText(), passwordField.getText());
+			
+			System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
+			root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 		}
 	}
 
