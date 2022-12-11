@@ -33,7 +33,6 @@ public static void validateLogin(String username,String pass) {
 				System.out.println(Main.userType + Main.user + " has logged in!");
 			}else {
 				//If login wasn't validated execute this line.
-				LoginController.loginFailedLabel.setText("Please enter a correct username and password combination");
 				System.out.println(Main.userType + Main.user + " failed to login");
 			}
 		}
