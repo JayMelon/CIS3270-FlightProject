@@ -7,33 +7,10 @@ import Database.FlightDatabase;
 public class Registration extends User {
 
 //Going to create a method that registers people to database. 	
-	public void registerUser(
-			String userName,
-			String password,
-			String firstName,
-			String lastName,
-			String email, 
-			String address,
-			String zipcode,
-			String state,
-			String SSN, 
-			String securityQuestion, 
-			String securityAnswer) {
+	public void registerUser() {
 		Connection con = FlightDatabase.getConnect();
 		// Sets the object with a random id;
 		this.createNewUserID();
-//Important values that should be kept in the object while registering
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.address = address;
-		this.zipcode = zipcode;
-		this.state = state;
-		this.socialSecurityNumber = SSN;
-		this.securityQuestion = securityQuestion;
-		this.securityAnswer = securityAnswer;
 		// Checks this current object for a duplicate username;
 		this.checkUserName();
 		// Creating Query Strings

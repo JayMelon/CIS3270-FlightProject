@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
 		} else if(usernameTextField.getText() != "" && forgotPasswordButton.getText() == "Forgot Password"){
 			//check username and return security question
 			System.out.println(Main.userType + Main.user + " is answering their security question");
-		} else if(usernameTextField.getText() != "" && securityATextField.getText() != "" && forgotPasswordButton.getText() == "Submit")
+		} else if(usernameTextField.getText() != "" && securityATextField.getText() != "" && forgotPasswordButton.getText() == "Submit");
 			//check username and security answer. if correct, 
 		// else
 		// System.out.println(Main.userType + Main.user + " is answering their security
@@ -92,7 +92,6 @@ public class LoginController implements Initializable {
 	}
 	
 	//Creates a newUser Object
-	Registration newUser = new Registration();
 	public void register(ActionEvent event) throws IOException {
 		if (usernameTextField.getText().isBlank() || passwordField.getText().isBlank()
 				|| firstNameTextField.getText().isBlank() || lastNameTextField.getText().isBlank()
@@ -102,18 +101,24 @@ public class LoginController implements Initializable {
 			formFailureLabel.setText("Please enter a correct username and password combination");
 			System.out.println(Main.userType + Main.user + " failed to register");
 		} else {
-			newUser.registerUser(
-					usernameTextField.getText(), 
-					passwordField.getText(), 
-					firstNameTextField.getText(),
-					lastNameTextField.getText(), 
-					emailTextField.getText(), 
-					addressTextField.getText(),
-					zipCodeTextField.getText(), 
-					stateChoiceBox.getValue(), 
-					ssnTextField.getText(),
-					securityQChoiceBox.getValue(), 
-					securityATextField.getText());
+			//Registers user by assigning to Object and referencing from it. 
+			Registration newUser = new Registration();
+			newUser.userName = usernameTextField.getText();
+			newUser.password = passwordField.getText();
+			newUser.firstName = firstNameTextField.getText();
+			newUser.lastName = lastNameTextField.getText();
+			newUser.userName = usernameTextField.getText();
+			newUser.email = emailTextField.getText();
+			newUser.zipcode = zipCodeTextField.getText();
+			newUser.state = stateChoiceBox.getValue();
+			newUser.socialSecurityNumber = ssnTextField.getText();
+			newUser.securityQuestion = securityQChoiceBox.getValue();
+			newUser.securityAnswer = securityATextField.getText();
+			//If there is no duplicate of username
+			if(newUser.checkUserName()) {
+				newUser.registerUser();
+			}
+
 			System.out.println(Main.userType + Main.user + " registered for an account");
 			Login.validateLogin(usernameTextField.getText(), passwordField.getText());
 			

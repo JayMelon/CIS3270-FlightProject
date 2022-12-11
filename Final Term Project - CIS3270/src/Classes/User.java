@@ -8,19 +8,19 @@ import java.util.UUID;
 import Database.FlightDatabase;
 
 public abstract class User {
-	protected String userID;
-	protected String userName;
-	protected String lastName;
-	protected String firstName;
-	protected String password;
-	protected String email;
-	protected String address;
-	protected String zipcode;
-	protected String state;
-	protected String socialSecurityNumber;
-	protected String securityQuestion;
-	protected String securityAnswer;
-	protected String userType = "U";
+	public String userID;
+	public String userName;
+	public String lastName;
+	public String firstName;
+	public String password;
+	public String email;
+	public String address;
+	public String zipcode;
+	public String state;
+	public String socialSecurityNumber;
+	public String securityQuestion;
+	public String securityAnswer;
+	public String userType = "U";
 
 
 	public static final String databaseName = "Users";
@@ -44,7 +44,7 @@ public abstract class User {
 	}
 
 //Checks for duplicated Username if Found returns false, else return true
-	protected boolean checkUserName() {
+	public boolean checkUserName() {
 		Connection con = FlightDatabase.getConnect();
 		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
 				+ "';";
