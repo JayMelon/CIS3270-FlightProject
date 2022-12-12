@@ -61,67 +61,61 @@ public class LoginController implements Initializable {
 			"What is the name of the high school you graduated from?", "What is your favorite color?" };
 	@FXML
 	private TextField securityATextField;
-
-	public void login(ActionEvent event) throws IOException {
-		Login.validateLogin(usernameTextField.getText(), passwordField.getText());
-		if(Main.userType != "[User]")
-			switchToMainMenu(event);
-		else
-			formFailureLabel.setText("Please enter a correct username and password combination");
-	}
-
-	public void forgotPassword(ActionEvent event) throws IOException {
-		Login passwordRecovery = new Login();
-		//Temp Value for password
-		String answer = "";
-		passwordRecovery.userName = usernameTextField.getText();
-		passwordRecovery.securityQuestion = securityQChoiceBox.getValue();
-		//passwordRecovery.securityAnswer = securityATextField.getText();
-		if (passwordRecovery.checkCurrentUserName()) {
-			System.out.println("Check username passed");
-			//Setting Username's Security Question to Object.
-			passwordRecovery.getCurrentUserSecurityQuestion();
-			//Setting Username's Security Answer to Object.
-			passwordRecovery.getCurrentUserSecurityAnswer();
-			securityQChoiceBox.setValue(passwordRecovery.securityQuestion);
-			answer = passwordRecovery.securityAnswer;
-		} else if(answer.equals(securityATextField.getText())) {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Your Password");
-			alert.setHeaderText("The Following Text is your Password");
-			alert.setContentText(passwordRecovery.password);
-			System.out.println(Main.userType + Main.user + " is attempting to log out!");
-			if(alert.showAndWait().get() == ButtonType.OK) {
-				System.out.println(Main.userType + Main.user + " chose to book a flight with a time conflict");
-			} else
-				System.out.println(Main.userType + Main.user + " chose not to book a flight with a time conflict");
-		}
-		
-		
-		
-		formFailureLabel.setText("Please enter a correct username then click Forgot Password");
-		System.out.println(Main.userType + Main.user + " is attempting password recovery");
-		
-		if (usernameTextField.getText().isBlank()) {
-			System.out.println(Main.userType + Main.user + " is attempting password recovery");
-			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
-		} else if(usernameTextField.getText() != "" && forgotPasswordButton.getText() == "Forgot Password"){
-			//check username and return security question
-			System.out.println(Main.userType + Main.user + " is answering their security question");
-		} else if(usernameTextField.getText() != "" && securityATextField.getText() != "" && forgotPasswordButton.getText() == "Submit") {
-		
-		}
-	}
 	
 	//Fills in State and Security Question Choice Boxes with Options
-	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		securityQChoiceBox.getItems().addAll(securityQs);
-		stateChoiceBox.getItems().addAll(states);
+		@Override
+		public void initialize(URL url, ResourceBundle resourceBundle) {
+			securityQChoiceBox.getItems().addAll(securityQs);
+			stateChoiceBox.getItems().addAll(states);
+		}
+	
+	
+	// Event that logs the user into their account and sends them to the Main Menu
+	public void login(ActionEvent event) throws IOException {
+		Login.validateLogin(usernameTextField.getText(), passwordField.getText());
+		if(Main.userType != "[User]") {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
+			root = loader.load();	
+			MenuController menuController = loader.getController();
+			menuController.hideLogin();
+			switchToMainMenu(event);
+		} else
+			formFailureLabel.setText("Please enter a correct username and password combination");
 	}
 	
-	//Creates a newUser Object
+	// Event that gives the user their password when they click Forgot Password
+	public void forgotPassword(ActionEvent event) throws IOException {
+		if(usernameTextField.getText().isBlank())
+			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
+		else {
+			Login passwordRecovery = new Login();
+			passwordRecovery.userName = usernameTextField.getText();
+			if(passwordRecovery.checkCurrentUserName()) {
+				securityQChoiceBox.setValue(passwordRecovery.getCurrentUserSecurityQuestion());
+				formFailureLabel.setText("Please answer the security question then click Forgot Password");
+			} else
+				formFailureLabel.setText("Please enter a correct username then click Forgot Password");
+			//If User Security Answer is correct, send the user their password in an alert
+			if(passwordRecovery.getCurrentUserSecurityAnswer().equals(securityATextField.getText())) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Your Password");
+				alert.setHeaderText("The Following Text is your Password");
+				alert.setContentText(passwordRecovery.getCurrentUserPassword());
+				formFailureLabel.setText("");
+				System.out.println(Main.userType + Main.user + " is receiving their password");
+				if(alert.showAndWait().get() == ButtonType.OK) {
+					System.out.println(Main.userType + Main.user + " Got their password");
+				}
+			} else if(passwordRecovery.checkCurrentUserName()) {
+				formFailureLabel.setText("Incorrect Security Answer");
+				System.out.println(Main.userType + Main.user + " entered an incorrect security answer for the account of " + usernameTextField.getText());
+			}
+		}
+	}
+	
+	//Event that registers a new user for an account and sends it to the database
 	public void register(ActionEvent event) throws IOException {
+		//Tells user that a field is not filled
 		if (usernameTextField.getText().isBlank() || passwordField.getText().isBlank()
 				|| firstNameTextField.getText().isBlank() || lastNameTextField.getText().isBlank()
 				|| emailTextField.getText().isBlank() || addressTextField.getText().isBlank()
@@ -159,7 +153,8 @@ public class LoginController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-
+	
+	// Switches the screen to the main menu
 	public void switchToMainMenu(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
 

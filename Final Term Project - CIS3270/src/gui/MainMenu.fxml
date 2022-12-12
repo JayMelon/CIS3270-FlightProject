@@ -13,12 +13,12 @@
             <Image url="@../Images/GildedWingsLogo.png" />
          </image>
       </ImageView>
-      <Button layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginForm" style="-fx-background-color: #ffde22;" text="Login">
+      <Button fx:id="loginButton" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginForm" style="-fx-background-color: #ffde22;" text="Login">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="logoutButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #ffde22;" text="Logout">
+      <Button fx:id="logoutButton" layoutX="396.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #ffde22;" text="Logout" visible="false">
          <font>
             <Font size="20.0" />
          </font>

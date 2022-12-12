@@ -20,12 +20,17 @@ import javafx.stage.Stage;
 public class MenuController {
 	
 	@FXML
-	private Button loginButton;	
+	private Button loginButton = new Button();
 	@FXML
 	private Button logoutButton;
 	@FXML
 	private AnchorPane mainMenuScene;
 	
+	
+	public void hideLogin() {
+		loginButton.setVisible(false);
+		logoutButton.setVisible(true);
+	}
 	
 	public void logout(ActionEvent event) {
 		
