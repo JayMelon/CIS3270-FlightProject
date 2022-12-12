@@ -72,14 +72,20 @@ public class LoginController implements Initializable {
 
 	public void forgotPassword(ActionEvent event) throws IOException {
 		Login passwordRecovery = new Login();
+		//Temp Value for password
+		String answer = "";
 		passwordRecovery.userName = usernameTextField.getText();
 		passwordRecovery.securityQuestion = securityQChoiceBox.getValue();
-		passwordRecovery.securityAnswer = securityATextField.getText();
+		//passwordRecovery.securityAnswer = securityATextField.getText();
 		if (passwordRecovery.checkCurrentUserName()) {
+			System.out.println("Check username passed");
+			//Setting Username's Security Question to Object.
 			passwordRecovery.getCurrentUserSecurityQuestion();
+			//Setting Username's Security Answer to Object.
 			passwordRecovery.getCurrentUserSecurityAnswer();
 			securityQChoiceBox.setValue(passwordRecovery.securityQuestion);
-		} else if(passwordRecovery.securityAnswer.equals(securityATextField.getText())) {
+			answer = passwordRecovery.securityAnswer;
+		} else if(answer.equals(securityATextField.getText())) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Your Password");
 			alert.setHeaderText("The Following Text is your Password");
