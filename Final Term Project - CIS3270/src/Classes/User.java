@@ -66,14 +66,6 @@ public abstract class User {
 		return true;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
 	public String getUserID() {
 		return userID;
 	}
@@ -82,11 +74,4 @@ public abstract class User {
 		this.userID = userID;
 	}
 
-	public String getSecurity_answer() {
-		return securityAnswer;
-	}
-
-	public void setSecurity_answer(String security_answer) {
-		this.securityAnswer = security_answer;
-	}
 }

@@ -43,7 +43,7 @@ public class Login extends User {
 		
 	
 //Checks if Username is Founded, If founded return True, else false. 
-	public boolean checkCurrentUserName() {
+public boolean checkCurrentUserName() {
 		Connection con = FlightDatabase.getConnect();
 		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
 				+ "';";
@@ -114,9 +114,11 @@ public void getCurrentUserPassword() {
 		Login user = new Login();
 		user.userName = "JayMelon";
 		if(user.checkCurrentUserName()){
+		
 			user.getCurrentUserSecurityQuestion();
 			user.getCurrentUserSecurityAnswer();
 			user.getCurrentUserPassword();
+		if(user.securityAnswer.equals("WHAT EVER STRING YOU'RE REFERING"));	
 
 		}else {
 			System.out.println("Failed");
