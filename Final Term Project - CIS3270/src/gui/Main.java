@@ -15,7 +15,7 @@ import javafx.scene.control.ButtonType;
 
 public class Main extends Application {
 	
-	public static String userType = "[User] ";
+	public static String userType = "[User]";
 	public static String user = "";
 	
 	@Override

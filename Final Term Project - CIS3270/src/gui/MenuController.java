@@ -33,12 +33,13 @@ public class MenuController {
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
 		alert.setContentText("Your flights will be saved.");
-		System.out.println(Main.userType + Main.user + " attempted to log out!");
+		System.out.println(Main.userType + Main.user + " is attempting to log out!");
 		
 		if(alert.showAndWait().get() == ButtonType.OK){
 			stage = (Stage) mainMenuScene.getScene().getWindow();
 			System.out.println(Main.userType + Main.user + " successfully logged out!");
-			stage.close();
+			Main.userType = "[User]";
+			Main.user = "";
 		}	
 	}
 	
