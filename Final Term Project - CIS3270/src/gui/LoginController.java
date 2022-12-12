@@ -14,7 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -67,7 +70,28 @@ public class LoginController implements Initializable {
 			formFailureLabel.setText("Please enter a correct username and password combination");
 	}
 
-	public void forgotPassword(ActionEvent event) throws IOException {		
+	public void forgotPassword(ActionEvent event) throws IOException {
+		Login passwordRecovery = new Login();
+		passwordRecovery.userName = usernameTextField.getText();
+		passwordRecovery.securityQuestion = securityQChoiceBox.getValue();
+		passwordRecovery.securityAnswer = securityATextField.getText();
+		if (passwordRecovery.checkCurrentUserName()) {
+			passwordRecovery.getCurrentUserSecurityQuestion();
+			passwordRecovery.getCurrentUserSecurityAnswer();
+			securityQChoiceBox.setValue(passwordRecovery.securityQuestion);
+		} else if(passwordRecovery.securityAnswer.equals(securityATextField.getText())) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Your Password");
+			alert.setHeaderText("The Following Text is your Password");
+			alert.setContentText(passwordRecovery.password);
+			System.out.println(Main.userType + Main.user + " is attempting to log out!");
+			if(alert.showAndWait().get() == ButtonType.OK) {
+				System.out.println(Main.userType + Main.user + " chose to book a flight with a time conflict");
+			} else
+				System.out.println(Main.userType + Main.user + " chose not to book a flight with a time conflict");
+		}
+		
+		
 		
 		formFailureLabel.setText("Please enter a correct username then click Forgot Password");
 		System.out.println(Main.userType + Main.user + " is attempting password recovery");
