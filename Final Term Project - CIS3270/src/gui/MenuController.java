@@ -40,7 +40,7 @@ public class MenuController {
 			System.out.println(Main.userType + Main.user + " successfully logged out!");
 			Main.userType = "[User]";
 			Main.user = "";
-		}	
+		}
 	}
 	
 	

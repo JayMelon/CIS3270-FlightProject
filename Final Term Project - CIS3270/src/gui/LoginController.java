@@ -69,8 +69,8 @@ public class LoginController implements Initializable {
 
 	public void forgotPassword(ActionEvent event) throws IOException {		
 		
-			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
-			System.out.println(Main.userType + Main.user + " is attempting password recovery");
+		formFailureLabel.setText("Please enter a correct username then click Forgot Password");
+		System.out.println(Main.userType + Main.user + " is attempting password recovery");
 		
 		if (usernameTextField.getText().isBlank()) {
 			System.out.println(Main.userType + Main.user + " is attempting password recovery");
@@ -82,7 +82,8 @@ public class LoginController implements Initializable {
 		
 		}
 	}
-
+	
+	//Fills in State and Security Question Choice Boxes with Options
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		securityQChoiceBox.getItems().addAll(securityQs);
