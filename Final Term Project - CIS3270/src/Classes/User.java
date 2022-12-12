@@ -66,20 +66,6 @@ public abstract class User {
 		return true;
 	}
 
-	// Get user Security Question
-	public String getUserSecurityQuestion() {
-		Connection con = FlightDatabase.getConnect();
-		String getSecurityQuestion = "SELECT security_question FROM Users WHERE user_name = '+" + this.userName + "';";
-		try {
-			Statement statement = con.createStatement();
-			ResultSet queryResult = statement.executeQuery(getSecurityQuestion);
-			this.securityQuestion = queryResult.getString("security_question");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return this.securityQuestion;
-	}
-
 	public String getUserType() {
 		return userType;
 	}

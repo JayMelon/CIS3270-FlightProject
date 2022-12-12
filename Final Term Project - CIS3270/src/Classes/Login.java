@@ -40,9 +40,10 @@ public class Login extends User {
 			e.printStackTrace();
 		}
 	}
-
+		
+	
 //Checks if Username is Founded, If founded return True, else false. 
-	public boolean checkUserName() {
+	public boolean checkCurrentUserName() {
 		Connection con = FlightDatabase.getConnect();
 		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
 				+ "';";
@@ -64,13 +65,61 @@ public class Login extends User {
 		}
 		return false;
 	}
-	
+//Gets the requested user's security question. 
+public void getCurrentUserSecurityQuestion() {
+		Connection con = FlightDatabase.getConnect();
+		String getSecurityQuestion = "SELECT security_question FROM "+User.databaseName+" WHERE user_name = '" + this.userName + "';";
+		try {
+			Statement statement = con.createStatement();
+			ResultSet queryResult = statement.executeQuery(getSecurityQuestion);
+
+			while(queryResult.next()) {
+				this.securityQuestion = queryResult.getString("security_question");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+}
+//Gets the requested user's security answer.
+public void getCurrentUserSecurityAnswer() {
+	Connection con = FlightDatabase.getConnect();
+	String getSecurityAnswer = "SELECT security_answer FROM "+User.databaseName+" WHERE user_name = '" + this.userName + "';";
+	try {
+		Statement statement = con.createStatement();
+		ResultSet queryResult = statement.executeQuery(getSecurityAnswer);
+
+		while(queryResult.next()) {
+			this.securityAnswer = queryResult.getString("security_answer");
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+//Get the requested user's security answer. 
+public void getCurrentUserPassword() {
+	Connection con = FlightDatabase.getConnect();
+	String getPassword = "SELECT password FROM "+User.databaseName+" WHERE user_name = '" + this.userName + "';";
+	try {
+		Statement statement = con.createStatement();
+		ResultSet queryResult = statement.executeQuery(getPassword);
+
+		while(queryResult.next()) {
+			this.password = queryResult.getString("password");
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
 	public static void main(String[] args) {
 		Login user = new Login();
 		user.userName = "JayMelon";
-		if(user.checkUserName()){
-		System.out.println(user.getUserSecurityQuestion());
-		
+		if(user.checkCurrentUserName()){
+			user.getCurrentUserSecurityQuestion();
+			user.getCurrentUserSecurityAnswer();
+			user.getCurrentUserPassword();
+
+		}else {
+			System.out.println("Failed");
 		}
 		
 	}
