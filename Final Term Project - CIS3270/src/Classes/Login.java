@@ -64,24 +64,14 @@ public class Login extends User {
 		}
 		return false;
 	}
-public void getUserSecurityQuestion() {
-	Connection con = FlightDatabase.getConnect();
-	String getSecurityQuestion = "SELECT security_question FROM Users WHERE user_name = '+"+this.userName+"';";
-	try {
-		Statement statement = con.createStatement();
-		ResultSet queryResult = statement.executeQuery(getSecurityQuestion);
-		while(queryResult.next()) {
-			System.out.println(queryResult.getString(0));
-		}
-	}catch(Exception e){
-		
-	}
-}
+	
 	public static void main(String[] args) {
-		Registration User = new Registration();
-		User.userName = "JayMelon";
-		System.out.println(User.checkUserName());
-		User.getSecurity_answer();
+		Login user = new Login();
+		user.userName = "JayMelon";
+		if(user.checkUserName()){
+		System.out.println(user.getUserSecurityQuestion());
+		
+		}
 		
 	}
 }
