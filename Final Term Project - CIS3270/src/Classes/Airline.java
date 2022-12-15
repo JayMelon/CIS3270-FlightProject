@@ -6,12 +6,7 @@ private String airlineName;
 public String getAirlineID() {
 	return airlineID;
 }
-public void setAirlineID(String airlineID) {
-	this.airlineID = airlineID;
-}
-public void setAirlineName(String airlineName) {
-	this.airlineName = airlineName;
-}
+
 
 public String generateID(Airline x) {
 	 String newId = this.airlineName.substring(0,1);
@@ -20,8 +15,5 @@ public String generateID(Airline x) {
 }
 
 public static void main(String[]args) {
-	Airline air1 = new Airline();
-	air1.setAirlineName("Elite");
-	System.out.println(air1.generateID(air1));
 }
 }
