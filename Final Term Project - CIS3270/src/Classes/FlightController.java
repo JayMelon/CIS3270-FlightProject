@@ -20,4 +20,9 @@ public List<Flight> populateFlights() {
 	
 	return flights;
 }
+public static void main(String[]arg) {
+	FlightController x = new FlightController();
+	x.flights.add(0, Fli
+	
+}
 }
