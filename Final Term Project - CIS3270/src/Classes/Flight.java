@@ -23,19 +23,20 @@ public class Flight extends Airline {
 	
 	public Button addFlight;
 	
-Flight(String flightID, String departDate, String departTime, String arrivalDate, String FromCityCode, String FromCity, String ToCityCode, String ToCity,String ArrivalTime, String ArrivalDate,  int Occupancy, int maxoccupy ){
-	this.flightID = flightID;
-	this.departDate = departDate;
-	this.departTime = departTime;
-	this.fromCityCode = FromCityCode;
-	this.fromCity = FromCity;
-	this.toCity = ToCity;
-	this.toCityCode = ToCityCode;
-	this.arrivalTime = ArrivalTime;
-	this.arrivalDate = ArrivalDate;
-	this.occupany = Occupancy;
-	this.capacity = maxoccupy;
-}
+Flight(String flightID, String departDate, String departTime, String FromCityCode, String FromCity, String ToCity, String ToCityCode ,String ArrivalTime, String ArrivalDate,  int Occupancy, int maxoccupy ){
+		this.flightID = flightID;
+		this.departDate = departDate;
+		this.departTime = departTime;
+		this.fromCityCode = FromCityCode;
+		this.fromCity = FromCity;
+		this.toCity = ToCity;
+		this.toCityCode = ToCityCode;
+		this.arrivalTime = ArrivalTime;
+		this.arrivalDate = ArrivalDate;
+		this.occupany = Occupancy;
+		this.capacity = maxoccupy;
+	}	
+	
 
 
 //Check if Flight is full, If full returns true else false. 

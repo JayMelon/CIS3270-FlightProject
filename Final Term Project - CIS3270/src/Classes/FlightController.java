@@ -22,7 +22,6 @@ public List<Flight> populateFlights() {
 }
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
-	x.flights.add(0, Fli
 	
 }
 }
