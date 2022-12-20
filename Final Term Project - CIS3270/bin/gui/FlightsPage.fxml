@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FlightsPageController">
    <children>
-      <Label fx:id="selectFlightLabel" alignment="CENTER" layoutX="20.0" layoutY="33.0" prefHeight="43.0" prefWidth="459.0" text="Select a flight" textAlignment="CENTER" textFill="#ffde22">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-      <ListView fx:id="flightListView" layoutX="51.0" layoutY="158.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
+      <ListView fx:id="flightsListView" layoutX="51.0" layoutY="212.0" prefHeight="346.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
-      <Button layoutX="214.0" layoutY="565.0" mnemonicParsing="false" onAction="#addUserFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
-      <DatePicker layoutX="275.0" layoutY="84.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
-      <TextField layoutX="51.0" layoutY="71.0" promptText="To City/Airport" style="-fx-background-color: ffde22;" />
-      <TextField layoutX="52.0" layoutY="117.0" promptText="From City/Airport" style="-fx-background-color: ffde22;" />
+      <Button fx:id="addFlightButton" layoutX="214.0" layoutY="565.0" mnemonicParsing="false" onAction="#addUserFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
+      <DatePicker fx:id="flightsDatePicker" layoutX="275.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="51.0" layoutY="166.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="51.0" layoutY="107.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="322.0" layoutY="166.0" prefHeight="27.0" prefWidth="81.0" />
+      <Label layoutX="100.0" layoutY="82.0" text="Flight To" textAlignment="CENTER" textFill="#ffde22" />
+      <Label layoutX="92.0" layoutY="141.0" text="Flight From" textAlignment="CENTER" textFill="#ffde22" />
+      <Label layoutX="331.0" layoutY="82.0" text="Flight Date" textAlignment="CENTER" textFill="#ffde22" />
+      <Label layoutX="329.0" layoutY="141.0" text="Flight Time" textAlignment="CENTER" textFill="#ffde22" />
    </children>
 </AnchorPane>

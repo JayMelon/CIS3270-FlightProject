@@ -63,11 +63,11 @@ public class LoginController implements Initializable {
 	private TextField securityATextField;
 	
 	//Fills in State and Security Question Choice Boxes with Options
-		@Override
-		public void initialize(URL url, ResourceBundle resourceBundle) {
-			securityQChoiceBox.getItems().addAll(securityQs);
-			stateChoiceBox.getItems().addAll(states);
-		}
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		securityQChoiceBox.getItems().addAll(securityQs);
+		stateChoiceBox.getItems().addAll(states);
+	}
 	
 	
 	// Event that logs the user into their account and sends them to the Main Menu
@@ -104,7 +104,7 @@ public class LoginController implements Initializable {
 				formFailureLabel.setText("");
 				System.out.println(Main.userType + Main.user + " is receiving their password");
 				if(alert.showAndWait().get() == ButtonType.OK) {
-					System.out.println(Main.userType + Main.user + " Got their password");
+					System.out.println(Main.userType + Main.user + " received their password");
 				}
 			} else if(passwordRecovery.checkCurrentUserName()) {
 				formFailureLabel.setText("Incorrect Security Answer");

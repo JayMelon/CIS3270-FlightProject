@@ -19,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
@@ -37,7 +39,10 @@ public class FlightsPageController implements Initializable {
 	int z = 0;
 	
 	@FXML
-	private ListView<String> flightListView;
+	private ListView<String> flightsListView;
+	
+	@FXML
+	private String[] flights = {};
 	
 	@FXML
 	private Label selectFlightLabel;
@@ -45,13 +50,12 @@ public class FlightsPageController implements Initializable {
 	@FXML
 	private Button addFlightButton;
 	
-	String[] flightsCode = {"ATL","PEK","LHR","ORD","HND","LAX","CDG","DFW","FRA","HKG","DEN","DXB","CGK","AMS","MAD",
-			"BKK","JFK","SIN","CAN","LAS","PVG","SFO","PHX","IAH","CLT","MIA","MUC","KUL","FCO","IST","SYD","MCO","ICN",
-			"DEL","BCN","LGW","EWR","YYZ","SHA","MSP","SEA","DTW","PHL","BOM","GRU","MNL","CTU","BOS","SZX","MEL","NRT",
-			"ORY","MEX","DME","AYT","TPE","ZRH","LGA","FLL","IAD","PMI","CPH","SVO","BWI","KMG","VIE","OSL","JED","BNE",
-			"SLC","DUS","BOG","MXP","JNB","ARN","MAN","MDW","DCA","BRU","DUB","GMP","DOH","STN","HGH","CJU","YVR","TXL",
-			"SAN","TPA","CGH","BSB","CTS","XMN","RUH","FUK","GIG","HEL","LIS","ATH","AKL"};	
-	String[] flightsCity = {"ATLANTA GA, US (ATL)","BEIJING, CN (PEK)","LONDON, GB (LHR)","CHICAGO IL, US (ORD)","TOKYO, JP (HND)",
+	@FXML
+	private ChoiceBox<String> flightsToChoiceBox;
+	@FXML
+	private ChoiceBox<String> flightsFromChoiceBox;
+	
+	private String[] flightsCity = {"ATLANTA GA, US (ATL)","BEIJING, CN (PEK)","LONDON, GB (LHR)","CHICAGO IL, US (ORD)","TOKYO, JP (HND)",
 			"LOS ANGELES CA, US (LAX)","PARIS, FR (CDG)","DALLAS/FORT WORTH TX, US (DFW)","FRANKFURT, DE (FRA)","HONG KONG, HK (HKG)",
 			"DENVER CO, US (DEN)","DUBAI, AE (DXB)","JAKARTA, ID (CGK)","AMSTERDAM, NL (AMS)","MADRID, ES (MAD)","BANGKOK, TH (BKK)",
 			"NEW YORK NY, US (JFK)","SINGAPORE, SG (SIN)","GUANGZHOU, CN (CAN)","LAS VEGAS NV, US (LAS)","SHANGHAI, CN (PVG)",
@@ -70,28 +74,30 @@ public class FlightsPageController implements Initializable {
 			"SÃO PAULO, BR (CGH)","BRASILIA, BR (BSB)","SAPPORO, JP (CTS)","XIAMEN, CN (XMN)","RIYADH, SA (RUH)","FUKUOKA, JP (FUK)",
 			"RIO DE JANEIRO, BR (GIG)","HELSINKI, FI (HEL)","LISBON, PT (LIS)","ATHENS, GR (ATH)","AUCKLAND, NZ (AKL)"};
 	
-	Calendar[] flightsDates; //= ;
+	@FXML
+	private DatePicker flightsDatePicker;
 	
-	String[] flights; //= ;
+	@FXML
+	private ChoiceBox<String> flightsTimeChoiceBox;
+	
+	private String[] flightsTimes = {"0","1","2","3","4","5","6","7","8","9","10",
+			"11","12","13","14","15","16","17","18","19","20","21","22","23"};
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		flightsListView.getItems().addAll(flights);
 		
-		flightListView.getItems().addAll(flights);
-		flightListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-				
-				currentFlight = flightListView.getSelectionModel().getSelectedItem();
-				selectFlightLabel.setText(currentFlight);
-				
-			}	
-		});
+		flightsToChoiceBox.getItems().addAll(flightsCity);
+		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
+		flightsFromChoiceBox.getItems().addAll(flightsCity);
+		flightsFromChoiceBox.setValue("CHICAGO OH, US (ORD)");
+		flightsTimeChoiceBox.getItems().addAll(flightsTimes);
+		flightsTimeChoiceBox.setValue("12");
+		flightsDatePicker.setValue(LocalDate.now());
 	}
 	
 	public void searchFlights(KeyEvent event) throws IOException {
-		
+		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {
