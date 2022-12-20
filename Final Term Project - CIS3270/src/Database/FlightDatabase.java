@@ -79,8 +79,20 @@ public static void Delete(String tablename, String column, String value) throws 
 		System.out.println(e);
 	}
 
-}	
-
+}
+//Converts the time String to sql format
+public static String convertDate(String date) {
+	String month = date.substring(0,2);
+	String day = date.substring(3, 5);
+	String year = date.substring(6,10);
+	return (year+"-"+month+"-"+day);
+	/*
+	String day =
+	String year =
+	
+	return date;
+	*/
+}
 
 
 }

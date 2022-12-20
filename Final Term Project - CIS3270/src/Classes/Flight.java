@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 
 public class Flight {
 	// Constants
-	public static final String databaseName = "Flight";
+	public static final String databaseName = "FlightData";
 	public static final String flightIDColName = "FlightID";
 	public static final String fromCityColName = "FromCity";
 	public static final String fromCityCodeColName = "FromCityCode";
