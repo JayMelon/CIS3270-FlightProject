@@ -7,8 +7,21 @@ import java.sql.Statement;
 import Database.FlightDatabase;
 import javafx.scene.control.Button;
 
-public class Flight extends Airline {
+public class Flight {
+	// Constants
 	public static final String databaseName = "Flight";
+	public static final String flightIDColName = "FlightID";
+	public static final String fromCityColName = "FromCity";
+	public static final String fromCityCodeColName = "FromCityCode";
+	public static final String departTimeColName = "DepartureTime";
+	public static final String departDateColName = "DepartureDate";
+	public static final String toCityColName = "ToCity";
+	public static final String toCityCodeColName = "ToCityCode";
+	public static final String arrivalTimeColName = "arrivalTime";
+	public static final String arrivalDateColName = "arrivalDate";
+	public static final String occupanyColName = "currentOccupancy";
+	public static final String capacityColName = "maxOccupancy";
+	// Properties
 	public String flightID;
 	public String fromCity;
 	public String fromCityCode;
@@ -20,10 +33,10 @@ public class Flight extends Airline {
 	public String arrivalDate;
 	public int occupany;
 	public int capacity;
-	
 	public Button addFlight;
-	
-Flight(String flightID, String departDate, String departTime, String FromCityCode, String FromCity, String ToCity, String ToCityCode ,String ArrivalTime, String ArrivalDate,  int Occupancy, int maxoccupy ){
+
+	public Flight(String flightID, String departDate, String departTime, String ArrivalDate, String ArrivalTime,
+			String FromCityCode, String FromCity, String ToCity, String ToCityCode, int Occupancy, int maxoccupy) {
 		this.flightID = flightID;
 		this.departDate = departDate;
 		this.departTime = departTime;
@@ -35,48 +48,61 @@ Flight(String flightID, String departDate, String departTime, String FromCityCod
 		this.arrivalDate = ArrivalDate;
 		this.occupany = Occupancy;
 		this.capacity = maxoccupy;
-	}	
-	
-
-
-//Check if Flight is full, If full returns true else false. 
-	public boolean checkFull() {
-		Connection con = FlightDatabase.getConnect();
-		String check = "SELECT Seats,capacity FROM " + Flight.databaseName + " WHERE FlightID='" + this.flightID + "';";
-		try {
-			System.out.println(check);
-			Statement statement = con.createStatement();
-			ResultSet queryResult = statement.executeQuery(check);
-			while (queryResult.next()) {
-				// If the seats is greater then Capacity return false
-				if (queryResult.getInt(2) < queryResult.getInt(1)) {
-					System.out.println("Searched flight has room");
-					return false;
-				} else {
-					System.out.println("Searched flight is full");
-					return true;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
-
-
-
-//Check if the Cities are valid. 
-	public Flight AddFlight() {
-		
-		return this;
-	}
-
-	public void EditFlight() {
+//Generates a row for the flight column
+	@Override
+	public String toString() {
+		return "FlightID: " + flightID + "\tdepartDate: " + departDate + "\tdepartTime: " + departDate
+				+ "\tArrivalDate: " + arrivalDate + "\tArrivalTime: " + arrivalTime + "\tFromCityCode: " + fromCityCode
+				+ "\tFromCity: " + fromCity + "\tToCity:  " + toCity + "\tToCityCode:  " + toCityCode + "\tOccupancy:  "
+				+ occupany + "\tCapacity:  " + capacity;
 
 	}
 
-	public void DeleteFlight() {
-
+//Getters
+	public String getFlightID() {
+		return flightID;
 	}
+
+	public String getFromCity() {
+		return fromCity;
+	}
+
+	public String getFromCityCode() {
+		return fromCityCode;
+	}
+
+	public String getDepartTime() {
+		return departTime;
+	}
+
+	public String getDepartDate() {
+		return departDate;
+	}
+
+	public String getToCity() {
+		return toCity;
+	}
+
+	public String getToCityCode() {
+		return toCityCode;
+	}
+
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public String getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public int getOccupany() {
+		return occupany;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
 }
