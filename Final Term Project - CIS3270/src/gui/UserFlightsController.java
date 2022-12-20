@@ -1,6 +1,9 @@
 package gui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 public class UserFlightsController {
@@ -16,32 +20,30 @@ public class UserFlightsController {
 	@FXML
 	private Button deleteFlightButton;
 	
+	@FXML
+	private ListView<String> userFlightsListView;
+	
+	private String[] userFlights = {};
+	
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		userFlightsListView.getItems().addAll(userFlights);
+	}
+	
 	public void deleteUserFlight(ActionEvent event) throws IOException {
-		//if(Main.userType == "[User]") {
-		//	selectFlightLabel.setText("Please Login before trying to add flights.");
-		//	System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
-		//} else if(flight is full) {
-		//	selectFlightLabel.setText("Flight is Full.");
-		//	System.out.println(Main.userType + Main.user + " tried to book a full flight");
-		//} else if(customer already booked this flight) {
-		//	selectFlightLabel.setText("You have already booked this flight.");
-		//	System.out.println(Main.userType + Main.user + " tried to book a flight they already had booked");
-		//} else if(flightTime overlaps with another flight user has) {
+		//if(userFlightsListView.getValue() = "") {
 		//	Alert alert = new Alert(AlertType.CONFIRMATION);
-		//	alert.setTitle("Flight Time Conflict");
-		//	alert.setHeaderText("You're about to book a flight that happens at the same time as another flight!");
-		//	alert.setContentText("Press OK to book it anyway or Cancel to look for a different flight");
-		//	System.out.println(Main.userType + Main.user + " is attempting to log out!");
+		//	alert.setTitle("Delete Flight Confirmation");
+		//	alert.setHeaderText("You're about to delete a flight booking!");
+		//	alert.setContentText("Press OK to delete the booking");
+		//	System.out.println(Main.userType + Main.user + " is attempting to delete a flight booking!");
 		//	if(alert.showAndWait().get() == ButtonType.OK) {
 		//		stage = (Stage) mainMenuScene.getScene().getWindow();
-		//		System.out.println(Main.userType + Main.user + " chose to book a flight with a time conflict");
+		//		System.out.println(Main.userType + Main.user + " chose to delete a flight booking!");
+		//		userFlightsListView.getValue() // Deletes This Flight
 		//	} else
-		//		System.out.println(Main.userType + Main.user + " chose not to book a flight with a time conflict");
-		//			
-		//} else {
-		//	adds flight to customer's list
-		//	adds customer to flight's list
-		//}
+		//		System.out.println(Main.userType + Main.user + " chose not to delete a flight booking!");
+		//} else
+		//	System.out.println(Main.userType + Main.user + " did not select a flight booking to delete!");
 	}
 	
 	private Stage stage;
