@@ -39,6 +39,9 @@ public class FlightsPageController implements Initializable {
 	int z = 0;
 	
 	@FXML
+	private Label flightPageErrorLabel;
+	
+	@FXML
 	private ListView<String> flightsListView;
 	
 	@FXML
@@ -98,6 +101,7 @@ public class FlightsPageController implements Initializable {
 	
 	public void searchFlights(KeyEvent event) throws IOException {
 		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
+		//flights = ;
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {
@@ -126,6 +130,19 @@ public class FlightsPageController implements Initializable {
 		//	adds flight to customer's list
 		//	adds customer to flight's list
 		//}
+	}
+	
+	public void switchToFlightEditor(ActionEvent event) throws IOException {
+		if(Main.userType == "[Admin]") {
+			System.out.println(Main.userType + Main.user + " is now viewing Flight Editor");
+		
+			root = FXMLLoader.load(getClass().getResource("FlightEditor.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} else
+			selectFlightLabel.setText("This button is for Admins only");
 	}
 	
 	public void switchToMainMenu(ActionEvent event) throws IOException {

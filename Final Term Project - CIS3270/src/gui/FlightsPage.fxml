@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FlightsPageController">
    <children>
@@ -13,12 +14,18 @@
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
       <Button fx:id="addFlightButton" layoutX="214.0" layoutY="565.0" mnemonicParsing="false" onAction="#addUserFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
       <DatePicker fx:id="flightsDatePicker" layoutX="275.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
-      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="51.0" layoutY="166.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="51.0" layoutY="107.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="322.0" layoutY="166.0" prefHeight="27.0" prefWidth="81.0" />
+      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="51.0" layoutY="166.0" prefWidth="150.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="51.0" layoutY="107.0" prefWidth="150.0" style="-fx-background-color: #ffde22;" />
+      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="322.0" layoutY="166.0" prefHeight="27.0" prefWidth="81.0" style="-fx-background-color: ffde22;" />
       <Label layoutX="100.0" layoutY="82.0" text="Flight To" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="92.0" layoutY="141.0" text="Flight From" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="331.0" layoutY="82.0" text="Flight Date" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="329.0" layoutY="141.0" text="Flight Time" textAlignment="CENTER" textFill="#ffde22" />
+      <Button layoutX="396.0" layoutY="565.0" mnemonicParsing="false" onAction="#switchToFlightEditor" style="-fx-background-color: #ffde22;" text="Flight Editor" />
+      <Label fx:id="flightPageErrorLabel" layoutX="225.0" layoutY="54.0" prefHeight="27.0" prefWidth="52.0" textAlignment="CENTER" textFill="#ffde22">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

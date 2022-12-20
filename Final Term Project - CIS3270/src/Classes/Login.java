@@ -28,7 +28,10 @@ public class Login extends User {
 			while (queryResult.next()) {
 				if (queryResult.getInt(1) == 1) {
 					// If Login was validated execute this line.
-					Main.userType = "[Customer]";
+					if(username == "Administrator")
+						Main.userType = "[Admin]";
+					else
+						Main.userType = "[Customer]";
 					Main.user = username;
 					System.out.println(Main.userType + Main.user + " has logged in!");
 				} else {

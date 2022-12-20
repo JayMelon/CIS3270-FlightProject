@@ -75,6 +75,7 @@ public class MenuController {
 	}
 	
 	public void switchToUserFlights(ActionEvent event) throws IOException {
+		if(Main.userType != "[User]") {
 		System.out.println(Main.userType + Main.user + " is now viewing User Flights Page");
 		
 		root = FXMLLoader.load(getClass().getResource("UserFlights.fxml"));
@@ -82,6 +83,10 @@ public class MenuController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		} else {
+			System.out.println(Main.userType + Main.user + " attempted to view the User Flights Page");
+		}
+			
 	}
 	
 	
