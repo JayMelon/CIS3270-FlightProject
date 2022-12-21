@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,9 +12,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import Classes.Flight;
 import Classes.FlightController;
+import Classes.User;
+import Database.FlightDatabase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +38,8 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -46,15 +54,32 @@ public class FlightsPageController implements Initializable {
 	private Label flightPageErrorLabel;
 	
 	@FXML
-	private ListView<String> flightsListView;
+	private TableView<Flight> flightsTableView;
+	@FXML
+	private TableColumn<Flight, String> flightToTableColumn;
+	@FXML
+	private TableColumn<Flight, String> flightFromTableColumn;
+	@FXML
+	private TableColumn<Flight, String> flightDepartureTimeTableColumn;
+	@FXML
+	private TableColumn<Flight, String> flightArrivalTimeTableColumn;
+	@FXML
+	private TableColumn<Flight, String> flightDepartureDateTableColumn;
+	@FXML
+	private TableColumn<Flight, String> flightArrivalDateTableColumn;
+	
+	ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 	
 	@FXML
-	private String[] flights = {};
+	private String[] flights = {"21","12"};
 	
 	private String selectedFlight;
 	
 	@FXML
 	private Label selectFlightLabel;
+	
+	@FXML
+	private Button searchFlightButton;
 	
 	@FXML
 	private Button addFlightButton;
@@ -94,18 +119,10 @@ public class FlightsPageController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		flightsListView.getItems().addAll(flights);
-		flightsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			
-			@Override
-			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-				
-				selectedFlight = flightsListView.getSelectionModel().getSelectedItem();
-				
-				flightPageErrorLabel.setText(selectedFlight);
-				
-			}	
-		});
+		
+		Connection con = FlightDatabase.getConnect();
+		
+		String flightViewQuery = ";
 		
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
@@ -126,7 +143,7 @@ public class FlightsPageController implements Initializable {
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		
 		//Populates Flight
-		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
+		flights = (String[]) userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), "2023-01-01", flightsTimeChoiceBox.getValue()).toArray();
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {

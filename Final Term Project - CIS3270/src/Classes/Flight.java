@@ -105,4 +105,43 @@ public class Flight {
 		return capacity;
 	}
 
+//Setters
+	public void setFlightID(String flightID) {
+		this.flightID = flightID;
+	}
+
+	public void setFromCity(String fromCity) {
+		this.fromCity = fromCity;
+	}
+
+	public void setFromCityCode(String fromCityCode) {
+		this.fromCityCode = fromCityCode;
+	}
+
+	public void setToCity(String toCity) {
+		this.toCity = toCity;
+	}
+
+	public void setToCityCode(String toCityCode) {
+		this.toCityCode = toCityCode;
+	}
+
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public void setArrivalDate(String arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public void setOccupany(int occupany) {
+		this.occupany = occupany;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	
+	
+
 }
