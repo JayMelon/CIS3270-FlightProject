@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import Classes.FlightController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -102,6 +104,9 @@ public class FlightsPageController implements Initializable {
 	public void searchFlights(KeyEvent event) throws IOException {
 		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
 		//flights = ;
+		FlightController userList = new FlightController();
+		//Populates Flight
+		userList.genTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue());
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {

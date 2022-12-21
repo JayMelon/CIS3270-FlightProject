@@ -14,12 +14,12 @@ public List<Flight> flights;
 
 
 
-FlightController() {
+public FlightController() {
 		flights = new ArrayList<Flight>();
 	}
 
 //Search method that pulls from DBS to fliter dbs 
-public void genTable(String toCity, String fromCity, String date, String time) {
+public List<Flight> genTable(String toCity, String fromCity, String date, String time) {
 	try {
 		Connection con = FlightDatabase.getConnect();	
 		String query = "SELECT * FROM "+Flight.databaseName+
@@ -30,6 +30,7 @@ public void genTable(String toCity, String fromCity, String date, String time) {
 				System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
+		//Creating new flight object 
 		Flight flight;
 		while(result.next()) {
 			flight= new Flight(
@@ -52,6 +53,7 @@ public void genTable(String toCity, String fromCity, String date, String time) {
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
+	return flights;
 }
 public void genTable() {
 	try {
@@ -84,8 +86,8 @@ public void genTable() {
 }
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
-	x.genTable("ATLANTA GA, US (ATL)","LONDON, GB (STN)","12/20/2022","12");
-
+System.out.println(x.genTable("LAS VEGAS NV, US (LAS)", "ATLANTA GA, US (ATL)","12/16/2022"
+		,""));
 	
 }
 }
