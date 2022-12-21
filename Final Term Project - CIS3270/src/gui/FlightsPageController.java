@@ -106,7 +106,7 @@ public class FlightsPageController implements Initializable {
 		//flights = ;
 		FlightController userList = new FlightController();
 		//Populates Flight
-		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue());
+		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue().toString(), flightsTimeChoiceBox.getValue());
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {

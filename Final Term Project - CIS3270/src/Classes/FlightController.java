@@ -57,7 +57,18 @@ public List<Flight> populateTable(String toCity, String fromCity, String date, S
 	}
 	return flights;
 }
-
+//Checks if the flight is full
+public boolean checkDuplicatedFlight() {
+	
+	return true;
+}
+//Checks if the flight is full
+public boolean checkCapacity(int col) {
+	int occupany = this.flights.get(col).occupany;
+	int capacity = this.flights.get(col).capacity;
+	return(occupany<capacity);
+}
+//Al
 public void bookFlight(String userid, int Flightcolumn) {
 	String flightID = this.flights.get(Flightcolumn).flightID;
 	String Query = "INSERT INTO Reservation("
@@ -80,7 +91,9 @@ public static void main(String[]arg) {
 	FlightController x = new FlightController();
 System.out.println(x.populateTable("LAS VEGAS NV, US (LAS)", "ATLANTA GA, US (ATL)","12/16/2022"
 		,""));
-x.bookFlight("3bb0db04-875b-4f47-a722-d9f8eab6c755", 1);
+if(x.checkCapacity(1)) {
+	x.bookFlight("3bb0db04-875b-4f47-a722-d9f8eab6c755", 1);
+}
 }
 
 }
