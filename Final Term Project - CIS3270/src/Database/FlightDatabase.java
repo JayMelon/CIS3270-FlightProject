@@ -54,7 +54,7 @@ public static void Insert(String tablename, String Columns, String values ) thro
 	posted.executeUpdate();
 	System.out.println("Insertion succeed");
 	}catch(Exception e){
-		System.out.println(e);
+		e.printStackTrace();
 		/*
 		 * 	FlightDatabase.Insert(
 			//Table name

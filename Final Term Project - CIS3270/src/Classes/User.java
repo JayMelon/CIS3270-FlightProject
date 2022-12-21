@@ -65,7 +65,7 @@ public abstract class User {
 		}
 		return true;
 	}
-
+	
 	public String getUserID() {
 		return userID;
 	}
