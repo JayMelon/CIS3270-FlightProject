@@ -49,6 +49,14 @@ public class Flight {
 		this.occupany = Occupancy;
 		this.capacity = maxoccupy;
 	}
+	public Flight(String flightID, String departDate, String departTime,
+			 String FromCity, String ToCity) {
+			this.flightID = flightID;
+			this.departDate = departDate;
+			this.departTime = departTime;
+			this.fromCity = FromCity;
+			this.toCity = ToCity;
+		}
 
 //Generates a row for the flight column
 	@Override

@@ -3,6 +3,8 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,10 +13,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import Classes.Flight;
 import Classes.FlightController;
 import Classes.User;
+import Classes.flyingData;
 import Database.FlightDatabase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,6 +43,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
@@ -119,7 +125,36 @@ public class FlightsPageController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+			System.out.println("Going into DBS");
+			Connection con = FlightDatabase.getConnect();
+			//SQL query 
+			String query = "SELECT TOP(100) FlightID, DepartureDate, DepartureTime, toCity, fromCity from FlightData;";
+			try {
+				Statement st = con.createStatement();
+				ResultSet result = st.executeQuery(query);
+				while (result.next()) {
+					String flightID = result.getString("FlightID");
+					String DepartureDate = result.getString("DepartureDate");
+					String DepartureTime = result.getString("DepartureTime");
+					String toCity = result.getString("toCity");
+					String fromCity = result.getString("fromCity");
+					//Populates the ObservableList
+					flightObservableList.add(new Flight(flightID,DepartureDate,DepartureTime,toCity,fromCity));
+				}
+				//PropertyValueFactory corresponds to the new Flight search fields
+				flightIDCol.setCellValueFactory(new PropertyValueFactory<>("flightID"));
+				departureDateCol.setCellValueFactory(new PropertyValueFactory<>("departDate"));
+				departureTimeCol.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+				toCityCol.setCellValueFactory(new PropertyValueFactory<>("FromCity"));
+				fromCityCol.setCellValueFactory(new PropertyValueFactory<>("ToCity"));
+				
+				tableView.setItems(flightSearch);
+			}catch(Exception e) {
+				Logger.getLogger(FlightSearchController.class.getName()).log(Level.SEVERE, null,e);
+				e.printStackTrace();
+			}
+
+		}
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
