@@ -20,7 +20,7 @@ public abstract class User {
 	public String socialSecurityNumber;
 	public String securityQuestion;
 	public String securityAnswer;
-	public String userType = "U";
+	public String userType;
 
 	public static final String databaseName = "Users";
 
