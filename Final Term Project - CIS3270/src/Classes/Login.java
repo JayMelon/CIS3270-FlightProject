@@ -22,32 +22,32 @@ public class Login extends User {
 		Connection con = FlightDatabase.getConnect();
 		// Creates a string of a query replace asking to SELECT a count of 1 where
 		// usertext and password text equal - Jay
-		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + username
-				+ "' AND password = '" + pass + "';";
+		String verifyLogin = "SELECT * from " + User.databaseName + " Where user_name = '" + username
+				+ "'";
 		try {
 			Statement statement = con.createStatement();
 			ResultSet queryResult = statement.executeQuery(verifyLogin);
-			while (queryResult.next()) {
-				if (queryResult.getInt(1) == 1) {
-					// If Login was validated execute this line.
-					if(username == "Administrator")
-						Main.userType = "[Admin]";
-					else
-						Main.userType = "[Customer]";
-					Main.user = username;
-					this.userName = username;
-					System.out.println(Main.userType + Main.user + " has logged in!");
-				} else {
-					// If login wasn't validated execute this line.
-					System.out.println(Main.userType + Main.user + " failed to login");
-				}
+			while (queryResult.next()) { 
+				userData.add(queryResult.getString("user_id"));
+				userData.add(queryResult.getString("user_name"));
+				userData.add(queryResult.getString("password"));
+				userData.add(queryResult.getString("user_Type"));
+			} if(pass.equals(userData.get(2))) {
+				//If entered password equals to the User
+				System.out.println("Logined");
+				System.out.println(userData);
+				//Sets the main to know that the userData.
+				Main.userType = userData.get(3);
+				Main.user = userData.get(1);
 			}
-			
+			else {
+				System.out.println("Failed");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
 
+	}
 //Checks if Username is Founded, If founded return True, else false. 
 	public boolean checkCurrentUserName() {
 		Connection con = FlightDatabase.getConnect();
@@ -128,16 +128,7 @@ public class Login extends User {
 
 	public static void main(String[] args) {
 		Login user = new Login();
-		user.userName = "JayMelon";
-		//If there is a Username under the Object (JayMelon) execute below. 
-		if (user.checkCurrentUserName()) {
-			//Returns the username's Security Question
-			System.out.println(user.getCurrentUserSecurityQuestion());
-			//Returns the username's Security Password
-			System.out.println(user.getCurrentUserPassword());
-			//Returns the username's Security Answer
-			System.out.println(user.getCurrentUserSecurityAnswer());
+		user.validateLogin("JayMelon","pass123");
 		}
 	}
 
-}
