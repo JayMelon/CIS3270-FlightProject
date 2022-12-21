@@ -120,10 +120,6 @@ public class FlightsPageController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		Connection con = FlightDatabase.getConnect();
-		
-		String flightViewQuery = ";
-		
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
