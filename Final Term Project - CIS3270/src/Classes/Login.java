@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import Database.FlightDatabase;
 import gui.LoginController;
@@ -16,7 +17,8 @@ import gui.Main;
 public class Login extends User {
 
 //Validates login by checking Database for specific username and password - Jay
-	public static void validateLogin(String username, String pass) {
+	public void validateLogin(String username, String pass) {
+		List<String> userData = new ArrayList<String>();
 		Connection con = FlightDatabase.getConnect();
 		// Creates a string of a query replace asking to SELECT a count of 1 where
 		// usertext and password text equal - Jay
@@ -33,12 +35,14 @@ public class Login extends User {
 					else
 						Main.userType = "[Customer]";
 					Main.user = username;
+					this.userName = username;
 					System.out.println(Main.userType + Main.user + " has logged in!");
 				} else {
 					// If login wasn't validated execute this line.
 					System.out.println(Main.userType + Main.user + " failed to login");
 				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

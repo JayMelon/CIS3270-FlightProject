@@ -72,7 +72,8 @@ public class LoginController implements Initializable {
 	
 	// Event that logs the user into their account and sends them to the Main Menu
 	public void login(ActionEvent event) throws IOException {
-		Login.validateLogin(usernameTextField.getText(), passwordField.getText());
+		Login currentUser = new Login();
+		currentUser.validateLogin(usernameTextField.getText(), passwordField.getText());
 		if(Main.userType != "[User]") {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
 			root = loader.load();	
