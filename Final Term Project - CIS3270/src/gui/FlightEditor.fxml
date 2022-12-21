@@ -13,10 +13,10 @@
       <ListView fx:id="flightsListView" layoutX="51.0" layoutY="212.0" prefHeight="79.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
       <Button fx:id="addFlightButton" layoutX="56.0" layoutY="531.0" mnemonicParsing="false" onAction="#addFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
-      <DatePicker fx:id="flightsDatePicker" layoutX="275.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
-      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="51.0" layoutY="166.0" prefWidth="150.0" style="-fx-background-color: ffde22;" />
-      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="51.0" layoutY="107.0" prefWidth="150.0" style="-fx-background-color: #ffde22;" />
-      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="322.0" layoutY="166.0" prefHeight="27.0" prefWidth="81.0" style="-fx-background-color: ffde22;" />
+      <DatePicker fx:id="flightsDatePicker" layoutX="275.0" layoutY="108.0" onAction="#searchFlights" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="51.0" layoutY="166.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefWidth="150.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="51.0" layoutY="107.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefWidth="150.0" style="-fx-background-color: #ffde22;" />
+      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="322.0" layoutY="166.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefHeight="27.0" prefWidth="81.0" style="-fx-background-color: ffde22;" />
       <Label layoutX="100.0" layoutY="82.0" text="Flight To" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="92.0" layoutY="141.0" text="Flight From" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="331.0" layoutY="82.0" text="Flight Date" textAlignment="CENTER" textFill="#ffde22" />

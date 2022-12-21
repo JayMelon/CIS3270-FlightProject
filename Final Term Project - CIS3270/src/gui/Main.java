@@ -17,6 +17,7 @@ public class Main extends Application {
 	
 	public static String userType = "[User]";
 	public static String user = "";
+	public static String userID = "";
 	
 	@Override
 	public void start(Stage stage) {

@@ -3,10 +3,12 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import Classes.FlightController;
@@ -49,6 +51,8 @@ public class FlightsPageController implements Initializable {
 	@FXML
 	private String[] flights = {};
 	
+	private String selectedFlight;
+	
 	@FXML
 	private Label selectFlightLabel;
 	
@@ -89,8 +93,19 @@ public class FlightsPageController implements Initializable {
 			"11","12","13","14","15","16","17","18","19","20","21","22","23"};
 	
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		flightsListView.getItems().addAll(flights);
+		flightsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+				
+				selectedFlight = flightsListView.getSelectionModel().getSelectedItem();
+				
+				flightPageErrorLabel.setText(selectedFlight);
+				
+			}	
+		});
 		
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
@@ -99,14 +114,19 @@ public class FlightsPageController implements Initializable {
 		flightsTimeChoiceBox.getItems().addAll(flightsTimes);
 		flightsTimeChoiceBox.setValue("12");
 		flightsDatePicker.setValue(LocalDate.now());
+		
 	}
 	
 	public void searchFlights(KeyEvent event) throws IOException {
 		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
 		//flights = ;
 		FlightController userList = new FlightController();
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+		String searchDate = dtf.format(flightsDatePicker.getValue());
+		
 		//Populates Flight
-		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue().toString(), flightsTimeChoiceBox.getValue());
+		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {
