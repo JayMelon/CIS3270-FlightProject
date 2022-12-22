@@ -14,20 +14,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MenuController {
 	
 	@FXML
-	private Button loginButton = new Button();
+	Button loginButton = new Button();
 	@FXML
-	private Button logoutButton;
+	Button logoutButton;
 	@FXML
-	private AnchorPane mainMenuScene;
+	AnchorPane mainMenuScene;
+	
+	@FXML
+	Label usernameLabel;
 	
 	
-	public void hideLogin() {
+	public void hideLogin(String user) {
+		usernameLabel.setText("Welcome: " + user);
 		loginButton.setVisible(false);
 		logoutButton.setVisible(true);
 	}
@@ -45,6 +50,9 @@ public class MenuController {
 			System.out.println(Main.userType + Main.user + " successfully logged out!");
 			Main.userType = "[User]";
 			Main.user = "";
+			usernameLabel.setText("");
+			loginButton.setVisible(true);
+			logoutButton.setVisible(false);
 		}
 	}
 	

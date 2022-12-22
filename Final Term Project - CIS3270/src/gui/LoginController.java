@@ -78,8 +78,11 @@ public class LoginController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
 			root = loader.load();	
 			MenuController menuController = loader.getController();
-			menuController.hideLogin();
-			switchToMainMenu(event);
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			menuController.hideLogin(Main.user);
 		} else
 			formFailureLabel.setText("Please enter a correct username and password combination");
 	}
