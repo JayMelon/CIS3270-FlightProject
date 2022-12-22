@@ -60,7 +60,7 @@ public class FlightsPageController implements Initializable {
 	private Label flightPageErrorLabel;
 	
 	@FXML
-	private TableView<Flight> flightsTableView;
+	private TableView<Flight> flightTableView = new TableView<Flight>();
 	@FXML
 	private TableColumn<Flight, String> flightToTableColumn;
 	@FXML
@@ -125,36 +125,35 @@ public class FlightsPageController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-			System.out.println("Going into DBS");
-			Connection con = FlightDatabase.getConnect();
-			//SQL query 
-			String query = "SELECT TOP(100) FlightID, DepartureDate, DepartureTime, toCity, fromCity from FlightData;";
-			try {
-				Statement st = con.createStatement();
-				ResultSet result = st.executeQuery(query);
-				while (result.next()) {
-					String flightID = result.getString("FlightID");
-					String DepartureDate = result.getString("DepartureDate");
-					String DepartureTime = result.getString("DepartureTime");
-					String toCity = result.getString("toCity");
-					String fromCity = result.getString("fromCity");
-					//Populates the ObservableList
-					flightObservableList.add(new Flight(flightID,DepartureDate,DepartureTime,toCity,fromCity));
-				}
-				//PropertyValueFactory corresponds to the new Flight search fields
-				flightIDCol.setCellValueFactory(new PropertyValueFactory<>("flightID"));
-				departureDateCol.setCellValueFactory(new PropertyValueFactory<>("departDate"));
-				departureTimeCol.setCellValueFactory(new PropertyValueFactory<>("departTime"));
-				toCityCol.setCellValueFactory(new PropertyValueFactory<>("FromCity"));
-				fromCityCol.setCellValueFactory(new PropertyValueFactory<>("ToCity"));
-				
-				tableView.setItems(flightSearch);
-			}catch(Exception e) {
-				Logger.getLogger(FlightSearchController.class.getName()).log(Level.SEVERE, null,e);
-				e.printStackTrace();
+		System.out.println("Going into DBS");
+		Connection con = FlightDatabase.getConnect();
+		//SQL query 
+		String query = "SELECT TOP(100) FlightID, DepartureDate, DepartureTime, toCity, fromCity from FlightData;";
+		try {
+			Statement st = con.createStatement();
+			ResultSet result = st.executeQuery(query);
+			while (result.next()) {
+				String flightID = result.getString("FlightID");
+				String DepartureDate = result.getString("DepartureDate");
+				String DepartureTime = result.getString("DepartureTime");
+				String toCity = result.getString("toCity");
+				String fromCity = result.getString("fromCity");
+				//Populates the ObservableList
+				flightObservableList.add(new Flight(flightID,DepartureDate,DepartureTime,toCity,fromCity));
 			}
-
+			//PropertyValueFactory corresponds to the new Flight search fields
+			//flightIDCol.setCellValueFactory(new PropertyValueFactory<>("flightID"));
+			flightDepartureDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("departDate"));
+			flightDepartureTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+			flightToTableColumn.setCellValueFactory(new PropertyValueFactory<>("FromCity"));
+			flightFromTableColumn.setCellValueFactory(new PropertyValueFactory<>("ToCity"));
+				
+			flightTableView.setItems(flightObservableList);
+		}catch(Exception e) {
+			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
+			e.printStackTrace();
 		}
+
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
@@ -174,7 +173,7 @@ public class FlightsPageController implements Initializable {
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		
 		//Populates Flight
-		flights = (String[]) userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), "2023-01-01", flightsTimeChoiceBox.getValue()).toArray();
+		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {
