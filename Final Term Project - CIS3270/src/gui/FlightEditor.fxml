@@ -4,13 +4,13 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FlightEditorController">
    <children>
-      <ListView fx:id="flightsListView" layoutX="51.0" layoutY="212.0" prefHeight="79.0" prefWidth="400.0" style="-fx-background-color: #2b3233;" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
       <Button fx:id="addFlightButton" layoutX="56.0" layoutY="531.0" mnemonicParsing="false" onAction="#addFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
       <DatePicker fx:id="flightsDatePicker" layoutX="275.0" layoutY="108.0" onAction="#searchFlights" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: ffde22;" />
@@ -47,5 +47,27 @@
       <Label layoutX="234.0" layoutY="429.0" text="Flight Departure Time" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="381.0" layoutY="429.0" text="Flight Arrival Time" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="69.0" layoutY="429.0" text="Current Occupancy" textAlignment="CENTER" textFill="#ffde22" />
+      <AnchorPane layoutX="15.0" layoutY="193.0" prefHeight="106.0" prefWidth="487.0">
+         <children>
+            <TableView fx:id="flightsTableView" layoutX="14.0" layoutY="7.0" prefHeight="99.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="7.0">
+               <columns>
+                  <TableColumn fx:id="flightToTableColumn" prefWidth="75.0" text="Flight To" />
+                  <TableColumn fx:id="flightFromTableColumn" prefWidth="75.0" text="Flight From" />
+                  <TableColumn fx:id="flightTimeTableColumn" prefWidth="75.0" text="Flight Time">
+                     <columns>
+                        <TableColumn fx:id="flightArrivalTimeTableColumn" prefWidth="75.0" text="Departure" />
+                        <TableColumn fx:id="flightDepartureTimeTableColumn" prefWidth="75.0" text="Arrival" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="flightDateTableColumn" prefWidth="75.0" text="Flight Date">
+                     <columns>
+                        <TableColumn fx:id="flightDepartureDateTableColumn" prefWidth="75.0" text="Departure" />
+                        <TableColumn fx:id="flightArrivalDateTableColumn" prefWidth="75.0" text="Arrival" />
+                     </columns>
+                  </TableColumn>
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
