@@ -34,7 +34,7 @@ public class Flight {
 	public int occupany;
 	public int capacity;
 	public Button addFlight;
-
+//Contructor that contains all Flight data.
 	public Flight(String flightID, String departDate, String departTime, String ArrivalDate, String ArrivalTime,
 			String FromCityCode, String FromCity, String ToCity, String ToCityCode, int Occupancy, int maxoccupy) {
 		this.flightID = flightID;
@@ -49,15 +49,24 @@ public class Flight {
 		this.occupany = Occupancy;
 		this.capacity = maxoccupy;
 	}
-	public Flight(String flightID, String departDate, String departTime,
-			 String FromCity, String ToCity) {
-			this.flightID = flightID;
-			this.departDate = departDate;
-			this.departTime = departTime;
-			this.fromCity = FromCity;
-			this.toCity = ToCity;
-		}
+//Contructor that contains Flight data visual to user.
+	public Flight(String fromCity, String toCity, String departTime, String arrivalTime, String departDate, String arrivalDate,
+			 int occupancy, int capacity) {
+		this.fromCityCode = fromCity;
+		this.departTime = departTime;
+		this.departDate = departDate;
+		this.toCityCode = toCity;
+		this.arrivalTime = arrivalTime;
+		this.arrivalDate = arrivalDate;
+		this.occupany = occupancy;
+		this.capacity = capacity;
+		
+	}
 
+
+	
+	
+	
 //Generates a row for the flight column
 	@Override
 	public String toString() {
@@ -68,6 +77,9 @@ public class Flight {
 
 	}
 
+
+	
+	
 //Getters
 	public String getFlightID() {
 		return flightID;
@@ -149,7 +161,5 @@ public class Flight {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	
-	
-
 }
+	

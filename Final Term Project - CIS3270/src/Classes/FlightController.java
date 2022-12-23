@@ -10,26 +10,33 @@ import java.util.List;
 import Database.FlightDatabase;
 import gui.Main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import Database.FlightDatabase;
+import gui.Main;
+
 public class FlightController{
 //Empty List of Flights
-public List<Flight> flights;
-
-
+public ArrayList<Flight> flights;
+//Empty List of Flights that will be shown to the user
+public ArrayList<Flight> visualFlights;
 
 public FlightController() {
 		flights = new ArrayList<Flight>();
+		visualFlights = new ArrayList<Flight>();
 	}
 
-//Search method that pulls from DBS to fliter dbs and returns the list
-public List<Flight> populateTable(String toCity, String fromCity, String date, String time) {
+//Returns an Array of flights contains all information
+public ArrayList<Flight> getFlightList() {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT * FROM "+Flight.databaseName+
-				" Where "+Flight.toCityColName+"= '"+toCity+
-				"' AND "+Flight.fromCityColName+"= '"+fromCity+
-				"' AND "+Flight.departDateColName+">= '"+FlightDatabase.convertDate(date)+
-				"' ORDER BY "+Flight.departDateColName;
-				System.out.println(query);
+		String query = "SELECT TOP(1) * FROM "+Flight.databaseName;
+		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
 		//Creating new flight object 
@@ -49,14 +56,41 @@ public List<Flight> populateTable(String toCity, String fromCity, String date, S
 					result.getInt(Flight.capacityColName)
 					);
 			flights.add(flight);
-		}
-		for(int i = 0;i<flights.size();i++) {
-		}
+			}
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
 	return flights;
 }
+
+
+public ArrayList<Flight> getVisibleFlightList(){
+	for(int i = 0;i<flights.size();i++) {
+		String fromCity = flights.get(i).getFromCityCode();
+		String toCity = flights.get(i).getToCityCode();
+		String departDate = flights.get(i).getDepartDate();
+		String arriveDate = flights.get(i).getArrivalDate();
+		String departTime = flights.get(i).getDepartTime();
+		String arriveTime = flights.get(i).getArrivalTime();
+		int occupancy = flights.get(i).getOccupany();
+		int capacity = flights.get(i).getCapacity();
+		
+		Flight visualFlight = new Flight(
+				fromCity, 
+				toCity, 
+				departDate, 
+				arriveDate, 
+				departTime, 
+				arriveTime, 
+				occupancy,
+				capacity
+				);
+		
+		visualFlights.add(visualFlight);
+	}
+	return visualFlights;
+}
+
 //Checks if the flight is full
 public boolean checkDuplicatedFlight() {
 	
@@ -89,11 +123,7 @@ public void bookFlight(String userid, int Flightcolumn) {
 }
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
-System.out.println(x.populateTable("LAS VEGAS NV, US (LAS)", "ATLANTA GA, US (ATL)","12/16/2022"
-		,""));
-if(x.checkCapacity(1)) {
-	x.bookFlight("3bb0db04-875b-4f47-a722-d9f8eab6c755", 1);
-}
-}
-
+	System.out.println(x.getFlightList());
+	System.out.println(x.getVisibleFlightList().get(0));
+	}
 }
