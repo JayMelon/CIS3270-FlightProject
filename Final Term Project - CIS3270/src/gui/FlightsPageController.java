@@ -2,15 +2,9 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,11 +12,6 @@ import java.util.logging.Logger;
 
 import Classes.Flight;
 import Classes.FlightController;
-import Classes.User;
-import Classes.flyingData;
-import Database.FlightDatabase;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,17 +21,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -61,25 +43,29 @@ public class FlightsPageController implements Initializable {
 	
 	@FXML
 	private TableView<Flight> flightTableView = new TableView<Flight>();
+	
 	@FXML
-	private TableColumn<Flight, String> flightToTableColumn;
+	private TableColumn<Flight, String> flightFromCityCodeCol;
 	@FXML
-	private TableColumn<Flight, String> flightFromTableColumn;
+	private TableColumn<Flight, String> flightToCityCodeCol;
 	@FXML
-	private TableColumn<Flight, String> flightDepartureTimeTableColumn;
+	private TableColumn<Flight, String> flightDepartTimeCol;
 	@FXML
-	private TableColumn<Flight, String> flightArrivalTimeTableColumn;
+	private TableColumn<Flight, String> flightArrivalTimeCol;
 	@FXML
-	private TableColumn<Flight, String> flightDepartureDateTableColumn;
+	private TableColumn<Flight, String> flightDepartDateCol;
 	@FXML
-	private TableColumn<Flight, String> flightArrivalDateTableColumn;
+	private TableColumn<Flight, String> flightArrivalDateCol;
+	@FXML
+	private TableColumn<Flight, Integer> flightOccupancyCol;
+	@FXML
+	private TableColumn<Flight, Integer> flightCapacityCol;
 	
 	ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 	
 	@FXML
 	private String[] flights = {"21","12"};
-	
-	private String selectedFlight;
+
 	
 	@FXML
 	private Label selectFlightLabel;
@@ -94,7 +80,7 @@ public class FlightsPageController implements Initializable {
 	private ChoiceBox<String> flightsToChoiceBox;
 	@FXML
 	private ChoiceBox<String> flightsFromChoiceBox;
-	
+	//Choice Box fill
 	private String[] flightsCity = {"ATLANTA GA, US (ATL)","BEIJING, CN (PEK)","LONDON, GB (LHR)","CHICAGO IL, US (ORD)","TOKYO, JP (HND)",
 			"LOS ANGELES CA, US (LAX)","PARIS, FR (CDG)","DALLAS/FORT WORTH TX, US (DFW)","FRANKFURT, DE (FRA)","HONG KONG, HK (HKG)",
 			"DENVER CO, US (DEN)","DUBAI, AE (DXB)","JAKARTA, ID (CGK)","AMSTERDAM, NL (AMS)","MADRID, ES (MAD)","BANGKOK, TH (BKK)",
@@ -125,29 +111,22 @@ public class FlightsPageController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("Going into DBS");
-		Connection con = FlightDatabase.getConnect();
-		//SQL query 
-		String query = "SELECT TOP(100) FlightID, DepartureDate, DepartureTime, toCity, fromCity from FlightData;";
-		try {
-			Statement st = con.createStatement();
-			ResultSet result = st.executeQuery(query);
-			while (result.next()) {
-				String flightID = result.getString("FlightID");
-				String DepartureDate = result.getString("DepartureDate");
-				String DepartureTime = result.getString("DepartureTime");
-				String toCity = result.getString("toCity");
-				String fromCity = result.getString("fromCity");
-				//Populates the ObservableList
-				flightObservableList.add(new Flight(flightID,DepartureDate,DepartureTime,toCity,fromCity));
-			}
+			try {
+				//Creates the Arraylist of Flights
+				FlightController Flights = new FlightController();
+				Flights.getFlightList();
+				//Populates the ObservableList with Flight that are visible to user. 
+				flightObservableList.addAll(Flights.getVisibleFlightList());
 			//PropertyValueFactory corresponds to the new Flight search fields
-			//flightIDCol.setCellValueFactory(new PropertyValueFactory<>("flightID"));
-			flightDepartureDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("departDate"));
-			flightDepartureTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("departTime"));
-			flightToTableColumn.setCellValueFactory(new PropertyValueFactory<>("FromCity"));
-			flightFromTableColumn.setCellValueFactory(new PropertyValueFactory<>("ToCity"));
-				
+			flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<>("FromCityCode"));
+			flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<>("ToCityCode"));
+			flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+			flightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<>("departDate"));
+			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
+			flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<>("Occupancy"));
+			flightCapacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+//Adds To Observable List
 			flightTableView.setItems(flightObservableList);
 		}catch(Exception e) {
 			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
@@ -163,17 +142,16 @@ public class FlightsPageController implements Initializable {
 		flightsDatePicker.setValue(LocalDate.now());
 		
 	}
-	
+	//Activates Event to search flight. 
+	//This needs to be apart of the FlightController Class, The reason why is because we need to keep updating the FlightController Array that holds the flight data. Not create a new one and have the table reference it. 
 	public void searchFlights(KeyEvent event) throws IOException {
-		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
-		//flights = ;
 		FlightController userList = new FlightController();
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		
-		//Populates Flight
-		userList.populateTable(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
+		//Returns an ArrayList of requested flights via Search bar
+		userList.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {

@@ -30,22 +30,27 @@
       <Button fx:id="searchFlightButton" layoutX="199.0" layoutY="179.0" mnemonicParsing="false" onAction="#searchFlights" style="-fx-background-color: #ffde22;" text="Search Flights" />
       <AnchorPane layoutX="5.0" layoutY="220.0" prefHeight="335.0" prefWidth="487.0">
          <children>
-            <TableView fx:id="flightsTableView" layoutX="20.0" prefHeight="335.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="flightTableView" layoutX="20.0" prefHeight="335.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="flightToTableColumn" prefWidth="75.0" text="Flight To" />
-                <TableColumn fx:id="flightFromTableColumn" prefWidth="75.0" text="Flight From" />
-                  <TableColumn fx:id="flightTimeTableColumn" prefWidth="75.0" text="Flight Time">
+                <TableColumn prefWidth="75.0" text="City">
                      <columns>
-                        <TableColumn fx:id="flightArrivalTimeTableColumn" prefWidth="75.0" text="Departure" />
-                        <TableColumn fx:id="flightDepartureTimeTableColumn" prefWidth="75.0" text="Arrival" />
+                        <TableColumn fx:id="flightFromCityCodeCol" prefWidth="39.33331298828125" text="From" />
+                      <TableColumn fx:id="flightToCityCodeCol" prefWidth="84.66665649414062" text="To" />
+                     </columns></TableColumn>
+                  <TableColumn fx:id="flightTimeTableColumn" prefWidth="71.33331298828125" text="Flight Time">
+                     <columns>
+                        <TableColumn fx:id="flightDepartTimeCol" prefWidth="50.0" text="Departure" />
+                        <TableColumn fx:id="flightArrivalTimeCol" prefWidth="45.3333740234375" text="Arrival" />
                      </columns>
                   </TableColumn>
-                  <TableColumn fx:id="flightDateTableColumn" prefWidth="75.0" text="Flight Date">
+                  <TableColumn fx:id="flightDateTableColumn" prefWidth="104.0" text="Flight Date">
                      <columns>
-                        <TableColumn fx:id="flightDepartureDateTableColumn" prefWidth="75.0" text="Departure" />
-                        <TableColumn fx:id="flightArrivalDateTableColumn" prefWidth="75.0" text="Arrival" />
+                        <TableColumn fx:id="flightDepartDateCol" prefWidth="47.3333740234375" text="Departure" />
+                        <TableColumn fx:id="flightArrivalDateCol" prefWidth="38.0" text="Arrival" />
                      </columns>
                   </TableColumn>
+                  <TableColumn fx:id="flightOccupancyCol" prefWidth="66.6666259765625" text="Occupancy" />
+                  <TableColumn fx:id="flightCapacityCol" prefWidth="72.33333333333331" text="Capacity" />
               </columns>
             </TableView>
          </children>

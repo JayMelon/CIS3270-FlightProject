@@ -26,7 +26,7 @@ public class Flight {
 	public String toCityCode;
 	public String arrivalTime;
 	public String arrivalDate;
-	public int occupany;
+	public int occupancy;
 	public int capacity;
 	public Button addFlight;
 //Contructor that contains all Flight data.
@@ -41,19 +41,19 @@ public class Flight {
 		this.toCityCode = ToCityCode;
 		this.arrivalTime = ArrivalTime;
 		this.arrivalDate = ArrivalDate;
-		this.occupany = Occupancy;
+		this.occupancy = Occupancy;
 		this.capacity = maxoccupy;
 	}
-//Contructor that contains Flight data visual to user.
+//Constructor that contains Flight data visual to user.
 	public Flight(String fromCity, String toCity, String departTime, String arrivalTime, String departDate, String arrivalDate,
 			 int occupancy, int capacity) {
 		this.fromCityCode = fromCity;
+		this.toCityCode = toCity;
 		this.departTime = departTime;
 		this.departDate = departDate;
-		this.toCityCode = toCity;
 		this.arrivalTime = arrivalTime;
 		this.arrivalDate = arrivalDate;
-		this.occupany = occupancy;
+		this.occupancy = occupancy;
 		this.capacity = capacity;
 		
 	}
@@ -68,7 +68,7 @@ public class Flight {
 		return "FlightID: " + flightID + "\tdepartDate: " + departDate + "\tdepartTime: " + departDate
 				+ "\tArrivalDate: " + arrivalDate + "\tArrivalTime: " + arrivalTime + "\tFromCityCode: " + fromCityCode
 				+ "\tFromCity: " + fromCity + "\tToCity:  " + toCity + "\tToCityCode:  " + toCityCode + "\tOccupancy:  "
-				+ occupany + "\tCapacity:  " + capacity;
+				+ occupancy + "\tCapacity:  " + capacity;
 
 	}
 
@@ -112,8 +112,8 @@ public class Flight {
 		return arrivalDate;
 	}
 
-	public int getOccupany() {
-		return occupany;
+	public int getOccupancy() {
+		return occupancy;
 	}
 
 	public int getCapacity() {
@@ -149,8 +149,8 @@ public class Flight {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public void setOccupany(int occupany) {
-		this.occupany = occupany;
+	public void setOccupancy(int occupancy) {
+		this.occupancy = occupancy;
 	}
 
 	public void setCapacity(int capacity) {

@@ -61,7 +61,7 @@ public ArrayList<Flight> getVisibleFlightList(){
 		String arriveDate = actualFlightData.get(i).getArrivalDate();
 		String departTime = actualFlightData.get(i).getDepartTime();
 		String arriveTime = actualFlightData.get(i).getArrivalTime();
-		int occupancy = actualFlightData.get(i).getOccupany();
+		int occupancy = actualFlightData.get(i).getOccupancy();
 		int capacity = actualFlightData.get(i).getCapacity();
 		
 		Flight visualFlight = new Flight(
@@ -91,7 +91,6 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 				+"' AND "
 				+Flight.departDateColName
 				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departTimeColName;
-		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
 		//Creating new flight object 
@@ -126,9 +125,9 @@ public boolean checkDuplicatedFlight() {
 }
 //Checks if the flight is full
 public boolean checkCapacity(int col) {
-	int occupany = this.actualFlightData.get(col).occupany;
+	int occupancy = this.actualFlightData.get(col).occupancy;
 	int capacity = this.actualFlightData.get(col).capacity;
-	return(occupany<capacity);
+	return(occupancy<capacity);
 }
 //Adds flight
 public void bookFlight(String userid, int Flightcolumn) {
