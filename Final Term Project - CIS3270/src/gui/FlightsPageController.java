@@ -154,9 +154,6 @@ public class FlightsPageController implements Initializable {
 		
 		//Returns an ArrayList of requested flights via Search bar
 		userList.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
-		System.out.println(userList.actualFlightData);
-		userList.getVisibleFlightList();
-		System.out.println(userList.visualFlightData);
 	}catch(Exception e) {
 		Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
 		e.printStackTrace();
