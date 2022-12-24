@@ -1,10 +1,5 @@
 package Classes;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import Database.FlightDatabase;
 import javafx.scene.control.Button;
 
 public class Flight {

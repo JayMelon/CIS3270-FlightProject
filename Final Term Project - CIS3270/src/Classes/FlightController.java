@@ -5,20 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import Database.FlightDatabase;
-import gui.Main;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-import Database.FlightDatabase;
-import gui.Main;
 
 public class FlightController{
 //Empty List of Flights
@@ -35,7 +24,7 @@ public FlightController() {
 public ArrayList<Flight> getFlightList() {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT TOP(1) * FROM "+Flight.databaseName;
+		String query = "SELECT TOP(100) * FROM "+Flight.databaseName;
 		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
@@ -55,12 +44,12 @@ public ArrayList<Flight> getFlightList() {
 					result.getInt(Flight.occupanyColName),
 					result.getInt(Flight.capacityColName)
 					);
-			flights.add(flight);
+			actualFlightData.add(flight);
 			}
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
-	return flights;
+	return actualFlightData;
 }
 
 //References the actual flight list and returns values not including FlightID,Flight city full names
@@ -94,21 +83,21 @@ public ArrayList<Flight> getVisibleFlightList(){
 public ArrayList<Flight> getFlightList(String fromCity,String toCity, String departDate, String departTime) {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT * FROM "+Flight.databaseName
+		String query = "SELECT TOP(100) * FROM "+Flight.databaseName
 				+" WHERE " +Flight.fromCityColName
-				+" = ' " +fromCity
+				+" = '" +fromCity
 				+"' AND "+Flight.toCityColName 
 				+"= '"+toCity
 				+"' AND "
 				+Flight.departDateColName
-				+">= '"+departDate+"'"+"ORDER BY "+Flight.departTimeColName;
+				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departTimeColName;
 		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
 		//Creating new flight object 
-		Flight flight;
+		Flight flightData;
 		while(result.next()) {
-			flight= new Flight(
+			flightData= new Flight(
 					result.getString(Flight.flightIDColName),
 					result.getString(Flight.departDateColName),
 					result.getString(Flight.departTimeColName),
@@ -121,12 +110,12 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 					result.getInt(Flight.occupanyColName),
 					result.getInt(Flight.capacityColName)
 					);
-			actualFlightData.add(flight);
+			this.actualFlightData.add(flightData);
 			}
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
-	return actualFlightData;
+	return this.actualFlightData;
 }
 
 

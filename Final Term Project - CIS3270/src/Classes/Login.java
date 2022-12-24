@@ -4,14 +4,12 @@ package Classes;
  * Class that are related to the login & forgot password Methods and such..
  */
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import Database.FlightDatabase;
-import gui.LoginController;
 import gui.Main;
 
 public class Login extends User {
