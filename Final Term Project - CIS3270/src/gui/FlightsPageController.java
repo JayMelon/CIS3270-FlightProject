@@ -136,7 +136,7 @@ public class FlightsPageController implements Initializable {
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
-		flightsFromChoiceBox.setValue("CHICAGO OH, US (ORD)");
+		flightsFromChoiceBox.setValue("CHICAGO IL, US (ORD)");
 		flightsTimeChoiceBox.getItems().addAll(flightsTimes);
 		flightsTimeChoiceBox.setValue("12");
 		flightsDatePicker.setValue(LocalDate.now());
@@ -144,14 +144,23 @@ public class FlightsPageController implements Initializable {
 	}
 	//Activates Event to search flight. 
 	//This needs to be apart of the FlightController Class, The reason why is because we need to keep updating the FlightController Array that holds the flight data. Not create a new one and have the table reference it. 
-	public void searchFlights(KeyEvent event) throws IOException {
+	public void searchFlights(ActionEvent event) throws IOException {
+		try {
+			
 		FlightController userList = new FlightController();
-		
+		//Formats Date correctly.
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		
 		//Returns an ArrayList of requested flights via Search bar
 		userList.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
+		System.out.println(userList.actualFlightData);
+		userList.getVisibleFlightList();
+		System.out.println(userList.visualFlightData);
+	}catch(Exception e) {
+		Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
+		e.printStackTrace();
+		}
 	}
 	
 	public void addUserFlight(ActionEvent event) throws IOException {

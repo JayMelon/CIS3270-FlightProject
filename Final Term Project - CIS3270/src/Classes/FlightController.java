@@ -151,6 +151,6 @@ public void bookFlight(String userid, int Flightcolumn) {
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
 	System.out.println(x.getFlightList("ATLANTA GA, US (ATL)","London, GB (STN)","2022-12-23","0"));
-	System.out.println(x.getVisibleFlightList().get(0).arrivalTime);
+	System.out.println(x.getVisibleFlightList().get(0).getDepartTime());
 	}
 }
