@@ -145,6 +145,7 @@ public void bookFlight(String userid, int Flightcolumn) {
 		System.out.println(Query);
 		System.out.println("Booking has succeeded");
 	}catch(Exception e){
+		
 		e.printStackTrace();
 	}
 }

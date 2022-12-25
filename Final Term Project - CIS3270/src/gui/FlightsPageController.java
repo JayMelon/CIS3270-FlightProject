@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -43,7 +44,6 @@ public class FlightsPageController implements Initializable {
 	
 	@FXML
 	private TableView<Flight> flightTableView;
-	
 	@FXML
 	private TableColumn<Flight, String> flightFromCityCodeCol;
 	@FXML
@@ -107,7 +107,6 @@ public class FlightsPageController implements Initializable {
 	
 	private String[] flightsTimes = {"0","1","2","3","4","5","6","7","8","9","10",
 			"11","12","13","14","15","16","17","18","19","20","21","22","23"};
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 			try {
@@ -140,8 +139,7 @@ public class FlightsPageController implements Initializable {
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		//Returns an ArrayList of requested flights via Search bar
 		
-		Flights.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
-		flightObservableList.addAll(Flights.getVisibleFlightList());
+		flightObservableList.addAll(Flights.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue()));
 		flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
 		flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
 		flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
@@ -160,10 +158,22 @@ public class FlightsPageController implements Initializable {
 	
 	// Adds a flight to the user's personal bookings, visible in the User Flights Page
 	public void addUserFlight(ActionEvent event) throws IOException {
-		//if(Main.userType == "[User]") {
-		//	selectFlightLabel.setText("Please Login before trying to add flights.");
-		//	System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
-		//} else if(flight is full) {
+		try {
+			
+		if(Main.userType == "[User]") {
+			String x = flightTableView.getSelectionModel().getSelectedItem().getFlightID();
+			System.out.println(x);
+			System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
+		}
+		}
+		catch(Exception e){
+			//If User searches flight without Populating or select data.
+			System.out.println("Try again");
+			
+		}
+	}	
+			
+		//	else if(flight is full) {
 		//	selectFlightLabel.setText("Flight is Full.");
 		//	System.out.println(Main.userType + Main.user + " tried to book a full flight");
 		//} else if(customer already booked this flight) {
@@ -185,7 +195,6 @@ public class FlightsPageController implements Initializable {
 		//	adds flight to customer's list
 		//	adds customer to flight's list
 		//}
-	}
 	
 	// Sends an Admin to the Flight editor Page
 	public void switchToFlightEditor(ActionEvent event) throws IOException {
