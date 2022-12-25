@@ -42,7 +42,7 @@ public class FlightsPageController implements Initializable {
 	private Label flightPageErrorLabel;
 	
 	@FXML
-	private TableView<Flight> flightTableView = new TableView<Flight>();
+	private TableView<Flight> flightTableView;
 	
 	@FXML
 	private TableColumn<Flight, String> flightFromCityCodeCol;
@@ -61,7 +61,6 @@ public class FlightsPageController implements Initializable {
 	@FXML
 	private TableColumn<Flight, Integer> flightCapacityCol;
 	
-	ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 	
 	@FXML
 	private String[] flights = {"21","12"};
@@ -113,22 +112,9 @@ public class FlightsPageController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 			try {
 				//Creates the Arraylist of Flights
-				FlightController Flights = new FlightController();
-				Flights.getFlightList();
 				//Populates the ObservableList with Flight that are visible to user. 
-				flightObservableList.addAll(Flights.getVisibleFlightList());
-			//PropertyValueFactory corresponds to the new Flight search fields
-			flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
-			flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
-			flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
-			flightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalTime"));
-			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
-			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
-			flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Occupancy"));
-			flightCapacityCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Capacity"));
 
 			//Adds To Observable List
-			flightTableView.setItems(flightObservableList);
 		}catch(Exception e) {
 			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
 			e.printStackTrace();
@@ -147,11 +133,25 @@ public class FlightsPageController implements Initializable {
 	//This needs to be apart of the FlightController Class, The reason why is because we need to keep updating the FlightController Array that holds the flight data. Not create a new one and have the table reference it. 
 	public void searchFlights(ActionEvent event) throws IOException {
 		try {
-		FlightController userList = new FlightController();
+		new TableView<Flight>();
+		ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
+		FlightController Flights = new FlightController();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		//Returns an ArrayList of requested flights via Search bar
-		userList.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
+		
+		Flights.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
+		flightObservableList.addAll(Flights.getVisibleFlightList());
+		flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
+		flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
+		flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
+		flightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalTime"));
+		flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
+		flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
+		flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Occupancy"));
+		flightCapacityCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Capacity"));
+		flightTableView.setItems(flightObservableList);
+		flightTableView.refresh();
 	}catch(Exception e) {
 		Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
 		e.printStackTrace();
