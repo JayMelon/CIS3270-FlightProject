@@ -15,10 +15,12 @@ import javafx.scene.control.ButtonType;
 
 public class Main extends Application {
 	
+	//Declares the type of user that is using the application and their username and user Id
 	public static String userType = "[User]";
 	public static String user = "";
 	public static String userID = "";
 	
+	//Initializes the Gilded Wings application
 	@Override
 	public void start(Stage stage) {
 		try {

@@ -126,7 +126,8 @@ public class FlightsPageController implements Initializable {
 			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
 			flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Occupancy"));
 			flightCapacityCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Capacity"));
-//Adds To Observable List
+
+			//Adds To Observable List
 			flightTableView.setItems(flightObservableList);
 		}catch(Exception e) {
 			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null,e);
@@ -157,6 +158,7 @@ public class FlightsPageController implements Initializable {
 		}
 	}
 	
+	// Adds a flight to the user's personal bookings, visible in the User Flights Page
 	public void addUserFlight(ActionEvent event) throws IOException {
 		//if(Main.userType == "[User]") {
 		//	selectFlightLabel.setText("Please Login before trying to add flights.");
@@ -185,6 +187,7 @@ public class FlightsPageController implements Initializable {
 		//}
 	}
 	
+	// Sends an Admin to the Flight editor Page
 	public void switchToFlightEditor(ActionEvent event) throws IOException {
 		if(Main.userType == "[Admin]") {
 			System.out.println(Main.userType + Main.user + " is now viewing Flight Editor");
@@ -198,13 +201,18 @@ public class FlightsPageController implements Initializable {
 			selectFlightLabel.setText("This button is for Admins only");
 	}
 	
+	// Sends the user to the Main Menu
 	public void switchToMainMenu(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
 		
-		root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
+		root = loader.load();	
+		MenuController menuController = loader.getController();
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		if (Main.userType != "[User]")
+			menuController.hideLogin(Main.user);
 	}
 }

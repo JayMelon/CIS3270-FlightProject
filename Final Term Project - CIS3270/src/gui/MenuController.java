@@ -30,13 +30,14 @@ public class MenuController {
 	@FXML
 	Label usernameLabel;
 	
-	
+	// Hides the login button, displays the logout button, and provides a welcome message to the user
 	public void hideLogin(String user) {
 		usernameLabel.setText("Welcome: " + user);
 		loginButton.setVisible(false);
 		logoutButton.setVisible(true);
 	}
 	
+	// Logs the user out of their account after a confirmation window
 	public void logout(ActionEvent event) {
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -62,6 +63,7 @@ public class MenuController {
 	private Scene scene;
 	private Parent root;
 	
+	// Sends the user to the login form
 	public void switchToLoginForm(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Login Form");
 		
@@ -72,6 +74,7 @@ public class MenuController {
 		stage.show();
 	}
 	
+	// Sends the user to the flights page
 	public void switchToFlightsPage(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Flights Page");
 		
@@ -82,6 +85,7 @@ public class MenuController {
 		stage.show();
 	}
 	
+	//Sends the user to their personal bookings page. Does not work if they are not logged in.
 	public void switchToUserFlights(ActionEvent event) throws IOException {
 		if(Main.userType != "[User]") {
 		System.out.println(Main.userType + Main.user + " is now viewing User Flights Page");

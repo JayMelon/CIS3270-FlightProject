@@ -108,6 +108,7 @@ public class FlightEditorController implements Initializable {
 			"75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100",
 			"101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120"};
 	
+	// Adds default values to the search boxes
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		flightsListView.getItems().addAll(flights);
@@ -157,7 +158,7 @@ public class FlightEditorController implements Initializable {
 		//deletes the above flight from the database
 	}
 	
-	
+	// sends the user to the flights page
 	public void switchToFlightsPage(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Flight Editor");
 		
@@ -168,13 +169,17 @@ public class FlightEditorController implements Initializable {
 		stage.show();
 	}
 	
+	// sends the user to the main menu
 	public void switchToMainMenu(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
 		
-		root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));	
+		root = loader.load();	
+		MenuController menuController = loader.getController();
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		menuController.hideLogin(Main.user);
 	}
 }
