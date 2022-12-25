@@ -24,7 +24,7 @@ public FlightController() {
 public ArrayList<Flight> getFlightList() {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT TOP(100) * FROM "+Flight.databaseName;
+		String query = "SELECT TOP(10) * FROM "+Flight.databaseName;
 		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
@@ -83,7 +83,7 @@ public ArrayList<Flight> getVisibleFlightList(){
 public ArrayList<Flight> getFlightList(String fromCity,String toCity, String departDate, String departTime) {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT TOP(100) * FROM "+Flight.databaseName
+		String query = "SELECT TOP(10) * FROM "+Flight.databaseName
 				+" WHERE " +Flight.fromCityColName
 				+" = '" +fromCity
 				+"' AND "+Flight.toCityColName 
