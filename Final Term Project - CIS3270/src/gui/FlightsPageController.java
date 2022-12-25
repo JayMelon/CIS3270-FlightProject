@@ -118,14 +118,14 @@ public class FlightsPageController implements Initializable {
 				//Populates the ObservableList with Flight that are visible to user. 
 				flightObservableList.addAll(Flights.getVisibleFlightList());
 			//PropertyValueFactory corresponds to the new Flight search fields
-			flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<>("FromCityCode"));
-			flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<>("ToCityCode"));
-			flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<>("departTime"));
-			flightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
-			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<>("departDate"));
-			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
-			flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<>("Occupancy"));
-			flightCapacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+			flightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
+			flightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
+			flightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
+			flightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalTime"));
+			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
+			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
+			flightOccupancyCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Occupancy"));
+			flightCapacityCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Capacity"));
 //Adds To Observable List
 			flightTableView.setItems(flightObservableList);
 		}catch(Exception e) {
@@ -146,12 +146,9 @@ public class FlightsPageController implements Initializable {
 	//This needs to be apart of the FlightController Class, The reason why is because we need to keep updating the FlightController Array that holds the flight data. Not create a new one and have the table reference it. 
 	public void searchFlights(ActionEvent event) throws IOException {
 		try {
-			
 		FlightController userList = new FlightController();
-		//Formats Date correctly.
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		String searchDate = dtf.format(flightsDatePicker.getValue());
-		
 		//Returns an ArrayList of requested flights via Search bar
 		userList.getFlightList(flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue());
 	}catch(Exception e) {
