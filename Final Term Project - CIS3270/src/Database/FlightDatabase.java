@@ -33,6 +33,7 @@ public static void createTable(String tablename) throws Exception{
 	}
 	System.out.println("Completed");
 }
+
 //Drop a table
 public static void DropTable(String tablename) throws Exception{
 	try {
@@ -84,17 +85,19 @@ public static void Delete(String tablename, String column, String value) throws 
 
 }
 //Converts the time String to sql format
-public static String convertDate(String date) {
-	String month = date.substring(0,2);
-	String day = date.substring(3, 5);
-	String year = date.substring(6,10);
-	return (year+"-"+month+"-"+day);
+public static String convertFromSql(String date) {
+	String year = date.substring(0,4);
+	String month = date.substring(5, 7);
+	String day = date.substring(8,10);
+	System.out.println(year);
+	return (year+"/"+month+"/"+day);
 	/*
 	String day =
 	String year =
 	
 	return date;
 	*/
+	
 }
 
 

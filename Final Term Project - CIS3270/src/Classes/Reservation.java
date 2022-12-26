@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Database.FlightDatabase;
 import gui.Main;
@@ -16,6 +18,57 @@ public static final String flightIdColName = "flight_id";
 public static final String userIdColName = "user_id";
 public static final String orderId = "order_id";
 
+//Time related method/functions
+
+
+//Grabs the string and converts the time to hours
+public static int hoursToInt(String time) {
+	time = time.substring(0,2);
+	time = time.replaceAll("0", "");
+	int newInt = Integer.parseInt(time);
+	return newInt;
+}
+
+//Returns Date with hours added
+public static Date getDateFromHoursAway(Date startingDate, int hours) {
+    long startingMillis = startingDate.getTime();
+    // Resolves the current ms/second/minute/hour/day added by some amount
+    long currentDay = startingMillis / 1000 / 60 / 60;
+    long futureTimeMillis = (currentDay + hours) * 60 * 60 * 1000;
+    return new Date(futureTimeMillis);
+}
+//Converts Date yyyy-dd-mm to yyyy/MM/dd in a DateObject
+public static Date convertToDate(String date) throws Exception {
+	date = FlightDatabase.convertFromSql(date);
+	Date newdate = new SimpleDateFormat("yyyy/MM/dd").parse(date);
+	return newdate;
+}
+public static boolean checkTimeConflict(String date1, String time1, String date2, String time2, String dateCheck, String timeCheck) throws Exception {
+	//Converting sql date to format for Date Class, Times to hours
+	Date minDate = Reservation.convertToDate(date1);
+	Date maxDate = Reservation.convertToDate(date2);
+	int minTime = Reservation.hoursToInt(time1);
+	int maxTime = Reservation.hoursToInt(time2);
+	Date currentDate = Reservation.convertToDate(dateCheck);
+	int currentTime = Reservation.hoursToInt(timeCheck);
+	currentDate = Reservation.getDateFromHoursAway(currentDate, currentTime);
+	minDate = Reservation.getDateFromHoursAway(minDate, minTime);
+	maxDate = Reservation.getDateFromHoursAway(maxDate, maxTime);
+	if((currentDate.getTime() >= minDate.getTime()) && (maxDate.getTime()<= maxDate.getTime())) {
+		return true;
+} else {
+		return false;
+	}
+}
+
+
+
+
+//Creates a random Order ID that goes to DBS;
+public static int randomID() {
+	return (int)(Math.random()*1000000);
+}
+//Need to work on to hold current user information 
 public Reservation(String userID) {
 	new ArrayList<Flight>();
 	try {
@@ -28,19 +81,10 @@ public Reservation(String userID) {
 		e.printStackTrace();
 	}
 }
-
-
-
-
-
-//Creates a random Order ID;
-public static int randomID() {
-	return (int)(Math.random()*1000000);
-}
+//Need to work on - Need to have it refer to an Array.
 private static void incrementOccupancy(String flightID) {
 	Connection con = FlightDatabase.getConnect();
 	String query = "Select ("+Flight.occupanyColName+") from FlightData where " +Flight.flightIDColName+"= '"+flightID+"'";
-	
 	try {
 		Statement statement = con.createStatement();
 		ResultSet queryResult = statement.executeQuery(query);
@@ -54,6 +98,7 @@ private static void incrementOccupancy(String flightID) {
 	}	
 }
 
+//Need to work on - Need to have it refer to an Array.
 public static boolean checkduplicatedFlight(String userID, String flightID) {
 	Connection con = FlightDatabase.getConnect();
 	String query = "SELECT COUNT(flight_id) FROM Reservation Where flight_id = '"+flightID+"' AND user_id = '"+userID+"'";
@@ -96,7 +141,8 @@ public static void bookFlight(String userid, String flightID) {
 	}
 }
 
-public static void main(String[]arg) {
+public static void main(String[]arg) throws Exception {
+
 	
 }
 

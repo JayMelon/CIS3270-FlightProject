@@ -68,7 +68,6 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departTimeColName;
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		//Creating new flight object 
 		Flight flightData;
 		while(result.next()) {
@@ -100,19 +99,23 @@ public boolean checkCapacity(int col) {
 	int capacity = this.actualFlightData.get(col).capacity;
 	return(occupancy<capacity);
 }
+//Counts the amount of hours 
 public static Date getDateFromHoursAway(Date startingDate, int hours) {
     long startingMillis = startingDate.getTime();
-    // Resolves the current ms/second/minute/hour/day added by some amount
+    // Resolves the current ms/second/minute/hour/day 
     long currentDay = startingMillis / 1000 / 60 / 60;
     long futureTimeMillis = (currentDay + hours) * 60 * 60 * 1000;
     return new Date(futureTimeMillis);
 }
-//Adds flight
-public static void main(String[]arg) {
-	FlightController x = new FlightController();
-	System.out.println(x.getFlightList("ATLANTA GA, US (ATL)","London, GB (STN)","2022-12-23","0").get(1).getArrivalTime());
-	System.out.println(x.actualFlightData.get(2).getArrivalTime());
 
+
+//Adds flight
+public static void main(String[]arg) throws Exception {
+	FlightController x = new FlightController();
+	String tdate = x.getFlightList("ATLANTA GA, US (ATL)","CHICAGO IL, US (ORD)","2022-12-26","0").get(0).getArrivalDate();
+	Date wx = Reservation.convertToDate(tdate);
+	System.out.println(wx);
+	System.out.println(wx.getTime());
 	
 	}
 }
