@@ -2,7 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -135,6 +135,7 @@ public class FlightsPageController implements Initializable {
 		ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 		FlightController Flights = new FlightController();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+	
 		String searchDate = dtf.format(flightsDatePicker.getValue());
 		//Returns an ArrayList of requested flights via Search bar
 		

@@ -1,10 +1,12 @@
 package Classes;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Database.FlightDatabase;
 
@@ -66,15 +68,16 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departTimeColName;
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		//Creating new flight object 
 		Flight flightData;
 		while(result.next()) {
 			flightData= new Flight(
 					result.getString(Flight.flightIDColName),
 					result.getString(Flight.departDateColName),
-					result.getString(Flight.departTimeColName),
+					result.getString(Flight.departTimeColName).substring(0,8),
 					result.getString(Flight.arrivalDateColName),
-					result.getString(Flight.arrivalTimeColName),
+					result.getString(Flight.arrivalTimeColName).substring(0,8),
 					result.getString(Flight.fromCityCodeColName),
 					result.getString(Flight.fromCityColName),
 					result.getString(Flight.toCityCodeColName),
@@ -97,11 +100,19 @@ public boolean checkCapacity(int col) {
 	int capacity = this.actualFlightData.get(col).capacity;
 	return(occupancy<capacity);
 }
-
+public static Date getDateFromHoursAway(Date startingDate, int hours) {
+    long startingMillis = startingDate.getTime();
+    // Resolves the current ms/second/minute/hour/day added by some amount
+    long currentDay = startingMillis / 1000 / 60 / 60;
+    long futureTimeMillis = (currentDay + hours) * 60 * 60 * 1000;
+    return new Date(futureTimeMillis);
+}
 //Adds flight
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
 	System.out.println(x.getFlightList("ATLANTA GA, US (ATL)","London, GB (STN)","2022-12-23","0").get(1).getArrivalTime());
 	System.out.println(x.actualFlightData.get(2).getArrivalTime());
+
+	
 	}
 }
