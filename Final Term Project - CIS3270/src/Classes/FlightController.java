@@ -52,33 +52,6 @@ public ArrayList<Flight> getFlightList() {
 	return actualFlightData;
 }
 
-//References the actual flight list and returns values not including FlightID,Flight city full names
-public ArrayList<Flight> getVisibleFlightList(){
-	for(int i = 0;i<actualFlightData.size();i++) {
-		String fromCity = actualFlightData.get(i).getFromCityCode();
-		String toCity = actualFlightData.get(i).getToCityCode();
-		String departDate = actualFlightData.get(i).getDepartDate();
-		String arriveDate = actualFlightData.get(i).getArrivalDate();
-		String departTime = actualFlightData.get(i).getDepartTime();
-		String arriveTime = actualFlightData.get(i).getArrivalTime();
-		int occupancy = actualFlightData.get(i).getOccupancy();
-		int capacity = actualFlightData.get(i).getCapacity();
-		
-		Flight visualFlight = new Flight(
-				fromCity, 
-				toCity, 
-				departDate, 
-				arriveDate, 
-				departTime, 
-				arriveTime, 
-				occupancy,
-				capacity
-				);
-		
-		visualFlightData.add(visualFlight);
-	}
-	return visualFlightData;
-}
 //Returns an ArrayList in a searched fashion - Updates the flights array.
 public ArrayList<Flight> getFlightList(String fromCity,String toCity, String departDate, String departTime) {
 	try {
@@ -119,39 +92,16 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 
 
 //Checks if the flight is full
-public boolean checkDuplicatedFlight() {
-	
-	return true;
-}
-//Checks if the flight is full
 public boolean checkCapacity(int col) {
 	int occupancy = this.actualFlightData.get(col).occupancy;
 	int capacity = this.actualFlightData.get(col).capacity;
 	return(occupancy<capacity);
 }
+
 //Adds flight
-public void bookFlight(String userid, int Flightcolumn) {
-	String flightID = this.actualFlightData.get(Flightcolumn).flightID;
-	String Query = "INSERT INTO Reservation("
-			+Reservation.orderId+","
-			+Reservation.flightIdColName+","
-			+Reservation.userIdColName+")"
-			+" Values"+"('"+Reservation.randomID()+"','"
-			+flightID+"','"+userid+"')";
-	try {
-		Connection con = FlightDatabase.getConnect();
-		PreparedStatement posted = con.prepareStatement(Query);
-		posted.executeUpdate();
-		System.out.println(Query);
-		System.out.println("Booking has succeeded");
-	}catch(Exception e){
-		
-		e.printStackTrace();
-	}
-}
 public static void main(String[]arg) {
 	FlightController x = new FlightController();
-	System.out.println(x.getFlightList("ATLANTA GA, US (ATL)","London, GB (STN)","2022-12-23","0"));
-	System.out.println(x.getVisibleFlightList().get(0).getDepartTime());
+	System.out.println(x.getFlightList("ATLANTA GA, US (ATL)","London, GB (STN)","2022-12-23","0").get(1).getArrivalTime());
+	System.out.println(x.actualFlightData.get(2).getArrivalTime());
 	}
 }

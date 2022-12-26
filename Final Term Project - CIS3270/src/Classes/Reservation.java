@@ -1,16 +1,103 @@
 package Classes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import Database.FlightDatabase;
+import gui.Main;
+
 public class Reservation {
+public ArrayList<Flight> userFlights;
 public static final String databaseName = "Reservation";
 public static final String flightIdColName = "flight_id";
 public static final String userIdColName = "user_id";
 public static final String orderId = "order_id";
+
+public Reservation(String userID) {
+	new ArrayList<Flight>();
+	try {
+		Connection con = FlightDatabase.getConnect();
+		String query = "Select ("+flightIdColName+") from "+databaseName+" where "+userIdColName+"= '"+userID+"'";
+		
+		
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+}
+
+
+
+
+
+//Creates a random Order ID;
 public static int randomID() {
 	return (int)(Math.random()*1000000);
 }
+private static void incrementOccupancy(String flightID) {
+	Connection con = FlightDatabase.getConnect();
+	String query = "Select ("+Flight.occupanyColName+") from FlightData where " +Flight.flightIDColName+"= '"+flightID+"'";
+	
+	try {
+		Statement statement = con.createStatement();
+		ResultSet queryResult = statement.executeQuery(query);
+		while (queryResult.next()) { 
+			int x = queryResult.getInt(1);
+			System.out.println(x);
+			}
+	}catch(Exception e) {
+		System.out.println("Failed while incrementing");
+		e.printStackTrace();
+	}	
+}
+
+public static boolean checkduplicatedFlight(String userID, String flightID) {
+	Connection con = FlightDatabase.getConnect();
+	String query = "SELECT COUNT(flight_id) FROM Reservation Where flight_id = '"+flightID+"' AND user_id = '"+userID+"'";
+	try {
+		Statement statement = con.createStatement();
+		ResultSet queryResult = statement.executeQuery(query);
+		while (queryResult.next()) { 
+			if(queryResult.getInt(1)>=1) {
+				System.out.println("User has a dupilcated flight");
+				return true;
+			}
+		}
+	}catch(Exception e) {
+		System.out.println("Failed while checking dupilcatedFlight");
+		e.printStackTrace();
+	}
+	System.out.println("User hasn't booked this flight");
+	return false;
+}
+
+
+//Adds flight
+public static void bookFlight(String userid, String flightID) {
+	String Query = "INSERT INTO Reservation("
+			+Reservation.orderId+","
+			+Reservation.flightIdColName+","
+			+Reservation.userIdColName+")"
+			+" Values"+"('"+Reservation.randomID()+"','"
+			+flightID+"','"+userid+"')";
+	System.out.println(Query);
+	try {
+		Connection con = FlightDatabase.getConnect();
+		PreparedStatement posted = con.prepareStatement(Query);
+		posted.executeUpdate();
+		System.out.println(Query);
+		System.out.println(Main.user+" has successfully booked");
+	}catch(Exception e){
+		
+		e.printStackTrace();
+	}
+}
+
 public static void main(String[]arg) {
 	
-	System.out.println(randomID());
 }
 
 }
