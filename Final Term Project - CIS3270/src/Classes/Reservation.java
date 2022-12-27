@@ -43,6 +43,7 @@ public static Date convertToDate(String date) throws Exception {
 	Date newdate = new SimpleDateFormat("yyyy/MM/dd").parse(date);
 	return newdate;
 }
+//Checks time and date to see if the time is between the Departure and Arrival Date.
 public static boolean checkTimeConflict(String date1, String time1, String date2, String time2, String dateCheck, String timeCheck) throws Exception {
 	//Converting sql date to format for Date Class, Times to hours
 	Date minDate = Reservation.convertToDate(date1);
@@ -145,17 +146,7 @@ public static void bookFlight(String userid, String flightID) {
 }
 
 public static void main(String[]arg) throws Exception {
-	String departdate1 = "2022-12-16";
-	String departtime1 = "14:00:00";
-	String arrivalDate = "2022-12-16";
-	String arrivalTime = "16:00:00";
-	String bookedDate = "2022-12-16";
-	String bookedTime = "15:00:00";
-	if(Reservation.checkTimeConflict(departdate1, departtime1, arrivalDate, arrivalTime, bookedDate, bookedTime)) {
-		System.out.println("COnflict");
-	}else {
-		System.out.println("No");
-	}
+
 }
 
 }
