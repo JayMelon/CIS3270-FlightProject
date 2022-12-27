@@ -106,9 +106,16 @@ public Reservation(String orderID,String flightID,String user_id) {
 	this.flightID = orderID;
 	this.userID = user_id;
 }
+
+//
 public Reservation() {
 	
 }
+
+
+
+
+
 //Returns an ArrayList of Reservations for the current user.
 public ArrayList<Reservation> getUserReseverations(String userID) {
 	try {

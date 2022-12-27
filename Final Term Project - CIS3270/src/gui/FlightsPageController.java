@@ -162,7 +162,7 @@ public class FlightsPageController implements Initializable {
 	// Adds a flight to the user's personal bookings, visible in the User Flights Page
 	public void addUserFlight(ActionEvent event) throws IOException {
 		try {
-			//Checks if user is logged in. If user hasn't logged in execute this here.	
+			//Checks if user is logged in. If user hasn't logged in execute this here. 
 			if(Main.userType == "[User]") {
 				System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
 			}
