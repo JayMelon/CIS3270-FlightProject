@@ -25,10 +25,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class FlightsPageController implements Initializable {
@@ -159,27 +162,42 @@ public class FlightsPageController implements Initializable {
 	// Adds a flight to the user's personal bookings, visible in the User Flights Page
 	public void addUserFlight(ActionEvent event) throws IOException {
 		try {
-		//Checks if user is logged in. If user hasn't logged in execute this here.	
-		if(Main.userType == "[User]") {
-			System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
-		}
-		//If any other user(Customer or Admin execute this) 
-		else {
-			//Gets the flightID from the selected column in gui
-			String x = flightTableView.getSelectionModel().getSelectedItem().getFlightID();
-			//Checks Reservation DBS to see if user has booked the requested flight.
-			if(Reservation.checkduplicatedFlight(Main.userID, x)) {
-				System.out.println("You already booked this flight");
-			}else {
+			//Checks if user is logged in. If user hasn't logged in execute this here.	
+			if(Main.userType == "[User]") {
+				System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
+			}
+			//If any other user(Customer or Admin execute this) 
+			else {
+				//Gets the flightID from the selected column in gui
+				String x = flightTableView.getSelectionModel().getSelectedItem().getFlightID();
+				//Checks Reservation DBS to see if user has booked the requested flight.
+				if(Reservation.checkduplicatedFlight(Main.userID, x)) {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Duplicate Flight");
+					alert.setHeaderText("You have already booked this flight");
+					alert.setContentText("You cannot book a duplicate flight.");
+					System.out.println(Main.userType + Main.user + " is attempting to book a duplicate flight!");
+				
+					if(alert.showAndWait().get() == ButtonType.OK){
+						System.out.println(Main.userType + Main.user + " already booked this flight");
+					}
+				}else {
 				Reservation.bookFlight(Main.userID, x);
-				System.out.println(Main.user+"Has booked flight "+x);
+				System.out.println(Main.userType + Main.user + " has booked flight " + x);
+				}
 			}
 		}
-		}
+
 		catch(Exception e){
 			//If User searches flight without Populating or select data.
-			System.out.println("Try again");
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("No Selection Made");
+			alert.setHeaderText("Please select a flight.");
+			System.out.println(Main.userType + Main.user + " has not selected a flight");
 			
+			if(alert.showAndWait().get() == ButtonType.OK){
+				System.out.println(Main.userType + Main.user + " will try again.");
+			}
 		}
 	}	
 			

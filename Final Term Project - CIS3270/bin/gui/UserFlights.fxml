@@ -8,7 +8,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserFlightsController">
    <children>
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
-      <Button fx:id="deleteUserFlightButton" layoutX="224.0" layoutY="536.0" mnemonicParsing="false" onAction="#deleteUserFlight" text="Button" />
+      <Button fx:id="deleteUserFlightButton" layoutX="208.0" layoutY="536.0" mnemonicParsing="false" onAction="#deleteUserFlight" style="-fx-background-color: ffde22;" text="Delete Flight" />
       <AnchorPane layoutX="6.0" layoutY="132.0" prefHeight="335.0" prefWidth="487.0">
          <children>
             <TableView fx:id="flightsTableView" layoutX="20.0" prefHeight="335.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
