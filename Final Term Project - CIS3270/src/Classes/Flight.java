@@ -57,8 +57,10 @@ public class Flight {
 		this.capacity = capacity;
 		
 	}
-
-
+//Constructor that contains Flight data only flightID
+	public Flight(String flightID) {
+		this.flightID = flightID;
+	}
 	
 	
 	

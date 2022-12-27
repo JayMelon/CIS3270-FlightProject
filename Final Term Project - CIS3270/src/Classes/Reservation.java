@@ -12,13 +12,44 @@ import Database.FlightDatabase;
 import gui.Main;
 
 public class Reservation {
-public ArrayList<Flight> userFlights;
+public ArrayList<Reservation> userReservationData = new ArrayList<Reservation>();
+public ArrayList<Flight> thisUserFlightData = new ArrayList<Flight>();
 public static final String databaseName = "Reservation";
 public static final String flightIdColName = "flight_id";
 public static final String userIdColName = "user_id";
-public static final String orderId = "order_id";
+public static final String orderIdColName = "order_id";
 
+public String orderID;
+public String flightID;
+public String userID;
+
+
+//Getters/Setters
+public String getOrderID() {
+	return orderID;
+}
+
+public void setOrder_id(String order_id) {
+	this.orderID = order_id;
+}
+
+public String getFlightID() {
+	return flightID;
+}
+
+public void setFlightID(String flight_id) {
+	this.flightID = flight_id;
+}
+
+public String getUserID() {
+	return userID;
+}
+
+public void setUser_id(String user_id) {
+	this.userID = user_id;
+}
 //Time related method/functions
+
 
 
 //Grabs the string and converts the time to hours
@@ -65,25 +96,39 @@ public static boolean checkTimeConflict(String date1, String time1, String date2
 	}
 }
 
-
-
-
 //Creates a random Order ID that goes to DBS;
 public static int randomID() {
 	return (int)(Math.random()*1000000);
 }
 //Need to work on to hold current user information 
-public Reservation(String userID) {
-	new ArrayList<Flight>();
+public Reservation(String orderID,String flightID,String user_id) {
+	this.orderID = orderID;
+	this.flightID = orderID;
+	this.userID = user_id;
+}
+public Reservation() {
+	
+}
+//Returns an ArrayList of Reservations for the current user.
+public ArrayList<Reservation> getUserReseverations(String userID) {
 	try {
+		Reservation userData;
+		//Adds all FlightID for object to hold. 
 		Connection con = FlightDatabase.getConnect();
-		String query = "Select ("+flightIdColName+") from "+databaseName+" where "+userIdColName+"= '"+userID+"'";
-		
-		
-		
+		String query = "Select * from "+databaseName+" where "+userIdColName+"= '"+userID+"'";
+		Statement statement = con.createStatement();
+		ResultSet queryResult = statement.executeQuery(query);
+		while (queryResult.next()) { 
+		userData = new Reservation(
+				queryResult.getString(orderIdColName),
+				queryResult.getString(flightIdColName),
+				userID);	
+		this.userReservationData.add(userData);
+		}
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
+	return this.userReservationData;
 }
 //Need to work on - Need to have it refer to an Array.
 private static void incrementOccupancy(String flightID) {
@@ -127,7 +172,7 @@ public static boolean checkduplicatedFlight(String userID, String flightID) {
 //Adds flight
 public static void bookFlight(String userid, String flightID) {
 	String Query = "INSERT INTO Reservation("
-			+Reservation.orderId+","
+			+Reservation.orderIdColName+","
 			+Reservation.flightIdColName+","
 			+Reservation.userIdColName+")"
 			+" Values"+"('"+Reservation.randomID()+"','"
@@ -146,7 +191,9 @@ public static void bookFlight(String userid, String flightID) {
 }
 
 public static void main(String[]arg) throws Exception {
-
+Reservation x = new Reservation();
+x.getUserReseverations("fb530758-924f-472d-867b-00b400b766b1");
+System.out.println(x.userReservationData.get(0).getFlightID());
 }
 
 }
