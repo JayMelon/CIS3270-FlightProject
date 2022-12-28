@@ -38,9 +38,9 @@ public class UserFlightsController implements Initializable{
 	@FXML
 	private TableView<Flight> userFlightsTableView;
 	@FXML
-	private TableColumn<Flight, String> flightFromCityCol;
+	private TableColumn<Flight, String> flightFromCityCodeCol;
 	@FXML
-	private TableColumn<Flight, String> flightToCityCol;
+	private TableColumn<Flight, String> flightToCityCodeCol;
 	@FXML
 	private TableColumn<Flight, String> flightDepartTimeCol;
 	@FXML
@@ -61,7 +61,7 @@ public class UserFlightsController implements Initializable{
 			Logger.getLogger(UserFlightsController.class.getName()).log(Level.SEVERE, null, e);
 			e.printStackTrace();
 		}
-			/*new TableView<Flight>();
+			new TableView<Flight>();
 			ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 			Reservation userFlights = new Reservation(Main.userID);
 			userFlights.getUserFlightIDs();
@@ -75,7 +75,7 @@ public class UserFlightsController implements Initializable{
 			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
 			userFlightsTableView.setItems(flightObservableList);
 			userFlightsTableView.refresh();
-			*/
+			
 	}
 	public void deleteUserFlight(ActionEvent event) throws IOException {
 		//if(userFlightsListView.getValue() = "") {
