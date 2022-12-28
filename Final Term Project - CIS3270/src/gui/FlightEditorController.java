@@ -5,6 +5,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import Classes.Flight;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -28,7 +32,23 @@ public class FlightEditorController implements Initializable {
 	int z = 0;
 	
 	@FXML
-	private ListView<String> flightsListView;
+	private TableView<Flight> flightTableView;
+	@FXML
+	private TableColumn<Flight, String> flightFromCityCodeCol;
+	@FXML
+	private TableColumn<Flight, String> flightToCityCodeCol;
+	@FXML
+	private TableColumn<Flight, String> flightDepartTimeCol;
+	@FXML
+	private TableColumn<Flight, String> flightArrivalTimeCol;
+	@FXML
+	private TableColumn<Flight, String> flightDepartDateCol;
+	@FXML
+	private TableColumn<Flight, String> flightArrivalDateCol;
+	@FXML
+	private TableColumn<Flight, Integer> flightOccupancyCol;
+	@FXML
+	private TableColumn<Flight, Integer> flightCapacityCol;
 	
 	@FXML
 	private String[] flights = {};

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import Classes.Flight;
 import Classes.FlightController;
 import Classes.Reservation;
+import Database.FlightDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,10 +22,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -50,7 +54,7 @@ public class UserFlightsController implements Initializable{
 	@FXML
 	private TableColumn<Flight, String> flightArrivalDateCol;
 
-	
+	Alert alert = new Alert(AlertType.CONFIRMATION);
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg) {
@@ -78,6 +82,34 @@ public class UserFlightsController implements Initializable{
 			
 	}
 	public void deleteUserFlight(ActionEvent event) throws IOException {
+		try {
+			Reservation currentUser = new Reservation(Main.userID);
+			// Gets the flightID from the selected column in gui
+			String x = userFlightsTableView.getSelectionModel().getSelectedItem().getFlightID();
+			int selectedOccupancy = userFlightsTableView.getSelectionModel().getSelectedItem().getOccupancy();
+			
+			alert.setTitle("Cancel Confirmation");
+			alert.setHeaderText("Are you sure you want to cancel this flight?");
+			alert.setContentText("Click OK to cancel the flight");
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				currentUser.cancelFlight(Main.userID, x, selectedOccupancy);
+				System.out.println(Main.userType + Main.user + " has canceled flight " + x);
+				alert.setTitle("Flight Canceled");
+				alert.setHeaderText("You are no longer booked for this flight");
+				alert.setContentText("");
+				if (alert.showAndWait().get() == ButtonType.OK)
+					System.out.println("");
+			}
+		} catch (Exception e) {
+			// If User searches flight without Populating or select data.
+			alert.setTitle("No Selection Made");
+			alert.setHeaderText("Please select a flight.");
+			alert.setContentText("");
+			System.out.println(Main.userType + Main.user + " has not selected a flight");
+			if (alert.showAndWait().get() == ButtonType.OK)
+				System.out.println(Main.userType + Main.user + " will try again.");
+		}
+		
 		//if(userFlightsListView.getValue() = "") {
 		//	Alert alert = new Alert(AlertType.CONFIRMATION);
 		//	alert.setTitle("Delete Flight Confirmation");

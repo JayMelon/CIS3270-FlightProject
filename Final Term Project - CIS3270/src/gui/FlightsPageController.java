@@ -64,9 +64,6 @@ public class FlightsPageController implements Initializable {
 	private TableColumn<Flight, Integer> flightCapacityCol;
 
 	@FXML
-	private String[] flights = { "21", "12" };
-
-	@FXML
 	private Label selectFlightLabel;
 
 	@FXML
