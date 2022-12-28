@@ -5,26 +5,26 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserFlightsController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserFlightsController">
    <children>
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
       <Button fx:id="deleteUserFlightButton" layoutX="208.0" layoutY="536.0" mnemonicParsing="false" onAction="#deleteUserFlight" style="-fx-background-color: ffde22;" text="Delete Flight" />
       <AnchorPane layoutX="6.0" layoutY="132.0" prefHeight="335.0" prefWidth="487.0">
          <children>
-            <TableView fx:id="flightsTableView" layoutX="20.0" prefHeight="335.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="userFlightsTableView" layoutX="20.0" prefHeight="335.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
                <columns>
-                  <TableColumn fx:id="flightToTableColumn" prefWidth="75.0" text="Flight To" />
-                  <TableColumn fx:id="flightFromTableColumn" prefWidth="75.0" text="Flight From" />
+                  <TableColumn fx:id="flightToCityCodeCol" prefWidth="75.0" text="Flight To" />
+                  <TableColumn fx:id="flightFromCityCodeCol" prefWidth="75.0" text="Flight From" />
                   <TableColumn fx:id="flightTimeTableColumn" prefWidth="75.0" text="Flight Time">
                      <columns>
-                        <TableColumn fx:id="flightArrivalTimeTableColumn" prefWidth="75.0" text="Departure" />
-                        <TableColumn fx:id="flightDepartureTimeTableColumn" prefWidth="75.0" text="Arrival" />
+                        <TableColumn fx:id="flightDepartTimeCol" prefWidth="75.0" text="Departure" />
+                        <TableColumn fx:id="flightArrivalTimeCol" prefWidth="75.0" text="Arrival" />
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="flightDateTableColumn" prefWidth="75.0" text="Flight Date">
                      <columns>
-                        <TableColumn fx:id="flightDepartureDateTableColumn" prefWidth="75.0" text="Departure" />
-                        <TableColumn fx:id="flightArrivalDateTableColumn" prefWidth="75.0" text="Arrival" />
+                        <TableColumn fx:id="flightDepartDateCol" prefWidth="75.0" text="Departure" />
+                        <TableColumn fx:id="flightArrivalDateCol" prefWidth="75.0" text="Arrival" />
                      </columns>
                   </TableColumn>
                </columns>
@@ -32,4 +32,4 @@
          </children>
       </AnchorPane>
    </children>
-</AnchorPane>
+</fx:root>
