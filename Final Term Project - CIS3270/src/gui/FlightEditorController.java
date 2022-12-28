@@ -3,10 +3,17 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import Classes.Flight;
+import Classes.FlightController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -32,33 +40,31 @@ public class FlightEditorController implements Initializable {
 	int z = 0;
 	
 	@FXML
-	private TableView<Flight> flightTableView;
+	private TableView<Flight> adminFlightTableView;
 	@FXML
-	private TableColumn<Flight, String> flightFromCityCodeCol;
+	private TableColumn<Flight, String> adminFlightFromCityCodeCol;
 	@FXML
-	private TableColumn<Flight, String> flightToCityCodeCol;
+	private TableColumn<Flight, String> adminFlightToCityCodeCol;
 	@FXML
-	private TableColumn<Flight, String> flightDepartTimeCol;
+	private TableColumn<Flight, String> adminFlightDepartTimeCol;
 	@FXML
-	private TableColumn<Flight, String> flightArrivalTimeCol;
+	private TableColumn<Flight, String> adminFlightArrivalTimeCol;
 	@FXML
-	private TableColumn<Flight, String> flightDepartDateCol;
+	private TableColumn<Flight, String> adminFlightDepartDateCol;
 	@FXML
-	private TableColumn<Flight, String> flightArrivalDateCol;
+	private TableColumn<Flight, String> adminFlightArrivalDateCol;
 	@FXML
-	private TableColumn<Flight, Integer> flightOccupancyCol;
+	private TableColumn<Flight, Integer> adminFlightOccupancyCol;
 	@FXML
-	private TableColumn<Flight, Integer> flightCapacityCol;
+	private TableColumn<Flight, Integer> adminFlightCapacityCol;
 	
-	@FXML
-	private String[] flights = {};
-	
-	@FXML
+	/*@FXML
 	private Label selectFlightLabel;
-	
+	*/
+	@FXML
+	private Button searchFlightButton;
 	@FXML
 	private Button addFlightButton;
-	
 	@FXML
 	private ChoiceBox<String> flightsToChoiceBox;
 	@FXML
@@ -119,12 +125,10 @@ public class FlightEditorController implements Initializable {
 	// Adds default values to the search boxes
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		flightsListView.getItems().addAll(flights);
-		
 		flightsToChoiceBox.getItems().addAll(flightsCity);
 		flightsToChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
-		flightsFromChoiceBox.setValue("CHICAGO OH, US (ORD)");
+		flightsFromChoiceBox.setValue("CHICAGO IL, US (ORD)");
 		flightsTimeChoiceBox.getItems().addAll(flightsTimes);
 		flightsTimeChoiceBox.setValue("12");
 		flightsDatePicker.setValue(LocalDate.now());
@@ -139,9 +143,31 @@ public class FlightEditorController implements Initializable {
 		
 	}
 	
-	public void searchFlights(KeyEvent event) throws IOException {
-		//flightsToChoiceBox.getValue(), flightsFromChoiceBox.getValue(), flightsDatePicker.getValue(), flightsTimeChoiceBox.getValue()
-		//flights = ;
+	public void searchFlights(ActionEvent event) throws IOException {
+		try {
+			new TableView<Flight>();
+			ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
+			FlightController adminFlights = new FlightController();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+
+			String searchDate = dtf.format(flightsDatePicker.getValue());
+			// Returns an ArrayList of requested flights via Search bar
+			flightObservableList.addAll(adminFlights.getFlightList(flightsToChoiceBox.getValue(),
+					flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue()));
+			adminFlightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
+			adminFlightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
+			adminFlightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
+			adminFlightArrivalTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalTime"));
+			adminFlightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
+			adminFlightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
+			adminFlightOccupancyCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Occupancy"));
+			adminFlightCapacityCol.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("Capacity"));
+			adminFlightTableView.setItems(flightObservableList);
+			adminFlightTableView.refresh();
+		} catch (Exception e) {
+			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null, e);
+			e.printStackTrace();
+		}
 	}
 	
 	public void addFlight(ActionEvent event) throws IOException {

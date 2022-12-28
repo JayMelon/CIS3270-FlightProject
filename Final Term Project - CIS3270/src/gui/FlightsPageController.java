@@ -273,18 +273,24 @@ public class FlightsPageController implements Initializable {
 
 	// Sends an Admin to the Flight editor Page
 	public void switchToFlightEditor(ActionEvent event) throws IOException {
-		if (Main.userType == "[Admin]") {
+		try {
+		if (Main.userType .equals("[Admin]")) {
 			System.out.println(Main.userType + Main.user + " is now viewing Flight Editor");
-
 			root = FXMLLoader.load(getClass().getResource("FlightEditor.fxml"));
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-		} else
-			selectFlightLabel.setText("This button is for Admins only");
+		}
+		//IF User isn't an Admin.
+		else {
+			System.out.println(Main.userType +"Attempted to open flight editor");
+		}
 	}
-
+	catch(Exception e) {
+		System.out.println(Main.userType +"Attempted to open flight editor");
+	}
+	}
 	// Sends the user to the Main Menu
 	public void switchToMainMenu(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
