@@ -113,6 +113,8 @@ public class FlightsPageController implements Initializable {
 
 	private String[] flightsTimes = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
 			"15", "16", "17", "18", "19", "20", "21", "22", "23" };
+	
+	Alert alert = new Alert(AlertType.CONFIRMATION);
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -177,22 +179,32 @@ public class FlightsPageController implements Initializable {
 			int selectedCapacity = flightTableView.getSelectionModel().getSelectedItem().getCapacity();
 			currentUser = new Reservation(Main.userID);
 			if (Main.userType == "[User]") {
-				// If user trys booking a flight without logging in.
+				// If user tries booking a flight without logging in.
 				System.out.println(Main.userType + Main.user + " tried to book a flight without logging in");
-			} else if (Reservation.checkduplicatedFlight(Main.userID, x)) {
-				// Checks Reservation DBS to see if user has booked the requested flight.
+				
 				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Log in to Book");
+				alert.setHeaderText("You must Log in to book a flight");
+				if (alert.showAndWait().get() == ButtonType.OK)
+					System.out.println(Main.userType + Main.user + " will try again.");
+				
+			}else if (Reservation.checkduplicatedFlight(Main.userID, x)) {
+				// Checks Reservation DBS to see if user has booked the requested flight.
 				alert.setTitle("Duplicate Flight");
 				alert.setHeaderText("You have already booked this flight");
 				alert.setContentText("You cannot book a duplicate flight.");
-				System.out.println(Main.userType + Main.user + " is attempting to book a duplicate flight!");
-				if (alert.showAndWait().get() == ButtonType.OK) {
-					System.out.println(Main.userType + Main.user + " already booked this flight");
-				}
-			}
-			else if(selectedOccupancy>=selectedCapacity) {
+				System.out.println(Main.userType + Main.user + " tried to book a duplicate flight");
+				if (alert.showAndWait().get() == ButtonType.OK)
+					System.out.println(Main.userType + Main.user + " will try again.");
+			}else if(selectedOccupancy>=selectedCapacity) {
 				//If flight is full
-				System.out.println(Main.user + " Flight is full");
+				System.out.println(Main.userType + Main.user + " tried to book a full flight");
+				
+				alert.setTitle("Log in to Book");
+				alert.setHeaderText("You must Log in to book a flight");
+				alert.setContentText("");
+				if (alert.showAndWait().get() == ButtonType.OK)
+					System.out.println(Main.userType + Main.user + " will try again.");
 			}
 			// If user has flights
 			else if (currentUser.hasFlights()) {
@@ -208,29 +220,28 @@ public class FlightsPageController implements Initializable {
 					//If There is not conflict go and book
 					currentUser.bookFlight(Main.userID, x,selectedOccupancy);
 					System.out.println(Main.userType + Main.user + " has booked flight " + x);
-				} else {
+				}else {
 					//If is not conflict 
-					System.out.println(Main.user+"has Conflicting flight");
+					System.out.println(Main.userType + Main.user + "has Conflicting flight");
+					alert.setTitle("Flight Conflict");
+					alert.setHeaderText("This flight has a conflict with another previously-booked flight");
+					alert.setContentText("");
+					if (alert.showAndWait().get() == ButtonType.OK)
+						System.out.println(Main.userType + Main.user + " will try again.");
 				}
-			} 
-			else {
+			}else {
 				//Books flight if everything passes.
 				currentUser.bookFlight(Main.userID, x,selectedOccupancy);
 				System.out.println(Main.userType + Main.user + " has booked flight " + x);
-
 			}
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			// If User searches flight without Populating or select data.
-			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("No Selection Made");
 			alert.setHeaderText("Please select a flight.");
+			alert.setContentText("");
 			System.out.println(Main.userType + Main.user + " has not selected a flight");
-
-			if (alert.showAndWait().get() == ButtonType.OK) {
+			if (alert.showAndWait().get() == ButtonType.OK)
 				System.out.println(Main.userType + Main.user + " will try again.");
-			}
 		}
 	}
 

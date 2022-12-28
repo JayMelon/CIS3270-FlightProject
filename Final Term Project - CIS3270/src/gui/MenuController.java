@@ -30,6 +30,8 @@ public class MenuController {
 	@FXML
 	Label usernameLabel;
 	
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	
 	// Hides the login button, displays the logout button, and provides a welcome message to the user
 	public void hideLogin(String user) {
 		usernameLabel.setText("Welcome: " + user);
@@ -96,7 +98,12 @@ public class MenuController {
 		stage.setScene(scene);
 		stage.show();
 		} else {
-			System.out.println(Main.userType + Main.user + " attempted to view the User Flights Page");
+			System.out.println(Main.userType + Main.user + " attempted to view the User Flights Page without logging in");
+			alert.setTitle("Log in");
+			alert.setHeaderText("You have to log in to view your flights");
+			alert.setContentText("");
+			if (alert.showAndWait().get() == ButtonType.OK)
+				System.out.println(Main.userType + Main.user + " will try again.");
 		}
 			
 	}
