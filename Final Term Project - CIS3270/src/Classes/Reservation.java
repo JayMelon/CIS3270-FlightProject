@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.mysql.cj.protocol.Resultset;
 
 import Database.FlightDatabase;
 import gui.Main;
@@ -207,7 +206,7 @@ public class Reservation {
 		}
 	}
 	
-	//Takes current occupancy of the selected flight and increments by one
+	//Takes current occupancy of the selected flight and decreases by one
 		private void decrementOccupancy(String flightID,int newOccupancy) {
 			newOccupancy--;
 			Connection con = FlightDatabase.getConnect();
@@ -314,10 +313,9 @@ public boolean userHasTimeConflict(String selectedDate, String selectedTime) {
 			e.printStackTrace();
 		}
 	}
-	
 //Cancels User's Flight Booking
 	public void cancelFlight(String userid, String flightID,int occupancy) {
-		String Query = "DELETE FROM Reservation WHERE flightID =" + flightID;
+		String Query = "DELETE FROM "+Reservation.databaseName+" WHERE "+Reservation.flightIdColName+" = '" + flightID+"'";
 		System.out.println(Query);
 		try {
 			Connection con = FlightDatabase.getConnect();
@@ -325,20 +323,16 @@ public boolean userHasTimeConflict(String selectedDate, String selectedTime) {
 			PreparedStatement posted = con.prepareStatement(Query);
 			posted.executeUpdate();
 			System.out.println(Query);
-			System.out.println(Main.user + " has successfully cancelled booking");
+			System.out.println(Main.user + " has successfully cancelled booking flight "+flightID);
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] arg) throws Exception {
-		Reservation currentuser = new Reservation("fb530758-924f-472d-867b-00b400b766b1");
-		currentuser.getUserFlightIDs();
-		currentuser.getUserFlightData();
-		for(int i = 0;i <currentuser.userFlightData.size();i++) {
-				System.out.println(currentuser.userHasTimeConflict("2023-01-25", "04:00:00"));
+
 		
 		}
 	}
-}
+
 

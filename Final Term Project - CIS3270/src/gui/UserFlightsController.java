@@ -2,17 +2,12 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Classes.Flight;
-import Classes.FlightController;
 import Classes.Reservation;
-import Database.FlightDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -68,6 +62,7 @@ public class UserFlightsController implements Initializable{
 			new TableView<Flight>();
 			ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 			Reservation userFlights = new Reservation(Main.userID);
+			//Gets user flight information
 			userFlights.getUserFlightIDs();
 			userFlights.getUserFlightData();
 			flightObservableList.addAll(userFlights.userFlightData);
@@ -78,21 +73,24 @@ public class UserFlightsController implements Initializable{
 			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
 			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
 			userFlightsTableView.setItems(flightObservableList);
-			userFlightsTableView.refresh();
 			
 	}
 	public void deleteUserFlight(ActionEvent event) throws IOException {
 		try {
 			Reservation currentUser = new Reservation(Main.userID);
-			// Gets the flightID from the selected column in gui
-			String x = userFlightsTableView.getSelectionModel().getSelectedItem().getFlightID();
-			int selectedOccupancy = userFlightsTableView.getSelectionModel().getSelectedItem().getOccupancy();
-			
 			alert.setTitle("Cancel Confirmation");
 			alert.setHeaderText("Are you sure you want to cancel this flight?");
 			alert.setContentText("Click OK to cancel the flight");
 			if (alert.showAndWait().get() == ButtonType.OK) {
+				String x = userFlightsTableView.getSelectionModel().getSelectedItem().getFlightID();
+				// Gets the Occupancy from the selected column in gui
+				int selectedOccupancy = userFlightsTableView.getSelectionModel().getSelectedItem().getOccupancy();
+				System.out.println(x);
+				//Cancels flight by removing from DBS and row.
 				currentUser.cancelFlight(Main.userID, x, selectedOccupancy);
+				//Removes the row
+				userFlightsTableView.getItems().removeAll(userFlightsTableView.getSelectionModel().getSelectedItem());
+
 				System.out.println(Main.userType + Main.user + " has canceled flight " + x);
 				alert.setTitle("Flight Canceled");
 				alert.setHeaderText("You are no longer booked for this flight");
