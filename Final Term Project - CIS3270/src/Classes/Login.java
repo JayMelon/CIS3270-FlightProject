@@ -37,7 +37,7 @@ public class Login extends User {
 				//Sets the main to know that the userData.
 				Main.userType = userData.get(3); 
 				Main.userID = userData.get(0);
-				if(Main.userType == "A") 
+				if(Main.userType.equals("A")) 
 					Main.userType = "[Admin]";
 				else
 					Main.userType = "[Customer]";
