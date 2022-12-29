@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainMenuScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #101e22;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
+<AnchorPane fx:id="mainMenuScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to top, #ffde22, #101e22);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
    <children>
       <ImageView fitHeight="317.0" fitWidth="500.0">
          <image>
-            <Image url="@../Images/GildedWingsLogo.png" />
+            <Image url="@../Images/GildedWingsBackground.png" />
          </image>
       </ImageView>
       <Button fx:id="loginButton" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginForm" style="-fx-background-color: #ffde22;" text="Login">
@@ -48,5 +48,15 @@
          <font>
             <Font size="8.0" />
          </font></Label>
+      <Label layoutX="66.0" layoutY="199.0" text="Gilded Wings" textAlignment="CENTER" textFill="#ffde22">
+         <font>
+            <Font name="Wingdings" size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="177.0" layoutY="273.0" text="FlightFinder">
+         <font>
+            <Font name="Onyx" size="48.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
