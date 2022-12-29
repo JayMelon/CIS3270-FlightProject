@@ -116,8 +116,8 @@ public class FlightEditorController implements Initializable {
 	@FXML
 	private ChoiceBox<String> flightsArrivalTimeChoiceBox;	
 	
-	private String[] flightsTimes = {"0","1","2","3","4","5","6","7","8","9","10",
-			"11","12","13","14","15","16","17","18","19","20","21","22","23"};
+	private String[] flightsTimes = {"00:00:00","01:00:00","02:00:00","03:00:00","04:00:00","05:00:00","06:00:00","07:00:00","08:00:00","09:00:00","10:00:00",
+			"11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00","23:00:00"};
 	
 	@FXML
 	private ChoiceBox<String> currentOccupancyChoiceBox;
@@ -140,7 +140,7 @@ public class FlightEditorController implements Initializable {
 		flightsFromChoiceBox.getItems().addAll(flightsCity);
 		flightsFromChoiceBox.setValue("CHICAGO IL, US (ORD)");
 		flightsTimeChoiceBox.getItems().addAll(flightsTimes);
-		flightsTimeChoiceBox.setValue("12");
+		flightsTimeChoiceBox.setValue("12:00:00");
 		flightsDatePicker.setValue(LocalDate.now());
 		
 		flightsToEditChoiceBox.getItems().addAll(flightsCity);
@@ -150,9 +150,9 @@ public class FlightEditorController implements Initializable {
 		flightsDepartureDatePicker.setValue(LocalDate.now());
 		flightsArrivalDatePicker.setValue(LocalDate.now());
 		flightsDepartureTimeChoiceBox.getItems().addAll(flightsTimes);
-		flightsDepartureTimeChoiceBox.setValue("12");
+		flightsDepartureTimeChoiceBox.setValue("12:00:00");
 		flightsArrivalTimeChoiceBox.getItems().addAll(flightsTimes);
-		flightsArrivalTimeChoiceBox.setValue("13");
+		flightsArrivalTimeChoiceBox.setValue("13:00:00");
 		currentOccupancyChoiceBox.getItems().addAll(flightOccupancy);
 		currentOccupancyChoiceBox.setValue("0");
 		
@@ -190,22 +190,28 @@ public class FlightEditorController implements Initializable {
 		//flightsArrivalDatePicker.getValue(), flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue()
 		//
 		//checks the above values and as long as all are there it creates a new flight in the database
+		if (flightsDepartureDatePicker.getValue().isAfter(flightsArrivalDatePicker.getValue()) ||
+		(flightsDepartureDatePicker.getValue().isEqual(flightsArrivalDatePicker.getValue()) &&
+		(Integer.parseInt(flightsDepartureTimeChoiceBox.getValue()) >= Integer.parseInt(flightsArrivalTimeChoiceBox.getValue())))) {
+			alert.setTitle("Chronological Error");
+			alert.setHeaderText("The time and/or date does not make sense");
+			alert.setContentText("Please adjust the values and try again");
+			System.out.println(Main.userType + Main.user + " attempted to create a flight");
+			if (alert.showAndWait().get() == ButtonType.OK)
+				System.out.println(Main.userType + Main.user + " will try again.");
+		}else {	
+			String departDate = dtf.format(flightsDepartureDatePicker.getValue());
+			String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
 		
+			String x = currentOccupancyChoiceBox.getValue();
+			//String Occupancy
+			int Occupancy = Integer.parseInt(x);
+			String flightToCity = flightsToEditChoiceBox.getValue();
+			String flightFromCity = flightsFromEditChoiceBox.getValue();
+			String flightToCityCode = flightToCity.substring(flightToCity.indexOf("(")+1,flightToCity.indexOf(")"));
+			String flightFromCityCode = flightFromCity.substring(flightFromCity.indexOf("(")+1,flightFromCity.indexOf(")"));
 		
-		
-		String departDate = dtf.format(flightsDepartureDatePicker.getValue());
-		String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
-		
-		String x = currentOccupancyChoiceBox.getValue();
-		//String Occupancy
-		int Occupancy = Integer.parseInt(x);
-		String flightToCity = flightsToEditChoiceBox.getValue();
-		String flightFromCity = flightsFromEditChoiceBox.getValue();
-		String flightToCityCode = flightToCity.substring(flightToCity.indexOf("(")+1,flightToCity.indexOf(")"));
-		String flightFromCityCode = flightFromCity.substring(flightFromCity.indexOf("(")+1,flightFromCity.indexOf(")"));
-		
-		
-		Flight flightCreator = new Flight(
+			Flight flightCreator = new Flight(
 				UUID.randomUUID().toString(),
 				departDate,
 				flightsDepartureTimeChoiceBox.getValue(),
@@ -217,6 +223,8 @@ public class FlightEditorController implements Initializable {
 				flightToCityCode, 
 				Occupancy, 
 				120);
+		}
+		
 	}
 	
 	public void editFlight(ActionEvent event) throws IOException {
