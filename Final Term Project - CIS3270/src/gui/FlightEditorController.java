@@ -193,17 +193,18 @@ public class FlightEditorController implements Initializable {
 		//Converts those times to hours
 		int departTime = Reservation.hoursToInt(Departtime);
 		int arrivalTime = Reservation.hoursToInt(ArrivalTime);
-		//Insert comment
+		//Checks if the departure date/time is before the arrival date/time and sends an alert if it is
 		if (flightsDepartureDatePicker.getValue().isAfter(flightsArrivalDatePicker.getValue()) ||
 		(flightsDepartureDatePicker.getValue().isEqual(flightsArrivalDatePicker.getValue()) &&
 		departTime >= arrivalTime)) {
 			alert.setTitle("Chronological Error");
-			alert.setHeaderText("The time and/or date does not make sense");
+			alert.setHeaderText("The time and/or date selections do not make sense");
 			alert.setContentText("Please adjust the values and try again");
 			System.out.println(Main.userType + Main.user + " attempted to create a flight");
 			if (alert.showAndWait().get() == ButtonType.OK)
 				System.out.println(Main.userType + Main.user + " will try again.");
 		}else {	
+			// converts DatePicker to String
 			String departDate = dtf.format(flightsDepartureDatePicker.getValue());
 			String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
 		
@@ -232,12 +233,27 @@ public class FlightEditorController implements Initializable {
 	}
 	
 	public void editFlight(ActionEvent event) throws IOException {
-		//flightsListView.getValue()
-		//
-		//Takes the Above Value to look for a flight, then edits the it with any of the fields below that are not blank
-		//
-		//flightsToEditChoiceBox.getValue(), flightsFromEditChoiceBox.getValue(), flightsDepartureDatePicker.getValue(),
-		//flightsArrivalDatePicker.getValue(), flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue()
+		try {
+			System.out.println(Main.userType + Main.user + " is initializing an edit of flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+			alert.setTitle("Flight Edit Confirmation");
+			alert.setHeaderText("Are you sure you want to edit the following flight?");
+			alert.setContentText(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was edited.");
+				Admin.editFlight(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+				adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
+			}
+			else
+				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was not edited.");
+		}catch (Exception e) {
+			//if admin has not selected a flight, display this alert
+			alert.setTitle("No Selection Made");
+			alert.setHeaderText("Please select a flight.");
+			alert.setContentText("");
+			System.out.println(Main.userType + Main.user + " has not selected a flight");
+			if (alert.showAndWait().get() == ButtonType.OK)
+				System.out.println(Main.userType + Main.user + " will try again.");
+		}
 	}
 	
 	public void deleteFlight(ActionEvent event) throws IOException {
