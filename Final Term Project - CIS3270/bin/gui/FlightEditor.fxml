@@ -13,10 +13,10 @@
    <children>
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #ffde22;" text="Main Menu" />
       <Button fx:id="addFlightButton" layoutX="66.0" layoutY="555.0" mnemonicParsing="false" onAction="#addFlight" style="-fx-background-color: #ffde22;" text="Add Flight" />
-      <DatePicker fx:id="flightsDatePicker" layoutX="316.0" layoutY="69.0" onAction="#searchFlights" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: ffde22;" />
-      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="45.0" layoutY="120.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: ffde22;" />
-      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="44.0" layoutY="69.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #ffde22;" />
-      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="366.0" layoutY="119.0" onKeyPressed="#searchFlights" onMouseClicked="#searchFlights" prefHeight="27.0" prefWidth="81.0" style="-fx-background-color: ffde22;" />
+      <DatePicker fx:id="flightsDatePicker" layoutX="316.0" layoutY="69.0" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsFromChoiceBox" layoutX="45.0" layoutY="120.0" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: ffde22;" />
+      <ChoiceBox fx:id="flightsToChoiceBox" layoutX="44.0" layoutY="69.0" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #ffde22;" />
+      <ChoiceBox fx:id="flightsTimeChoiceBox" layoutX="366.0" layoutY="119.0" prefHeight="27.0" prefWidth="81.0" style="-fx-background-color: ffde22;" />
       <Label layoutX="73.0" layoutY="52.0" text="Flight To" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="66.0" layoutY="103.0" text="Flight From" textAlignment="CENTER" textFill="#ffde22" />
       <Label layoutX="330.0" layoutY="52.0" text="Flight Date" textAlignment="CENTER" textFill="#ffde22" />

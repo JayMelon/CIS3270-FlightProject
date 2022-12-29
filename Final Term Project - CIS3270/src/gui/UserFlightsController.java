@@ -106,21 +106,6 @@ public class UserFlightsController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK)
 				System.out.println(Main.userType + Main.user + " will try again.");
 		}
-		
-		//if(userFlightsListView.getValue() = "") {
-		//	Alert alert = new Alert(AlertType.CONFIRMATION);
-		//	alert.setTitle("Delete Flight Confirmation");
-		//	alert.setHeaderText("You're about to delete a flight booking!");
-		//	alert.setContentText("Press OK to delete the booking");
-		//	System.out.println(Main.userType + Main.user + " is attempting to delete a flight booking!");
-		//	if(alert.showAndWait().get() == ButtonType.OK) {
-		//		stage = (Stage) mainMenuScene.getScene().getWindow();
-		//		System.out.println(Main.userType + Main.user + " chose to delete a flight booking!");
-		//		userFlightsListView.getValue() // Deletes This Flight
-		//	} else
-		//		System.out.println(Main.userType + Main.user + " chose not to delete a flight booking!");
-		//} else
-		//	System.out.println(Main.userType + Main.user + " did not select a flight booking to delete!");
 	}
 	
 	
