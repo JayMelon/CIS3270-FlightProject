@@ -228,6 +228,8 @@ public class FlightEditorController implements Initializable {
 				flightToCityCode, 
 				Occupancy, 
 				120);
+			
+			searchFlights(event);
 		}
 		
 	}
@@ -245,6 +247,7 @@ public class FlightEditorController implements Initializable {
 			}
 			else
 				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was not edited.");
+			searchFlights(event);
 		}catch (Exception e) {
 			//if admin has not selected a flight, display this alert
 			alert.setTitle("No Selection Made");
@@ -270,6 +273,7 @@ public class FlightEditorController implements Initializable {
 			}
 			else
 				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was not deleted.");
+			searchFlights(event);
 		}catch (Exception e) {
 			//if admin has not selected a flight, display this alert
 			alert.setTitle("No Selection Made");
