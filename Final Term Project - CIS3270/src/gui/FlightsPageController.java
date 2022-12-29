@@ -70,6 +70,9 @@ public class FlightsPageController implements Initializable {
 
 	@FXML
 	private Button addFlightButton;
+	
+	@FXML
+	private Button flightEditorButton;
 
 	@FXML
 	private ChoiceBox<String> flightsToChoiceBox;
@@ -119,6 +122,10 @@ public class FlightsPageController implements Initializable {
 			// Populates the ObservableList with Flight that are visible to user.
 
 			// Adds To Observable List
+			if(Main.userType != "[Admin]") {
+				flightEditorButton.setVisible(false);
+			}
+			
 		} catch (Exception e) {
 			Logger.getLogger(FlightsPageController.class.getName()).log(Level.SEVERE, null, e);
 			e.printStackTrace();

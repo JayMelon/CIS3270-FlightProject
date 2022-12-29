@@ -190,6 +190,9 @@ public class FlightEditorController implements Initializable {
 		//flightsArrivalDatePicker.getValue(), flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue()
 		//
 		//checks the above values and as long as all are there it creates a new flight in the database
+		
+		
+		
 		String departDate = dtf.format(flightsDepartureDatePicker.getValue());
 		String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
 		
