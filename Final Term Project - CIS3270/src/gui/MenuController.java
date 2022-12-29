@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 
-import gui.LoginController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

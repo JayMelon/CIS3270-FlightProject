@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Classes.Admin;
 import Classes.Flight;
 import Classes.FlightController;
 import javafx.collections.FXCollections;
@@ -23,13 +23,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class FlightEditorController implements Initializable {
@@ -187,9 +184,9 @@ public class FlightEditorController implements Initializable {
 	}
 	
 	public void deleteFlight(ActionEvent event) throws IOException {
-		//flightsListView.getValue()
-		//
-		//deletes the above flight from the database
+		//Deletes flight from FlightDBS and from all users who have registered.
+		Admin.deleteFlight(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+		adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
 	}
 	
 	// sends the user to the flights page

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import Classes.Login;
 import Classes.Registration;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

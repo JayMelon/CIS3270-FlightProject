@@ -54,11 +54,7 @@ public class UserFlightsController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg) {
 		try {
 			
-			
-		} catch (Exception e) {
-			Logger.getLogger(UserFlightsController.class.getName()).log(Level.SEVERE, null, e);
-			e.printStackTrace();
-		}
+
 			new TableView<Flight>();
 			ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 			Reservation userFlights = new Reservation(Main.userID);
@@ -73,7 +69,10 @@ public class UserFlightsController implements Initializable{
 			flightDepartDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departDate"));
 			flightArrivalDateCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("arrivalDate"));
 			userFlightsTableView.setItems(flightObservableList);
-			
+	} catch (Exception e) {
+		Logger.getLogger(UserFlightsController.class.getName()).log(Level.SEVERE, null, e);
+		e.printStackTrace();
+	}
 	}
 	public void deleteUserFlight(ActionEvent event) throws IOException {
 		try {
