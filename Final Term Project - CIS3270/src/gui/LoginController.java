@@ -126,7 +126,7 @@ public class LoginController implements Initializable {
 	
 	//Event that registers a new user for an account and sends it to the database
 	public void register(ActionEvent event) throws IOException {
-		//Tells user that a field is not filled
+		try{//Tells user that a field is not filled
 		if (usernameTextField.getText().isBlank() || passwordField.getText().isBlank()
 				|| firstNameTextField.getText().isBlank() || lastNameTextField.getText().isBlank()
 				|| emailTextField.getText().isBlank() || addressTextField.getText().isBlank()
@@ -150,14 +150,20 @@ public class LoginController implements Initializable {
 			newUser.securityAnswer = securityATextField.getText();
 			//If there is no duplicate of username
 			if(newUser.checkUserName()) {
+				//Adds User to DBS
 				newUser.registerUser();
 				System.out.println("[Customer]" + usernameTextField.getText() + " registered for an account");
+				//Run the login event
 				login(event);
 			}else {
 				//If DUPLICATED USER EXECUTE THIS
 				formFailureLabel.setText("Please enter a different Username");
 				System.out.println(Main.userType + Main.user + " entered a duplicate username when trying to register");
 			}
+		}
+		}
+		catch(Exception e) {
+			System.out.println(Main.userType +"Failed to register");
 		}
 	}
 

@@ -2,6 +2,7 @@ package Classes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.UUID;
 
 import Database.FlightDatabase;
 
@@ -24,5 +25,10 @@ Connection con = FlightDatabase.getConnect();
 	}
 	
 }
+
+public static void main(String[]arg) {
+
+}
+
 
 }

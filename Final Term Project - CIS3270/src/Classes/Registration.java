@@ -20,7 +20,6 @@ public class Registration extends User {
 				+ this.state + "','" + this.socialSecurityNumber + "','" + this.securityQuestion + "','"
 				+ this.securityAnswer + "','"+this.userType+"');";
 		String insertToRegister = insertFields + insertValues;
-		System.out.println(insertToRegister);
 		try {
 			Statement statement = con.createStatement();
 			statement.executeUpdate(insertToRegister);
