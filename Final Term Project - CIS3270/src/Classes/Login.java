@@ -32,6 +32,7 @@ public class Login extends User {
 				userData.add(queryResult.getString("user_Type"));
 			} if(pass.equals(userData.get(2))) {
 				//If entered password equals to the User
+				Main.user = userData.get(1);
 				System.out.println(Main.user+" has logged in");
 				System.out.println(userData);
 				//Sets the main to know that the userData.
@@ -42,7 +43,6 @@ public class Login extends User {
 				else
 					Main.userType = "[Customer]";
 				
-				Main.user = userData.get(1);
 			}
 			else {
 				System.out.println("Failed");

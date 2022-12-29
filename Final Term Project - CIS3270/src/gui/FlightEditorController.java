@@ -2,16 +2,22 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Classes.Admin;
 import Classes.Flight;
 import Classes.FlightController;
+import Classes.Registration;
+import Database.FlightDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +31,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 public class FlightEditorController implements Initializable {
@@ -119,6 +128,10 @@ public class FlightEditorController implements Initializable {
 			"75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100",
 			"101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120"};
 	
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+	
 	// Adds default values to the search boxes
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -131,12 +144,17 @@ public class FlightEditorController implements Initializable {
 		flightsDatePicker.setValue(LocalDate.now());
 		
 		flightsToEditChoiceBox.getItems().addAll(flightsCity);
-		flightsToEditChoiceBox.getItems().add("");
+		flightsToEditChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsFromEditChoiceBox.getItems().addAll(flightsCity);
-		flightsFromEditChoiceBox.getItems().add("");
+		flightsFromEditChoiceBox.setValue("CHICAGO IL, US (ORD)");
+		flightsDepartureDatePicker.setValue(LocalDate.now());
+		flightsArrivalDatePicker.setValue(LocalDate.now());
 		flightsDepartureTimeChoiceBox.getItems().addAll(flightsTimes);
+		flightsDepartureTimeChoiceBox.setValue("12");
 		flightsArrivalTimeChoiceBox.getItems().addAll(flightsTimes);
+		flightsArrivalTimeChoiceBox.setValue("13");
 		currentOccupancyChoiceBox.getItems().addAll(flightOccupancy);
+		currentOccupancyChoiceBox.setValue("0");
 		
 	}
 	
@@ -145,12 +163,12 @@ public class FlightEditorController implements Initializable {
 			new TableView<Flight>();
 			ObservableList<Flight> flightObservableList = FXCollections.observableArrayList();
 			FlightController adminFlights = new FlightController();
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 
 			String searchDate = dtf.format(flightsDatePicker.getValue());
 			// Returns an ArrayList of requested flights via Search bar
 			flightObservableList.addAll(adminFlights.getFlightList(flightsToChoiceBox.getValue(),
-					flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue()));
+						flightsFromChoiceBox.getValue(), searchDate, flightsTimeChoiceBox.getValue()));
+			
 			adminFlightFromCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("FromCityCode"));
 			adminFlightToCityCodeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("ToCityCode"));
 			adminFlightDepartTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
@@ -172,6 +190,17 @@ public class FlightEditorController implements Initializable {
 		//flightsArrivalDatePicker.getValue(), flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue()
 		//
 		//checks the above values and as long as all are there it creates a new flight in the database
+		String departDate = dtf.format(flightsDepartureDatePicker.getValue());
+		String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
+		
+		String x = currentOccupancyChoiceBox.getValue();
+		int y = Integer.parseInt(x);
+		Flight flightCreator = new Flight(UUID.randomUUID(), flightsToEditChoiceBox.getValue(), flightsFromEditChoiceBox.getValue(),
+				departDate, arrivalDate, flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue(), y, 120) {
+			
+		}
+		
+		
 	}
 	
 	public void editFlight(ActionEvent event) throws IOException {
@@ -185,9 +214,27 @@ public class FlightEditorController implements Initializable {
 	
 	public void deleteFlight(ActionEvent event) throws IOException {
 		//Deletes flight from FlightDBS and from all users who have registered.
-		Admin.deleteFlight(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
-		adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
-	}
+		try {
+			System.out.println(Main.userType + Main.user + " is initializing flight deletion of flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+			alert.setTitle("Flight Deletion Confirmation");
+			alert.setHeaderText("Are you sure you want to delete the following flight?");
+			alert.setContentText(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was deleted.");
+				Admin.deleteFlight(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+				adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
+			}
+			else
+				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was not deleted.");
+		}catch (Exception e) {
+			//if admin has not selected a flight, display this alert
+			alert.setTitle("No Selection Made");
+			alert.setHeaderText("Please select a flight.");
+			alert.setContentText("");
+			System.out.println(Main.userType + Main.user + " has not selected a flight");
+			if (alert.showAndWait().get() == ButtonType.OK)
+				System.out.println(Main.userType + Main.user + " will try again.");
+		}
 	
 	// sends the user to the flights page
 	public void switchToFlightsPage(ActionEvent event) throws IOException {
