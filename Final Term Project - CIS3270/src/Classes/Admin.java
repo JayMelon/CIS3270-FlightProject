@@ -21,11 +21,15 @@ Connection con = FlightDatabase.getConnect();
 		posted.executeUpdate();
 		System.out.println("Deleting flight "+flightID);
 	} catch (Exception e) {
-			e.printStackTrace();
+		System.out.println("Deleting failed");
 	}
 	
 }
 
+public static void addFlight(Flight flight) {
+	Connection con = FlightDatabase.getConnect();
+	String insertIntoFlightTableQuery = "DELETE FROM "+Reservation.databaseName+" WHERE "+Reservation.flightIdColName+" = '" + flightID+"'";
+}
 public static void main(String[]arg) {
 
 }

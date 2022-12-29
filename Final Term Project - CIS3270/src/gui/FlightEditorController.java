@@ -17,6 +17,7 @@ import Classes.Admin;
 import Classes.Flight;
 import Classes.FlightController;
 import Classes.Registration;
+import Classes.Reservation;
 import Database.FlightDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -186,13 +187,16 @@ public class FlightEditorController implements Initializable {
 	}
 	
 	public void addFlight(ActionEvent event) throws IOException {
-		//flightsToEditChoiceBox.getValue(), flightsFromEditChoiceBox.getValue(), flightsDepartureDatePicker.getValue(),
-		//flightsArrivalDatePicker.getValue(), flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue()
-		//
-		//checks the above values and as long as all are there it creates a new flight in the database
+//Gets the String values from time choice box
+		String Departtime = flightsDepartureTimeChoiceBox.getValue();
+		String ArrivalTime = flightsArrivalTimeChoiceBox.getValue();
+		//Converts those times to hours
+		int departTime = Reservation.hoursToInt(Departtime);
+		int arrivalTime = Reservation.hoursToInt(ArrivalTime);
+		//Insert comment
 		if (flightsDepartureDatePicker.getValue().isAfter(flightsArrivalDatePicker.getValue()) ||
 		(flightsDepartureDatePicker.getValue().isEqual(flightsArrivalDatePicker.getValue()) &&
-		(Integer.parseInt(flightsDepartureTimeChoiceBox.getValue()) >= Integer.parseInt(flightsArrivalTimeChoiceBox.getValue())))) {
+		departTime >= arrivalTime)) {
 			alert.setTitle("Chronological Error");
 			alert.setHeaderText("The time and/or date does not make sense");
 			alert.setContentText("Please adjust the values and try again");
