@@ -135,7 +135,7 @@ public class FlightEditorController implements Initializable {
 		flightsFromEditChoiceBox.getItems().addAll(flightsCity);
 		flightsFromEditChoiceBox.getItems().add("");
 		flightsDepartureTimeChoiceBox.getItems().addAll(flightsTimes);
-		flightsDepartureTimeChoiceBox.getItems().addAll(flightsTimes);
+		flightsArrivalTimeChoiceBox.getItems().addAll(flightsTimes);
 		currentOccupancyChoiceBox.getItems().addAll(flightOccupancy);
 		
 	}
