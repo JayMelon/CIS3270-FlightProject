@@ -71,6 +71,7 @@ public class LoginController implements Initializable {
 	
 	// Event that logs the user into their account and sends them to the Main Menu
 	public void login(ActionEvent event) throws IOException {
+		try {
 		Login currentUser = new Login();
 		currentUser.validateLogin(usernameTextField.getText(), passwordField.getText());
 		if(Main.userType != "[User]") {
@@ -84,10 +85,14 @@ public class LoginController implements Initializable {
 			menuController.hideLogin(Main.user);
 		} else
 			formFailureLabel.setText("Please enter a correct username and password combination");
+		}catch(Exception e){
+			System.out.println("s");
+		}
 	}
 	
 	// Event that gives the user their password when they click Forgot Password
 	public void forgotPassword(ActionEvent event) throws IOException {
+		try {
 		if(usernameTextField.getText().isBlank())
 			formFailureLabel.setText("Please enter a correct username then click Forgot Password");
 		else {
@@ -113,6 +118,9 @@ public class LoginController implements Initializable {
 				formFailureLabel.setText("Incorrect Security Answer");
 				System.out.println(Main.userType + Main.user + " entered an incorrect security answer for the account of " + usernameTextField.getText());
 			}
+		}
+		}catch(Exception e){
+			System.out.println("Username isn't found");
 		}
 	}
 	
