@@ -288,6 +288,7 @@ public class FlightsPageController implements Initializable {
 	}
 	catch(Exception e) {
 		System.out.println(Main.userType +"Attempted to open flight editor");
+		
 	}
 	}
 	// Sends the user to the Main Menu

@@ -194,13 +194,26 @@ public class FlightEditorController implements Initializable {
 		String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
 		
 		String x = currentOccupancyChoiceBox.getValue();
-		int y = Integer.parseInt(x);
-		Flight flightCreator = new Flight(UUID.randomUUID(), flightsToEditChoiceBox.getValue(), flightsFromEditChoiceBox.getValue(),
-				departDate, arrivalDate, flightsDepartureTimeChoiceBox.getValue(), flightsArrivalTimeChoiceBox.getValue(), y, 120) {
-			
-		}
+		//String Occupancy
+		int Occupancy = Integer.parseInt(x);
+		String flightToCity = flightsToEditChoiceBox.getValue();
+		String flightFromCity = flightsFromEditChoiceBox.getValue();
+		String flightToCityCode = flightToCity.substring(flightToCity.indexOf("(")+1,flightToCity.indexOf(")"));
+		String flightFromCityCode = flightFromCity.substring(flightFromCity.indexOf("(")+1,flightFromCity.indexOf(")"));
 		
 		
+		Flight flightCreator = new Flight(
+				UUID.randomUUID().toString(),
+				departDate,
+				flightsDepartureTimeChoiceBox.getValue(),
+				arrivalDate,
+				flightsArrivalTimeChoiceBox.getValue(),
+				flightFromCityCode,
+				flightFromCity, 
+				flightToCity,
+				flightToCityCode, 
+				Occupancy, 
+				120);
 	}
 	
 	public void editFlight(ActionEvent event) throws IOException {
@@ -235,7 +248,7 @@ public class FlightEditorController implements Initializable {
 			if (alert.showAndWait().get() == ButtonType.OK)
 				System.out.println(Main.userType + Main.user + " will try again.");
 		}
-	
+	}
 	// sends the user to the flights page
 	public void switchToFlightsPage(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Flight Editor");

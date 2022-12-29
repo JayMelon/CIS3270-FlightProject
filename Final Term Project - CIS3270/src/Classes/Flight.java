@@ -67,7 +67,7 @@ public class Flight {
 //Generates a row for the flight column
 	@Override
 	public String toString() {
-		return "FlightID: " + flightID + "\tdepartDate: " + departDate + "\tdepartTime: " + departDate
+		return "FlightID: " + flightID + "\tdepartDate: " + departDate + "\tdepartTime: " + departTime
 				+ "\tArrivalDate: " + arrivalDate + "\tArrivalTime: " + arrivalTime + "\tFromCityCode: " + fromCityCode
 				+ "\tFromCity: " + fromCity + "\tToCity:  " + toCity + "\tToCityCode:  " + toCityCode + "\tOccupancy:  "
 				+ occupancy + "\tCapacity:  " + capacity;
