@@ -228,7 +228,7 @@ public class FlightEditorController implements Initializable {
 				flightToCityCode, 
 				Occupancy, 
 				120);
-			
+			Admin.addFlight(flightCreator);
 			searchFlights(event);
 		}
 		
@@ -236,13 +236,38 @@ public class FlightEditorController implements Initializable {
 	
 	public void editFlight(ActionEvent event) throws IOException {
 		try {
+			//Creating a new Flight Object with User selected items
+			String departDate = dtf.format(flightsDepartureDatePicker.getValue());
+			String arrivalDate = dtf.format(flightsArrivalDatePicker.getValue());
+		//String occupancy box
+			String x = currentOccupancyChoiceBox.getValue();
+			//String Occupancy
+			int Occupancy = Integer.parseInt(x);
+			String flightToCity = flightsToEditChoiceBox.getValue();
+			String flightFromCity = flightsFromEditChoiceBox.getValue();
+			String flightToCityCode = flightToCity.substring(flightToCity.indexOf("(")+1,flightToCity.indexOf(")"));
+			String flightFromCityCode = flightFromCity.substring(flightFromCity.indexOf("(")+1,flightFromCity.indexOf(")"));
+		
+			Flight flightEditor = new Flight(
+				adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID(),
+				departDate,
+				flightsDepartureTimeChoiceBox.getValue(),
+				arrivalDate,
+				flightsArrivalTimeChoiceBox.getValue(),
+				flightFromCityCode,
+				flightFromCity, 
+				flightToCity,
+				flightToCityCode, 
+				Occupancy, 
+				120);
 			System.out.println(Main.userType + Main.user + " is initializing an edit of flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
 			alert.setTitle("Flight Edit Confirmation");
 			alert.setHeaderText("Are you sure you want to edit the following flight?");
 			alert.setContentText(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
 			if (alert.showAndWait().get() == ButtonType.OK) {
 				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was edited.");
-				Admin.editFlight(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
+				//Doesn't work currently incorrect query - Jay.
+				Admin.editFlight(flightEditor);
 				adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
 			}
 			else

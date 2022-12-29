@@ -56,14 +56,15 @@ public ArrayList<Flight> getFlightList() {
 public ArrayList<Flight> getFlightList(String fromCity,String toCity, String departDate, String departTime) {
 	try {
 		Connection con = FlightDatabase.getConnect();	
-		String query = "SELECT TOP(10) * FROM "+Flight.databaseName
+		String query = "SELECT TOP(30) * FROM "+Flight.databaseName
 				+" WHERE " +Flight.fromCityColName
 				+" = '" +fromCity
 				+"' AND "+Flight.toCityColName 
 				+"= '"+toCity
 				+"' AND "
 				+Flight.departDateColName
-				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departTimeColName;
+				+" >= '"+departDate+"'"+" ORDER BY "+Flight.departDateColName+" asc, "+Flight.departTimeColName+" Asc";
+		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
 		//Creating new flight object 
