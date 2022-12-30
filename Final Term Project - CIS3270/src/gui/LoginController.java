@@ -165,9 +165,11 @@ public class LoginController implements Initializable {
 		}
 		catch(Exception e) {
 			System.out.println(Main.userType +"Failed to register");
+			//If SSN is greater than 12/ Tells user to format zipcode correctly
 			if(newUser.zipcode.length() >12){
 				System.out.println(Main.userType+" Entered wrong SSN format");
 			}if(newUser.zipcode.length()>5) {
+				//If Zipcode is greater than 5/ Tells user to format zipcode correctly
 				System.out.println(Main.userType+" Entered wrong zipcode format");
 			}
 			else {
@@ -183,7 +185,6 @@ public class LoginController implements Initializable {
 	// Switches the screen to the main menu
 	public void switchToMainMenu(ActionEvent event) throws IOException {
 		System.out.println(Main.userType + Main.user + " is now viewing Main Menu");
-
 		root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

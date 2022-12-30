@@ -6,7 +6,7 @@ public class RegistrationTest {
 public static void main(String[]args) {
 	//Registers user by assigning to Object and referencing from it. 
 	Registration newUser = new Registration();
-	newUser.userName = "JayMelon";
+	newUser.userName = "Ja";
 	newUser.password = "pass123";
 	newUser.firstName = "Jalen";
 	newUser.lastName = "Lewis";
@@ -18,7 +18,7 @@ public static void main(String[]args) {
 	newUser.securityQuestion = "What city were you born in?";
 	newUser.securityAnswer = "ATL";
 	//If there is no duplicate of username
-	if(newUser.checkUserName()) {
+	if(!newUser.checkIfDuppedUserName()) {
 		newUser.registerUser();
 	}
 }
