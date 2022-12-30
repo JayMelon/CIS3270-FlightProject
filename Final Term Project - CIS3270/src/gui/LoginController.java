@@ -164,6 +164,7 @@ public class LoginController implements Initializable {
 		}
 		catch(Exception e) {
 			System.out.println(Main.userType +"Failed to register");
+			e.printStackTrace();
 		}
 	}
 

@@ -2,9 +2,6 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -16,9 +13,7 @@ import java.util.logging.Logger;
 import Classes.Admin;
 import Classes.Flight;
 import Classes.FlightController;
-import Classes.Registration;
 import Classes.Reservation;
-import Database.FlightDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -145,9 +140,9 @@ public class FlightEditorController implements Initializable {
 		flightsDatePicker.setValue(LocalDate.now());
 		
 		flightsToEditChoiceBox.getItems().addAll(flightsCity);
-		flightsToEditChoiceBox.setValue("ATLANTA GA, US (ATL)");
+		flightsToEditChoiceBox.setValue("CHICAGO IL, US (ORD)");
 		flightsFromEditChoiceBox.getItems().addAll(flightsCity);
-		flightsFromEditChoiceBox.setValue("CHICAGO IL, US (ORD)");
+		flightsFromEditChoiceBox.setValue("ATLANTA GA, US (ATL)");
 		flightsDepartureDatePicker.setValue(LocalDate.now());
 		flightsArrivalDatePicker.setValue(LocalDate.now());
 		flightsDepartureTimeChoiceBox.getItems().addAll(flightsTimes);

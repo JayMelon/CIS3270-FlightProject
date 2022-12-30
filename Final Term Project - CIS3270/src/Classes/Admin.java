@@ -2,9 +2,7 @@ package Classes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.UUID;
 
 import Database.FlightDatabase;
 
@@ -78,7 +76,6 @@ public static void addFlight(Flight flight) {
 					+ Flight.toCityCodeColName + "= '" + flight.getToCityCode() + "', " + Flight.toCityColName + "= '"
 					+ flight.getToCity() + "', " + Flight.occupanyColName + "= '" + flight.getOccupancy() + "' WHERE "
 					+ Flight.flightIDColName + "= '" + flight.getFlightID()) + "'";
-			System.out.println(updateQuery);
 			statement.execute(updateQuery);
 		} catch (Exception e) {
 			System.out.println("Editing failed");
