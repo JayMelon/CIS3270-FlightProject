@@ -20,7 +20,7 @@ public abstract class User {
 	public String socialSecurityNumber;
 	public String securityQuestion;
 	public String securityAnswer;
-	public String userType;
+	public String userType = "C";
 
 	public static final String databaseName = "Users";
 
@@ -44,8 +44,8 @@ public abstract class User {
 		System.out.println("Random USERID " + this.userID);
 	}
 
-//Checks for duplicated Username if Found returns false, else return true
-	public boolean checkUserName() {
+//Checks for duplicated Username if Found returns true, else return false
+	public boolean checkIfDuppedUserName() {
 		Connection con = FlightDatabase.getConnect();
 		String verifyLogin = "SELECT Count(1) from " + User.databaseName + " Where user_name = '" + this.userName
 				+ "';";
@@ -56,7 +56,7 @@ public abstract class User {
 				if (queryResult.getInt(1) >= 1) {
 					// If Duplicate was found execute this line.
 					System.out.println("Duplicate user_name found");
-					return false;
+					return true;
 				} else {
 					// If Duplicate wasn't found this line.
 					System.out.println("No duplicated user_name");
@@ -65,11 +65,43 @@ public abstract class User {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 	
 	public String getUserID() {
 		return userID;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
+	}
+
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
+		this.socialSecurityNumber = socialSecurityNumber;
+	}
+
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
 	}
 
 	public void setUserID(String userID) {

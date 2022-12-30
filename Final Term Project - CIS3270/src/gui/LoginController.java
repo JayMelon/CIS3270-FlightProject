@@ -126,8 +126,10 @@ public class LoginController implements Initializable {
 	
 	//Event that registers a new user for an account and sends it to the database
 	public void register(ActionEvent event) throws IOException {
-		try{//Tells user that a field is not filled
-		if (usernameTextField.getText().isBlank() || passwordField.getText().isBlank()
+		Registration newUser = new Registration();
+		try{
+			//Tells user that a field is not filled
+			if (usernameTextField.getText().isBlank() || passwordField.getText().isBlank()
 				|| firstNameTextField.getText().isBlank() || lastNameTextField.getText().isBlank()
 				|| emailTextField.getText().isBlank() || addressTextField.getText().isBlank()
 				|| zipCodeTextField.getText().isBlank() || stateChoiceBox.getValue().isBlank()
@@ -136,7 +138,6 @@ public class LoginController implements Initializable {
 			System.out.println(Main.userType + Main.user + " failed to register");
 		} else {
 			//Registers user by assigning to Object and referencing from it. 
-			Registration newUser = new Registration();
 			newUser.userName = usernameTextField.getText();
 			newUser.password = passwordField.getText();
 			newUser.firstName = firstNameTextField.getText();
@@ -149,7 +150,7 @@ public class LoginController implements Initializable {
 			newUser.securityQuestion = securityQChoiceBox.getValue();
 			newUser.securityAnswer = securityATextField.getText();
 			//If there is no duplicate of username
-			if(newUser.checkUserName()) {
+			if(!newUser.checkIfDuppedUserName()) {
 				//Adds User to DBS
 				newUser.registerUser();
 				System.out.println("[Customer]" + usernameTextField.getText() + " registered for an account");
@@ -164,7 +165,14 @@ public class LoginController implements Initializable {
 		}
 		catch(Exception e) {
 			System.out.println(Main.userType +"Failed to register");
-			e.printStackTrace();
+			if(newUser.zipcode.length() >12){
+				System.out.println(Main.userType+" Entered wrong SSN format");
+			}if(newUser.zipcode.length()>5) {
+				System.out.println(Main.userType+" Entered wrong zipcode format");
+			}
+			else {
+				System.out.println(Main.userType +"Failed to register");
+			}
 		}
 	}
 

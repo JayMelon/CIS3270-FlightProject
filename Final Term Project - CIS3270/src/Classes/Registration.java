@@ -27,6 +27,7 @@ public class Registration extends User {
 
 		} catch (Exception e) {
 System.out.println("Register Failed");
+e.printStackTrace();
 		}
 	}
 }
