@@ -175,7 +175,7 @@ public class FlightsPageController implements Initializable {
  		try {
 			Reservation currentUser;
 			// Gets the flightID from the selected column in gui
-			String x = flightTableView.getSelectionModel().getSelectedItem().getFlightID();
+			String selectedFlightID = flightTableView.getSelectionModel().getSelectedItem().getFlightID();
 			String selectedDate = flightTableView.getSelectionModel().getSelectedItem().getDepartDate();
 			String selectedTime = flightTableView.getSelectionModel().getSelectedItem().getDepartTime();
 			int selectedOccupancy = flightTableView.getSelectionModel().getSelectedItem().getOccupancy();
@@ -191,7 +191,7 @@ public class FlightsPageController implements Initializable {
 				if (alert.showAndWait().get() == ButtonType.OK)
 					System.out.println(Main.userType + Main.user + " will try again.");
 				
-			}else if (Reservation.checkduplicatedFlight(Main.userID, x)) {
+			}else if (Reservation.checkduplicatedFlight(Main.userID, selectedFlightID)) {
 				// Checks Reservation DBS to see if user has booked the requested flight.
 				alert.setTitle("Duplicate Flight");
 				alert.setHeaderText("You have already booked this flight!");
@@ -221,8 +221,14 @@ public class FlightsPageController implements Initializable {
 				}
 				if (!conflict) {
 					//If There is not conflict go and book
-					currentUser.bookFlight(Main.userID, x,selectedOccupancy);
-					System.out.println(Main.userType + Main.user + " has booked flight " + x);
+					currentUser.bookFlight(Main.userID, selectedFlightID,selectedOccupancy);
+					alert.setTitle("Success");
+					alert.setHeaderText(Main.user +" has successfully booked flight "+selectedFlightID );
+					alert.setContentText("Please click OK to continue");
+					if (alert.showAndWait().get() == ButtonType.OK) {
+						
+					}
+					System.out.println(Main.userType + Main.user + " has booked flight " + selectedFlightID);
 				}else {
 					//If is not conflict 
 					System.out.println(Main.userType + Main.user + "has Conflicting flight");
@@ -234,8 +240,12 @@ public class FlightsPageController implements Initializable {
 				}
 			}else {
 				//Books flight if everything passes.
-				currentUser.bookFlight(Main.userID, x,selectedOccupancy);
-				System.out.println(Main.userType + Main.user + " has booked flight " + x);
+				currentUser.bookFlight(Main.userID, selectedFlightID,selectedOccupancy);
+				//Alert
+				alert.setTitle("Success");
+				alert.setHeaderText(Main.user +" has successfully booked flight "+selectedFlightID );
+				alert.setContentText("Please click OK to continue");
+					System.out.println(Main.userType + Main.user + " will try again.");
 			}
 		} catch (Exception e) {
 			// If User searches flight without Populating or select data.
@@ -247,35 +257,6 @@ public class FlightsPageController implements Initializable {
 				System.out.println(Main.userType + Main.user + " will try again.");
 		}
 	}
-
-	// else if(flight is full) {
-	// selectFlightLabel.setText("Flight is Full.");
-	// System.out.println(Main.userType + Main.user + " tried to book a full
-	// flight");
-	// } else if(customer already booked this flight) {
-	// selectFlightLabel.setText("You have already booked this flight.");
-	// System.out.println(Main.userType + Main.user + " tried to book a flight they
-	// already had booked");
-	// } else if(flightTime overlaps with another flight user has) {
-	// Alert alert = new Alert(AlertType.CONFIRMATION);
-	// alert.setTitle("Flight Time Conflict");
-	// alert.setHeaderText("You're about to book a flight that happens at the same
-	// time as another flight!");
-	// alert.setContentText("Press OK to book it anyway or Cancel to look for a
-	// different flight");
-	// System.out.println(Main.userType + Main.user + " is attempting to log out!");
-	// if(alert.showAndWait().get() == ButtonType.OK) {
-	// stage = (Stage) mainMenuScene.getScene().getWindow();
-	// System.out.println(Main.userType + Main.user + " chose to book a flight with
-	// a time conflict");
-	// } else
-	// System.out.println(Main.userType + Main.user + " chose not to book a flight
-	// with a time conflict");
-	//
-	// } else {
-	// adds flight to customer's list
-	// adds customer to flight's list
-	// }
 
 	// Sends an Admin to the Flight editor Page
 	public void switchToFlightEditor(ActionEvent event) throws IOException {
