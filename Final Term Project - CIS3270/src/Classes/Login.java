@@ -16,10 +16,9 @@ public class Login extends User {
 
 //Validates login by checking Database for specific username and password - Jay
 	public void validateLogin(String username, String pass) {
+		//Creating a new List of Userdata to hold in memory so the Main could hold the important User data throughout the Application.
 		List<String> userData = new ArrayList<String>();
 		Connection con = FlightDatabase.getConnect();
-		// Creates a string of a query replace asking to SELECT a count of 1 where
-		// usertext and password text equal - Jay
 		String verifyLogin = "SELECT * from " + User.databaseName + " Where user_name = '" + username
 				+ "'";
 		try {
@@ -30,13 +29,15 @@ public class Login extends User {
 				userData.add(queryResult.getString("user_name"));
 				userData.add(queryResult.getString("password"));
 				userData.add(queryResult.getString("user_Type"));
+				//If entered password equals the User data
 			} if(pass.equals(userData.get(2))) {
-				//If entered password equals to the User
+				//Stores the Username to Main
 				Main.user = userData.get(1);
 				System.out.println(Main.user+" has logged in");
 				System.out.println(userData);
 				//Sets the main to know that the userData.
 				Main.userType = userData.get(3); 
+				//Sets the userID to the main
 				Main.userID = userData.get(0);
 				if(Main.userType.equals("A")) 
 					Main.userType = "[Admin]";
@@ -130,9 +131,5 @@ public class Login extends User {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		Login user = new Login();
-		user.validateLogin("JayMelon","pass123");
-		}
 	}
 

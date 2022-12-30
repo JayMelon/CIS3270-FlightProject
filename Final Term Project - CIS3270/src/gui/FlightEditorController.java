@@ -266,7 +266,7 @@ public class FlightEditorController implements Initializable {
 			alert.setContentText(adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID());
 			if (alert.showAndWait().get() == ButtonType.OK) {
 				System.out.println("Flight " + adminFlightTableView.getSelectionModel().getSelectedItem().getFlightID() + " was edited.");
-				//Doesn't work currently incorrect query - Jay.
+			//Calls edit flight
 				Admin.editFlight(flightEditor);
 				adminFlightTableView.getItems().removeAll(adminFlightTableView.getSelectionModel().getSelectedItem());
 			}

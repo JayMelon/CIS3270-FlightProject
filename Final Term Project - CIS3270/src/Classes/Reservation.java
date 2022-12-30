@@ -51,7 +51,7 @@ public class Reservation {
 		this.userID = user_id;
 	}
 //Time related method/functions
-
+//----------------------------------------------------------------------------------------
 //Grabs the string and converts the time to hours
 	public static int hoursToInt(String time) {
 		time = time.substring(0, 2);
@@ -81,19 +81,12 @@ public class Reservation {
 		Date newdate = new SimpleDateFormat("yyyy/MM/dd").parse(date);
 		return newdate;
 	}
-
+//----------------------------------------------------------------------------------------
 //Creates a random Order ID that goes to DBS;
 	public static int randomID() {
 		return (int) (Math.random() * 1000000);
 	}
-
-//Need to work on to hold current user information 
-	public Reservation(String orderID, String flightID, String user_id) {
-		this.orderID = orderID;
-		this.flightID = orderID;
-		this.userID = user_id;
-	}
-	
+//Contructor
 	public Reservation(String user_id) {
 	this.userID = user_id;
 	}
@@ -124,7 +117,7 @@ public class Reservation {
 //Returns an array of Flight for the current user to hold.
 	
 	
-
+//Gets FlightData based on the User's Reserved flights in Reservation DBS
 	public ArrayList<Flight> getUserFlightData(){
 		//Setting up counter to add flights.
 		int amountOfFlights = this.userFlightIds.size();
@@ -189,20 +182,17 @@ public class Reservation {
 		newOccupancy++;
 		Connection con = FlightDatabase.getConnect();
 		String update = "UPDATE "+Flight.databaseName+" SET "+ Flight.occupanyColName +" = '"+newOccupancy+"'  WHERE "+Flight.flightIDColName+"= '"+flightID+"'";
-		System.out.println(update);
 		String query = "Select * from FlightData where FlightID = '"+flightID+"'";
 		try {
 			
 			Statement statement = con.createStatement();
 			statement.executeUpdate(update);
 			ResultSet result = statement.executeQuery(query);
-			System.out.println(query);
 			while(result.next()) {
-				System.out.println("Update Occupancy "+(newOccupancy)+" To "+result.getInt(Flight.occupanyColName));
+				System.out.println("Update Occupancy From "+--newOccupancy+" to "+result.getInt(Flight.occupanyColName));
 			}
 		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
+
 		}
 	}
 	
@@ -211,25 +201,22 @@ public class Reservation {
 			newOccupancy--;
 			Connection con = FlightDatabase.getConnect();
 			String update = "UPDATE "+Flight.databaseName+" SET "+ Flight.occupanyColName +" = '"+newOccupancy+"'  WHERE "+Flight.flightIDColName+"= '"+flightID+"'";
-			System.out.println(update);
 			String query = "Select * from FlightData where FlightID = '"+flightID+"'";
 			try {
 				
 				Statement statement = con.createStatement();
 				statement.executeUpdate(update);
 				ResultSet result = statement.executeQuery(query);
-				System.out.println(query);
 				while(result.next()) {
-					System.out.println("Update Occupancy "+(newOccupancy)+" To "+result.getInt(Flight.occupanyColName));
+					System.out.println("Updated Occupancy "+(++newOccupancy)+" To "+result.getInt(Flight.occupanyColName));
 				}
 			} catch (Exception e) {
-				System.out.println();
-				e.printStackTrace();
+				System.out.println("Error occured while updating Occupancy");
 			}
 		}
 	
-	//Checks time and date to see if the time is between the (min)Departure and Arrival Date(Max).
-		public boolean checkTimeConflict(String departDate, String departTime, String arrivalDate, String arrivalTime, String selectedDate,
+	//Checks time and date to see if the time is between the (min)Departure and Arrival Date(Max).	
+public boolean checkTimeConflict(String departDate, String departTime, String arrivalDate, String arrivalTime, String selectedDate,
 				String selectedTime) throws Exception {
 			// Converting sql date to format for Date Class, Times to hours
 			Date minDate = Reservation.convertToDate(departDate);
@@ -247,6 +234,9 @@ public class Reservation {
 				return false;
 			}
 		}
+/*Goes into DBS checks the User's flightID, DBS gets the times based on the FlightID and checks the times and compares to given time. 
+Takes a long time based on how many flights the user has booked. 
+*/
 public boolean userHasTimeConflict(String selectedDate, String selectedTime) {
 	try {
 		
@@ -273,7 +263,9 @@ public boolean userHasTimeConflict(String selectedDate, String selectedTime) {
 	return false;
 }		
 		
-		
+/*Takes a userid and FLight id and retrives a count of booked flights with that flight id.
+ * If the count of flightID is 1 or higher returns TRUE;
+*/
 	public static boolean checkduplicatedFlight(String userID, String flightID) {
 		Connection con = FlightDatabase.getConnect();
 		String query = "SELECT COUNT(flight_id) FROM Reservation Where flight_id = '" + flightID + "' AND user_id = '"
@@ -289,50 +281,48 @@ public boolean userHasTimeConflict(String selectedDate, String selectedTime) {
 			}
 		} catch (Exception e) {
 			System.out.println("Failed while checking dupilcatedFlight");
-			e.printStackTrace();
 		}
 		System.out.println(Main.user+" hasn't booked this flight");
 		return false;
 	}
 
-//Adds flight
+/*
+ * Takes userID, FlightID, Occupancy, Adds to the reservation table while increasing the Occupancy by 1
+ */
 	public void bookFlight(String userid, String flightID,int occupancy) {
 		String Query = "INSERT INTO Reservation(" + Reservation.orderIdColName + "," + Reservation.flightIdColName + ","
 				+ Reservation.userIdColName + ")" + " Values" + "('" + Reservation.randomID() + "','" + flightID + "','"
 				+ userid + "')";
-		System.out.println(Query);
 		try {
 			Connection con = FlightDatabase.getConnect();
+			//Increase the current occupancy of the flight by 1
 			this.incrementOccupancy(flightID, occupancy);
 			PreparedStatement posted = con.prepareStatement(Query);
 			posted.executeUpdate();
-			System.out.println(Query);
 			System.out.println(Main.user + " has successfully booked");
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
-//Cancels User's Flight Booking
+	/*
+	 * Takes userID, FlightID, Occupancy, Delete the reservation table while decreasing the Occupancy by 1
+	 */
 	public void cancelFlight(String userid, String flightID,int occupancy) {
 		String Query = "DELETE FROM "+Reservation.databaseName+" WHERE "+Reservation.flightIdColName+" = '" + flightID+"'";
-		System.out.println(Query);
 		try {
 			Connection con = FlightDatabase.getConnect();
+			//Decrease the current occupancy of the flight by 1
 			this.decrementOccupancy(flightID, occupancy);
 			PreparedStatement posted = con.prepareStatement(Query);
 			posted.executeUpdate();
-			System.out.println(Query);
 			System.out.println(Main.user + " has successfully cancelled booking flight "+flightID);
 		} catch (Exception e) {
-				e.printStackTrace();
+			
 		}
 	}
 
-	public static void main(String[] arg) throws Exception {
 
-		
-		}
-	}
 
+}
 

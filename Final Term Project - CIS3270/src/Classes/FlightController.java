@@ -10,17 +10,14 @@ import Database.FlightDatabase;
 
 
 public class FlightController{
-//Empty List of Flights
+//Empty List of Flights 
 public ArrayList<Flight> actualFlightData;
-//Empty List of Flights that will be shown to the user
-public ArrayList<Flight> visualFlightData;
 
 public FlightController() {
 		actualFlightData = new ArrayList<Flight>();
-		visualFlightData = new ArrayList<Flight>();
 	}
 
-//Returns an Array of flights contains all information
+//Returns an ArrayList of flight contains all Flights based in FlightData Table
 public ArrayList<Flight> getFlightList() {
 	try {
 		Connection con = FlightDatabase.getConnect();	
@@ -51,8 +48,8 @@ public ArrayList<Flight> getFlightList() {
 	}
 	return actualFlightData;
 }
-
-//Returns an ArrayList in a searched fashion - Updates the flights array.
+//Returns an ArrayList of flight contains all Flights based in FlightData Table(Flitered)
+//Returns an ArrayList in a searched fashion - Updates the current FlightController Object's Array of FlightData.
 public ArrayList<Flight> getFlightList(String fromCity,String toCity, String departDate, String departTime) {
 	try {
 		Connection con = FlightDatabase.getConnect();	
@@ -67,7 +64,7 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 		System.out.println(query);
 		Statement statement = con.createStatement();
 		ResultSet result = statement.executeQuery(query);
-		//Creating new flight object 
+		//Creating new flight object with 
 		Flight flightData;
 		while(result.next()) {
 			flightData= new Flight(
@@ -86,18 +83,18 @@ public ArrayList<Flight> getFlightList(String fromCity,String toCity, String dep
 			this.actualFlightData.add(flightData);
 			}
 	}catch(Exception e) {
-		e.printStackTrace();
 	}
 	return this.actualFlightData;
 }
 
-
+//Checks flight capacity based on Flight Object.
 //Checks if the flight is full
 public boolean checkCapacity(int col) {
 	int occupancy = this.actualFlightData.get(col).occupancy;
 	int capacity = this.actualFlightData.get(col).capacity;
 	return(occupancy<capacity);
 }
+//Takes current date and hours and sums them to a new date
 //Counts the amount of hours 
 public static Date getDateFromHoursAway(Date startingDate, int hours) {
     long startingMillis = startingDate.getTime();
@@ -107,14 +104,6 @@ public static Date getDateFromHoursAway(Date startingDate, int hours) {
     return new Date(futureTimeMillis);
 }
 
-
 //Adds flight
-public static void main(String[]arg) throws Exception {
-	FlightController x = new FlightController();
-	String tdate = x.getFlightList("ATLANTA GA, US (ATL)","CHICAGO IL, US (ORD)","2022-12-26","0").get(0).getArrivalDate();
-	Date wx = Reservation.convertToDate(tdate);
-	System.out.println(wx);
-	System.out.println(wx.getTime());
-	
-	}
 }
+

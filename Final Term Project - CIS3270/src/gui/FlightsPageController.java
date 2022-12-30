@@ -194,8 +194,8 @@ public class FlightsPageController implements Initializable {
 			}else if (Reservation.checkduplicatedFlight(Main.userID, x)) {
 				// Checks Reservation DBS to see if user has booked the requested flight.
 				alert.setTitle("Duplicate Flight");
-				alert.setHeaderText("You have already booked this flight");
-				alert.setContentText("You cannot book a duplicate flight.");
+				alert.setHeaderText("You have already booked this flight!");
+				alert.setContentText("You cannot book a duplicate flight!");
 				System.out.println(Main.userType + Main.user + " tried to book a duplicate flight");
 				if (alert.showAndWait().get() == ButtonType.OK)
 					System.out.println(Main.userType + Main.user + " will try again.");
@@ -203,8 +203,8 @@ public class FlightsPageController implements Initializable {
 				//If flight is full
 				System.out.println(Main.userType + Main.user + " tried to book a full flight");
 				
-				alert.setTitle("Log in to Book");
-				alert.setHeaderText("You must Log in to book a flight");
+				alert.setTitle("This flight is Full!");
+				alert.setHeaderText("You cannot book a full flight!");
 				alert.setContentText("");
 				if (alert.showAndWait().get() == ButtonType.OK)
 					System.out.println(Main.userType + Main.user + " will try again.");

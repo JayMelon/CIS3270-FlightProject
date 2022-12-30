@@ -11,7 +11,7 @@ public static Connection getConnect() {
 	try {
 		Connection con = DriverManager.getConnection
 				("jdbc:sqlserver://flightappcis3270.database.windows.net:1433;database=CIS3270 - App project;user=jaylewis0618@flightappcis3270;password=FlashLight123!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-			System.out.println("Going into DBS");
+			System.out.print(".");
 		return con;
 	} catch (SQLException e) {
 		e.printStackTrace();

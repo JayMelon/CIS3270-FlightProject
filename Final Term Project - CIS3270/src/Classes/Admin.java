@@ -12,7 +12,7 @@ public class Admin extends User  {
 
 	//Check if User is admin
 	
-
+//Runs query to delete flight from FlightData based on given flight ID
 public static void deleteFlight(String flightID) {
 
 Connection con = FlightDatabase.getConnect();
@@ -27,7 +27,7 @@ Connection con = FlightDatabase.getConnect();
 	}
 	
 }
-
+//Runs query to add flight toFlightData based on Properties of given flight
 public static void addFlight(Flight flight) {
 	Connection con = FlightDatabase.getConnect();
 	String insertIntoFlightTableQuery = "Insert into FlightData "
@@ -64,27 +64,25 @@ public static void addFlight(Flight flight) {
 }
 
 
-public static void editFlight(Flight flight) {
-	Connection con = FlightDatabase.getConnect();
-	String query = "Select COUNT(flight_id) from Reservation where flight_id = '"+flight.getFlightID()+"'";
-	int maxOccupancy = 0;
-	try {
-		Statement statement = con.createStatement();
-		ResultSet queryResult = statement.executeQuery(query);
-		while (queryResult.next()) {
-			maxOccupancy = queryResult.getInt(0);
-		}
-		if(flight.getOccupancy()>maxOccupancy) {
+//Takes strings from the boxes and stores it to an Object/Edits flight based on selected on table by keeping flight id and alter everything else.
+	public static void editFlight(Flight flight) {
+		Connection con = FlightDatabase.getConnect();
+		try {
+			Statement statement = con.createStatement();
 			statement = con.createStatement();
-			//IM TOO LAZY TO WRITE QUERY!!!
-			queryResult = statement.executeQuery("UPDATE "+Flight.databaseName+" SET "
-			+Flight.departDateColName+"'"+flight.getDepartDate()+"'"+flight.get+"'" "'");
-		}else {
-			System.out.println("User tried updating flight capacity with users exceeding the new occupancy");
-		}
+			String updateQuery = ("UPDATE " + Flight.databaseName + " SET " + Flight.departDateColName + "= '"
+					+ flight.getDepartDate() + "', " + Flight.departTimeColName + "= '" + flight.getDepartTime() + "', "
+					+ Flight.arrivalDateColName + "= '" + flight.getArrivalDate() + "', " + Flight.arrivalTimeColName
+					+ "= '" + flight.getArrivalTime() + "', " + Flight.fromCityCodeColName + "= '"
+					+ flight.getFromCityCode() + "', " + Flight.fromCityColName + "= '" + flight.getFromCity() + "', "
+					+ Flight.toCityCodeColName + "= '" + flight.getToCityCode() + "', " + Flight.toCityColName + "= '"
+					+ flight.getToCity() + "', " + Flight.occupanyColName + "= '" + flight.getOccupancy() + "' WHERE "
+					+ Flight.flightIDColName + "= '" + flight.getFlightID()) + "'";
+			System.out.println(updateQuery);
+			statement.execute(updateQuery);
+		} catch (Exception e) {
+			System.out.println("Editing failed");
 
-}catch(Exception e) {
-	
-}
-}
+		}
+	}
 }

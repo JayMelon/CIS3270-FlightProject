@@ -26,8 +26,6 @@ public abstract class User {
 
 //Checks user input and matches with password
 	public boolean passwordCheck(String user, String password) {
-
-		UUID.randomUUID();
 		if (user.equals(password)) {
 			return true;
 		} else {
@@ -37,7 +35,11 @@ public abstract class User {
 
 //Creates random UserID return to String
 	public void createNewUserID() {
-		// Generates random UUID
+		/* Generates random UUID(Universial Unique Identifer)
+		 * String in format used as Primary Keys and Ids for DBS
+		 * 123e4567-e89b-12d3-a456-426614174000
+		 * xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
+		 */
 		this.userID = UUID.randomUUID().toString();
 		System.out.println("Random USERID " + this.userID);
 	}
