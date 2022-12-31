@@ -100,5 +100,7 @@ public static Date getDateFromHoursAway(Date startingDate, int hours) {
     long currentDay = startingMillis / 1000 / 60 / 60;
     long futureTimeMillis = (currentDay + hours) * 60 * 60 * 1000;
     return new Date(futureTimeMillis);
-}}
+}
+
+}
 
