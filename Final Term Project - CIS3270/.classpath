@@ -6,6 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="lib" path="/Users/jakaylanlove/Downloads/javafx-sdk-19/lib/javafx.controls.jar">
 		<attributes>
 			<attribute name="module" value="true"/>

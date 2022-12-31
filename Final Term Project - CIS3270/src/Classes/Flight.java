@@ -1,6 +1,5 @@
 package Classes;
 
-import javafx.scene.control.Button;
 
 public class Flight {
 	// Constants
@@ -28,7 +27,6 @@ public class Flight {
 	public String arrivalDate;
 	public int occupancy;
 	public int capacity;
-	public Button addFlight;
 //Contructor that contains all Flight data.
 	public Flight(String flightID, String departDate, String departTime, String ArrivalDate, String ArrivalTime,
 			String FromCityCode, String FromCity, String ToCity, String ToCityCode, int Occupancy, int maxoccupy) {
